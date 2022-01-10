@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GlobalCoreService} from "../../share/global-core.service";
+import {GlobalCoreService} from "../../shared/global-core.service";
 
 @Component({
     selector: 'app-header',
