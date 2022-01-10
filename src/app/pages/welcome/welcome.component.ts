@@ -19,7 +19,7 @@ export class WelcomeComponent implements OnInit {
 
     @HostListener('window:scroll', ['$event'])
     onWindowScroll() {
-        let element = document.querySelector('.header__top') as HTMLElement;
+        const element = document.querySelector('.header__top') as HTMLElement;
         if (window.scrollY > element.clientHeight) {
             element.classList.add('header__top_inverse');
         } else {
