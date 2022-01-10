@@ -1,18 +1,21 @@
 import {Component, OnInit} from '@angular/core';
+import {GlobalCoreService} from "../../share/global-core.service";
 
 @Component({
-  selector: 'app-welcome-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent implements OnInit {
 
-  public svgColor: string = '#0076bc';
+    public svgColor: string = '#0076bc';
 
-  constructor() {
-  }
+    constructor(private globalCoreService: GlobalCoreService) {
 
-  ngOnInit(): void {
-  }
+    }
+
+    ngOnInit(): void {
+    }
 
 }

@@ -2,21 +2,21 @@ import {Component, OnInit} from '@angular/core';
 import {AuthGithubService} from '../../share/auth/auth-github.service';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+    selector: 'app-signup',
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.scss']
 })
 
 export class SignupComponent implements OnInit {
 
-  constructor(private authGithubService: AuthGithubService) {
-  }
+    constructor(private authGithubService: AuthGithubService) {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
-  login(): void {
-    this.authGithubService.login();
-  }
+    login(): void {
+        this.authGithubService.login();
+    }
 
 }
