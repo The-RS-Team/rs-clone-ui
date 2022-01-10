@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'assets/mixin';
+
 @font-face {
   font-family: "BeVietnam";
   src: url(assets/fonts/BeVietnam.ttf) format("opentype");
@@ -6,6 +8,10 @@
 
 :root {
   --col-title: #243757;
+  --bg-top: #eae6ff;
+  --btn-main: #0065ff;
+  --btn-hover: #0056d9;
+  --input-color: #495057;
 }
 
 html, body {
@@ -16,3 +22,5 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+

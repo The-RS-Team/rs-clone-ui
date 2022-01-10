@@ -1,6 +1,17 @@
+@import '../../../assets/mixin';
 .header__top {
   display: flex;
-  margin-top: 1vh;
+  padding: 2vh 0;
+  position: fixed;
+  margin: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: background 1s ease 0s;
+
+  &_inverse {
+    background-color: #fff;
+  }
 
   .header__nav {
     display: flex;
@@ -21,5 +32,18 @@
   .header__logo {
     height: 24px;
     width: 40px;
+  }
+}
+
+.signup-btn {
+  background-color: var(--btn-main);
+  margin-left: 10px;
+
+  &:hover {
+    background-color: var(--btn-hover);
+  }
+
+  &:focus {
+    @include boxShadow;
   }
 }

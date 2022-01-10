@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {GlobalCoreService} from "../../shared/global-core.service";
 
 @Component({
@@ -17,5 +17,16 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit(): void {
     }
+    @HostListener('window:scroll', ['$event'])
+    onWindowScroll() {
+        let element = document.querySelector('.header__top') as HTMLElement;
+        if (window.scrollY > element.clientHeight) {
+            element.classList.add('header__top_inverse');
+        } else {
+            element.classList.remove('header__top_inverse');
+        }
+    };
+
+
 
 }
