@@ -1,0 +1,85 @@
+@import "../../../assets/mixin";
+
+.welcome-section {
+  background: linear-gradient(
+                  0deg
+          , #fff, var(--bg-top) 100%);
+}
+
+.welcome {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  height: calc(96vh - 36px);
+  align-items: center;
+  padding-top: 3rem;
+
+  &__intro {
+    width: 60%;
+  }
+
+  &__pic {
+    width: 40%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &__title {
+    font-family: 'BeVietnam', 'arial', sans-serif;
+    @include font(3rem, bold, 1.25);
+  }
+
+  &__text {
+    @include font(20px, 400, 1.5);
+  }
+
+  &__form {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+
+    &__button {
+      white-space: normal;
+      background-color: var(--btn-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: var(--btn-hover);
+      }
+
+      &:focus {
+        @include boxShadow;
+      }
+    }
+
+  }
+}
+
+
+h2 {
+  @include font(3rem, normal, 1.25);
+  color: var(--col-title);
+}
+
+.input-email {
+  display: block;
+  width: 60%;
+  padding: 0.375rem 0.75rem;
+  margin-right: 1rem;
+  @include font(1.25rem, normal, 1.5);
+  color: var(--input-color);
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+  &:focus {
+    outline: 0;
+    @include boxShadow;
+  };
+}

@@ -1,0 +1,9 @@
+@mixin font($size, $weight: normal, $height) {
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $height;
+}
+
+@mixin boxShadow {
+  box-shadow: 0 0 0 0.2rem rgb(0 101 255 / 50%);
+}
