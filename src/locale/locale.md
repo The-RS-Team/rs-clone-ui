@@ -1,0 +1,1 @@
+https://medium.com/dailyjs/maintaining-multi-language-angular-applications-26b74df8d085
