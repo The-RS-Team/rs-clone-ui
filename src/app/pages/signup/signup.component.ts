@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthGithubService} from '../../share/auth/auth-github.service';
+import {AuthGithubService} from '../../auth/auth-github.service';
 
 @Component({
     selector: 'app-signup',
