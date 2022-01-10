@@ -1,13 +1,11 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {GlobalCoreService} from "../../share/global-core.service";
+import {GlobalCoreService} from "../../shared/global-core.service";
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-
-
 
 export class HeaderComponent implements OnInit {
 
