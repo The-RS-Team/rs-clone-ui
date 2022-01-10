@@ -1,0 +1,25 @@
+.header__top {
+  display: flex;
+  margin-top: 1vh;
+
+  .header__nav {
+    display: flex;
+    margin: 0 7px 0 7px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .header__title {
+    font-size: 2rem;
+    font-family: 'BeVietnam', 'arial', sans-serif;
+    font-weight: 900;
+    color: var(--col-title);
+  }
+
+  .header__logo {
+    height: 24px;
+    width: 40px;
+  }
+}
