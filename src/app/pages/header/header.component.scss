@@ -1,49 +1,60 @@
-@import '../../../assets/mixin';
-.header__top {
+@import "../../../assets/mixin";
+.header {
+  width: 100%;
+  max-height: 44px;
+  padding: 6px 4px;
+  background-color: var(--header-color);
   display: flex;
-  padding: 2vh 0;
-  position: fixed;
-  margin: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-  transition: background 1s ease 0s;
+  align-items: center;
 
-  &_inverse {
-    background-color: #fff;
-  }
-
-  .header__nav {
+  &__menu {
+    width: 32px;
+    height: 32px;
     display: flex;
-    margin: 0 7px 0 7px;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    width: 100%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--header-hover-color);
+      border-radius: 3px;
+    }
   }
 
-  .header__title {
-    font-size: 2rem;
-    font-family: 'BeVietnam', 'arial', sans-serif;
+  &__logo {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--header-hover-color);
+      border-radius: 3px;
+    }
+  }
+
+  &__title {
+    margin-left: 5px;
+    font-size: 1.4rem;
+    font-family: "BeVietnam", "arial", sans-serif;
     font-weight: 900;
-    color: var(--col-title);
-  }
-
-  .header__logo {
-    height: 24px;
-    width: 40px;
+    color: #fff;
+    margin-bottom: 5px;
   }
 }
 
-.signup-btn {
-  background-color: var(--btn-main);
-  margin-left: 10px;
+.create-btn {
+  @include font(14px, normal, 32px);
+  padding: 0 12px;
+  background-color: var(--header-active-color);
+  border: 0;
+  border-radius: 3px;
+  color: #fff;
+  margin: 0 4px;
 
   &:hover {
-    background-color: var(--btn-hover);
-  }
-
-  &:focus {
-    @include boxShadow;
+    background-color: var(--header-hover-color);
   }
 }

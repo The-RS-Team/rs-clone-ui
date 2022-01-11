@@ -11,6 +11,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {WelcomeComponent} from './pages/welcome/welcome.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {GlobalCoreService} from "./shared/global-core.service";
+import { BoardsComponent } from './pages/boards/boards.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import {GlobalCoreService} from "./shared/global-core.service";
         HeaderComponent,
         SignupComponent,
         WelcomeComponent,
+        BoardsComponent,
     ],
     imports: [
         BrowserModule,
