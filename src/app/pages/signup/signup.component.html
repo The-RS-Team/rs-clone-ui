@@ -2,20 +2,48 @@
     <img class="bg-image-right" src="assets/images/svg/signup-bg-picture2.svg" alt="Background image">
     <img class="bg-image-left" src="assets/images/svg/signup-bg-picture1.svg" alt="Background image">
     <div class="signup__wrapper">
-        <p class="signup__title"><img src="assets/images/svg/trello_icon.svg">Trello</p>
+        <p class="signup__title">
+            <img src="assets/images/svg/trello_icon.svg" alt="trello">
+            TrelloClone
+        </p>
         <form class="signup__form">
-            <h1>Sign up for your account</h1>
+
+            <div *ngIf="authService.user | async as user; else noAuth">
+                <h1 i18n>Hello {{user.displayName}}!</h1>
+            </div>
+            <ng-template #noAuth><h1>Sign up for your account</h1></ng-template>
+
             <mat-form-field class="example-full-width" appearance="fill">
-                <input type="email" matInput [formControl]="emailFormControl" placeholder="Enter your email"
-                       autocomplete="email">
-                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                    Please enter a valid email address
-                </mat-error>
+                <div>
+                    <input type="email" matInput
+                           [formControl]="emailFormControl"
+                           placeholder="Enter your email"
+                           autocomplete="email">
+                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')"
+                               i18n>
+                        Please enter a valid email address
+                    </mat-error>
+                </div>
+                <div>
+                    <input type="password" matInput
+                           [formControl]="passwordFormControl"
+                           placeholder="Enter password">
+                    <mat-error
+                            *ngIf="passwordFormControl.hasError('password') && !passwordFormControl.hasError('required')"
+                            i18n>
+                        Please enter a password of at least 6 characters
+                    </mat-error>
+                </div>
             </mat-form-field>
-            <button mat-raised-button type="submit" i18n>Continue</button>
+            <button mat-raised-button type="submit" (click)="emailAuth()" i18n>Continue</button>
             <p class="signup__login-method-separator">OR</p>
-            <button mat-raised-button (click)="login()" i18n><img src="assets/images/svg/git_icon.svg"
-                                                                  alt="github icon">Continue with GitHub
+            <button mat-raised-button (click)="googleAuth()" i18n>
+                <img src="assets/images/svg/google_icon.svg"
+                     alt="github icon">Continue with Google
+            </button>
+            <button mat-raised-button (click)="gitHubAuth()" i18n>
+                <img src="assets/images/svg/git_icon.svg"
+                     alt="github icon">Continue with GitHub
             </button>
             <div class="signup__login-link">
                 <a class="signup__login-link_text" href="/login" i18n>Already have an account? Log In</a>
