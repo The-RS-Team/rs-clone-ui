@@ -1,11 +1,25 @@
 <section class="signup__section">
+    <img class="bg-image-right" src="assets/images/svg/signup-bg-picture2.svg" alt="Background image">
+    <img class="bg-image-left" src="assets/images/svg/signup-bg-picture1.svg" alt="Background image">
     <div class="signup__wrapper">
-        <div class="signup__switch">
+        <p class="signup__title"><img src="assets/images/svg/trello_icon.svg">Trello</p>
+        <form class="signup__form">
             <h1>Sign up for your account</h1>
-            <button mat-raised-button (click)="login()" i18n>Continue with GitHub</button>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <input type="email" matInput [formControl]="emailFormControl" placeholder="Enter your email"
+                       autocomplete="email">
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+            </mat-form-field>
+            <button mat-raised-button type="submit" i18n>Continue</button>
+            <p class="signup__login-method-separator">OR</p>
+            <button mat-raised-button (click)="login()" i18n><img src="assets/images/svg/git_icon.svg"
+                                                                  alt="github icon">Continue with GitHub
+            </button>
             <div class="signup__login-link">
-                <a href="/login" i18n>Already have an account? Log In</a>
+                <a class="signup__login-link_text" href="/login" i18n>Already have an account? Log In</a>
             </div>
-        </div>
+        </form>
     </div>
 </section>

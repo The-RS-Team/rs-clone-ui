@@ -39,13 +39,13 @@
             <p class="welcome__text" i18n>Work as a team, manage projects and take productivity to the next level in
                 your own unique way with Trello.</p>
             <div class="welcome__form">
-                <input type="text" placeholder="E-mail" class="input-email">
-                <a mat-flat-button color="primary" href="/signup" class="welcome__form__button" i18n>Register - it's
+                <input [formControl]="email" type="text" placeholder="E-mail" class="input-email">
+                <a mat-flat-button color="primary" (click)="addQueryParameter()"  class="welcome__form__button" i18n>Register - it's
                     free!</a>
             </div>
         </div>
         <div class="welcome__pic">
-            <img src="./assets/images/hero.png" alt="hero">
+            <img src="../../../assets/images/png/hero.png" alt="hero">
         </div>
     </div>
 </section>

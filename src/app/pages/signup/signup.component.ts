@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthGithubService} from '../../auth/auth-github.service';
+import {FormControl, Validators} from '@angular/forms';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'app-signup',
@@ -9,14 +11,20 @@ import {AuthGithubService} from '../../auth/auth-github.service';
 
 export class SignupComponent implements OnInit {
 
-    constructor(private authGithubService: AuthGithubService) {
+    public emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+
+    constructor(private authGithubService: AuthGithubService,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
+        this.route.queryParams.subscribe(params => {
+            this.emailFormControl.setValue(params['email']);
+            }
+        )
     }
 
     login(): void {
         this.authGithubService.login();
     }
-
 }
