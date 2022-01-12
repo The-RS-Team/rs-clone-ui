@@ -1,11 +1,27 @@
 <section class="signup__section">
-    <div class="signup__wrapper">
-        <div class="signup__switch">
-            <h1>Sign up for your account</h1>
-            <button mat-raised-button (click)="login()" i18n>Continue with GitHub</button>
-            <div class="signup__login-link">
-                <a href="/login" i18n>Already have an account? Log In</a>
+    <div class="signup__switch">
+        <h1>Log in to Trello</h1>
+
+        <div class="email-password">
+            <div>
+                <input type="email" matInput [(ngModel)]="email" placeholder="Enter email">
+                <input type="password" matInput [(ngModel)]="password" placeholder="Enter password">
+                <button (click)="emailAuth()" [disabled]="!email || !password">Signup</button>
+                <button (click)="login()" [disabled]="!email || !password">Login</button>
             </div>
         </div>
+
+        <div class="signup__login-link">
+            <a href="/login" i18n>Already have an account? Log In</a>
+        </div>
+
+        <div i18n>OR</div>
+        <button mat-raised-button (click)="gitHubAuth()" i18n>Continue with GitHub</button>
+        <button mat-raised-button (click)="googleAuth()" i18n>Continue with Google</button>
+    </div>
+
+    <div *ngIf="authService.user | async as user">
+        <h2>Hello {{ user.displayName }}!</h2>
+        <button mat-raised-button (click)="logout()" i18n>Logout</button>
     </div>
 </section>
