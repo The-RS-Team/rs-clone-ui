@@ -1,11 +1,61 @@
 <section class="signup__section">
+    <img class="bg-image-right" src="assets/images/svg/signup-bg-picture2.svg" alt="Background image">
+    <img class="bg-image-left" src="assets/images/svg/signup-bg-picture1.svg" alt="Background image">
     <div class="signup__wrapper">
-        <div class="signup__switch">
-            <h1>Sign up for your account</h1>
-            <button mat-raised-button (click)="login()" i18n>Continue with GitHub</button>
-            <div class="signup__login-link">
-                <a href="/login" i18n>Already have an account? Log In</a>
+        <p class="signup__title">
+            <img src="assets/images/svg/trello_icon.svg" alt="trello">
+            TrelloClone
+        </p>
+        <form class="signup__form" [formGroup]="loginForm">
+
+            <div *ngIf="authService.user | async as user; else noAuth">
+                <h1 i18n>Hello {{user.displayName}}!</h1>
             </div>
-        </div>
+            <ng-template #noAuth><h1>Sign up for your account</h1></ng-template>
+
+            <mat-form-field class="example-full-width" appearance="fill">
+                <input type="email" matInput
+                       formControlName="email"
+                       placeholder="Enter your email"
+                       autocomplete="email">
+                <mat-error *ngIf="loginForm.controls['email'].invalid"
+                           i18n>
+                    Please enter a valid email address
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <input type="password" matInput
+                       formControlName="password"
+                       placeholder="Enter password">
+                <mat-error *ngIf="loginForm.controls['password'].invalid"
+                           i18n>
+                    Please enter a password of at least 6 characters
+                </mat-error>
+            </mat-form-field>
+            <div class="signup__buttons-wrapper">
+                <button mat-raised-button
+                        type="submit"
+                        (click)="emailAuth()" i18n>Continue
+                </button>
+                <p class="signup__login-method-separator">OR</p>
+                <button mat-raised-button class="signup__button"
+                        type="button"
+                        (click)="googleAuth()" i18n>
+                    <img class="signup__button-icon"
+                         src="assets/images/svg/google_icon.svg"
+                         alt="google icon">Continue with Google
+                </button>
+                <button mat-raised-button
+                        type="button"
+                        (click)="gitHubAuth()" i18n>
+                    <img class="signup__button-icon"
+                         src="assets/images/svg/git_icon.svg"
+                         alt="github icon">Continue with GitHub
+                </button>
+            </div>
+            <div class="signup__login-link">
+                <a class="signup__login-link_text" href="/login" i18n>Already have an account? Log In</a>
+            </div>
+        </form>
     </div>
 </section>
