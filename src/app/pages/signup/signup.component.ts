@@ -31,9 +31,6 @@ export class SignupComponent implements OnInit {
                 this.loginForm.controls['email'].setValue(params['email']);
             }
         )
-        this.loginForm.markAllAsTouched();
-        console.log(this.loginForm)
-
     }
 
     gitHubAuth(): void {
