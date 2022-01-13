@@ -1,4 +1,4 @@
-<header class="header__top" #headerTop [ngClass]="isScrolled ? 'header__top_inverse' : ''">
+<header #headerTop [className]="isScrolled ? 'header__top header__top_inverse' : 'header__top'">
     <nav class="header__nav">
         <div class="float-left">
             <a routerLink="/home">
