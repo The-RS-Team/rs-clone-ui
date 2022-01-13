@@ -1,5 +1,7 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {GlobalCoreService} from '../../shared/global-core.service';
+import {FormControl} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-welcome',
@@ -9,9 +11,11 @@ import {GlobalCoreService} from '../../shared/global-core.service';
 
 export class WelcomeComponent implements OnInit {
 
+    email = new FormControl();
     public svgColor: string = '#0076bc';
 
-    constructor(private globalCoreService: GlobalCoreService) {
+    constructor(private globalCoreService: GlobalCoreService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
@@ -27,4 +31,7 @@ export class WelcomeComponent implements OnInit {
         }
     };
 
+    addQueryParameter() {
+        this.router.navigate(['signup'], {queryParams: {email: this.email.value}})
+    }
 }
