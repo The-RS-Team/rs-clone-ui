@@ -6,7 +6,7 @@
             <img src="assets/images/svg/trello_icon.svg" alt="trello">
             TrelloClone
         </p>
-        <form class="signup__form">
+        <form class="signup__form" [formGroup]="loginForm">
 
             <div *ngIf="authService.user | async as user; else noAuth">
                 <h1 i18n>Hello {{user.displayName}}!</h1>
@@ -14,37 +14,44 @@
             <ng-template #noAuth><h1>Sign up for your account</h1></ng-template>
 
             <mat-form-field class="example-full-width" appearance="fill">
-                <div>
-                    <input type="email" matInput
-                           [formControl]="emailFormControl"
-                           placeholder="Enter your email"
-                           autocomplete="email">
-                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')"
-                               i18n>
-                        Please enter a valid email address
-                    </mat-error>
-                </div>
-                <div>
-                    <input type="password" matInput
-                           [formControl]="passwordFormControl"
-                           placeholder="Enter password">
-                    <mat-error
-                            *ngIf="passwordFormControl.hasError('password') && !passwordFormControl.hasError('required')"
-                            i18n>
-                        Please enter a password of at least 6 characters
-                    </mat-error>
-                </div>
+                <input type="email" matInput
+                       formControlName="email"
+                       placeholder="Enter your email"
+                       autocomplete="email">
+                <mat-error *ngIf="loginForm.controls['email'].invalid"
+                           i18n>
+                    Please enter a valid email address
+                </mat-error>
             </mat-form-field>
-            <button mat-raised-button type="submit" (click)="emailAuth()" i18n>Continue</button>
-            <p class="signup__login-method-separator">OR</p>
-            <button mat-raised-button (click)="googleAuth()" i18n>
-                <img src="assets/images/svg/google_icon.svg"
-                     alt="github icon">Continue with Google
-            </button>
-            <button mat-raised-button (click)="gitHubAuth()" i18n>
-                <img src="assets/images/svg/git_icon.svg"
-                     alt="github icon">Continue with GitHub
-            </button>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <input type="password" matInput
+                       formControlName="password"
+                       placeholder="Enter password">
+                <mat-error *ngIf="loginForm.controls['password'].invalid"
+                           i18n>
+                    Please enter a password of at least 6 characters
+                </mat-error>
+            </mat-form-field>
+            <div class="signup__buttons-wrapper">
+                <button mat-raised-button type="submit"
+                        type="submit"
+                        [disabled]="loginForm.invalid"
+                        (click)="emailAuth()" i18n>Continue
+                </button>
+                <p class="signup__login-method-separator">OR</p>
+                <button mat-raised-button class="signup__button"
+                        type="button"
+                        (click)="googleAuth()" i18n>
+                    <img src="assets/images/svg/google_icon.svg"
+                         alt="google icon">Continue with Google
+                </button>
+                <button mat-raised-button
+                        type="button"
+                        (click)="gitHubAuth()" i18n>
+                    <img src="assets/images/svg/git_icon.svg"
+                         alt="github icon">Continue with GitHub
+                </button>
+            </div>
             <div class="signup__login-link">
                 <a class="signup__login-link_text" href="/login" i18n>Already have an account? Log In</a>
             </div>

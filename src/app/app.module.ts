@@ -15,6 +15,8 @@ import {GlobalCoreService} from './shared/global-core.service';
 import {AngularFireModule} from '@angular/fire/compat';
 import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 @NgModule({
     declarations: [
@@ -32,6 +34,7 @@ import {AngularFireAuthModule} from '@angular/fire/compat/auth';
         MatButtonModule,
         MatInputModule,
         BrowserAnimationsModule,
+        MatSnackBarModule,
         AngularFireAuthModule,
         AngularFireModule.initializeApp(environment.firebaseConfig)
     ],

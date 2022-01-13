@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from "@angular/router";
 import {AuthService} from '../../auth/auth.service';
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -11,18 +12,28 @@ import {AuthService} from '../../auth/auth.service';
 })
 
 export class SignupComponent implements OnInit {
-    public emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-    public passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
+    public loginForm: FormGroup;
 
     constructor(public authService: AuthService,
+                private fb: FormBuilder,
+                private snackService: MatSnackBar,
                 private route: ActivatedRoute) {
+
+        this.loginForm = this.fb.group({
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            email: ['', [Validators.email, Validators.required]]
+        })
+
     }
 
     ngOnInit(): void {
         this.route.queryParams.subscribe(params => {
-                this.emailFormControl.setValue(params['email']);
+                this.loginForm.controls['email'].setValue(params['email']);
             }
         )
+        this.loginForm.markAllAsTouched();
+        console.log(this.loginForm)
+
     }
 
     gitHubAuth(): void {
@@ -34,11 +45,20 @@ export class SignupComponent implements OnInit {
     }
 
     emailAuth() {
-        this.authService.emailAuth(this.emailFormControl.value, this.passwordFormControl.value);
+        this.authService.emailAuth(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
     }
 
     login() {
-        this.authService.emailLogin(this.emailFormControl.value, this.passwordFormControl.value);
+        this.authService.emailLogin(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
+    }
+
+    submitLoginForm() {
+        if (this.loginForm.invalid) {
+            this.snackService.open('Check input fields', 'Ok');
+            return;
+        }
+        const actionModel = this.loginForm.getRawValue();
+        console.log(actionModel)
     }
 
     logout(): void {
