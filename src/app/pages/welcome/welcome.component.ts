@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {GlobalCoreService} from '../../shared/global-core.service';
 
 @Component({
@@ -10,6 +10,8 @@ import {GlobalCoreService} from '../../shared/global-core.service';
 export class WelcomeComponent implements OnInit {
 
     public svgColor: string = '#0076bc';
+    header: HTMLElement|undefined;
+    isScrolled = false;
 
     constructor(private globalCoreService: GlobalCoreService) {
     }
@@ -17,14 +19,17 @@ export class WelcomeComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    @ViewChild('headerTop') headerTop: ElementRef|undefined;
+    ngAfterViewInit(): void {
+        this.header = this.headerTop?.nativeElement;
+    }
+
     @HostListener('window:scroll', ['$event'])
     onWindowScroll() {
-        const element = document.querySelector('.header__top') as HTMLElement;
-        if (window.scrollY > element.clientHeight) {
-            element.classList.add('header__top_inverse');
-        } else {
-            element.classList.remove('header__top_inverse');
+        if (this.header) {
+            window.scrollY > this.header.clientHeight
+                ? this.isScrolled = true
+                : this.isScrolled = false
         }
     };
-
 }
