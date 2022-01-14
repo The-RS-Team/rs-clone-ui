@@ -1,5 +1,7 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {GlobalCoreService} from '../../shared/global-core.service';
+import {FormControl} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-welcome',
@@ -9,22 +11,33 @@ import {GlobalCoreService} from '../../shared/global-core.service';
 
 export class WelcomeComponent implements OnInit {
 
+    email = new FormControl();
     public svgColor: string = '#0076bc';
+    header: HTMLElement|undefined;
+    isScrolled = false;
 
-    constructor(private globalCoreService: GlobalCoreService) {
+    constructor(private globalCoreService: GlobalCoreService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
     }
 
+    @ViewChild('headerTop') headerTop: ElementRef|undefined;
+    ngAfterViewInit(): void {
+        this.header = this.headerTop?.nativeElement;
+    }
+
     @HostListener('window:scroll', ['$event'])
     onWindowScroll() {
-        const element = document.querySelector('.header__top') as HTMLElement;
-        if (window.scrollY > element.clientHeight) {
-            element.classList.add('header__top_inverse');
-        } else {
-            element.classList.remove('header__top_inverse');
+        if (this.header) {
+            window.scrollY > this.header.clientHeight
+                ? this.isScrolled = true
+                : this.isScrolled = false
         }
     };
 
+    addQueryParameter() {
+        this.router.navigate(['signup'], {queryParams: {email: this.email.value}})
+    }
 }
