@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AuthGithubService} from './auth/auth-github.service';
 import {HeaderComponent} from './shared/components/header/header.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
@@ -17,6 +16,7 @@ import {AngularFireModule} from '@angular/fire/compat';
 import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {AuthService} from "./auth/auth.service";
 
 @NgModule({
     declarations: [
