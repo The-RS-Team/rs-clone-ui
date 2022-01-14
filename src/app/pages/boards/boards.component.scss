@@ -1,0 +1,44 @@
+@import "../../../assets/mixin";
+
+.space-title {
+  @include font(16px, 700, 24px);
+  text-transform: uppercase;
+  margin: 20px 0;
+}
+.boards {
+  max-width: 620px;
+  margin: 0 auto;
+
+
+
+  &__block {
+    display: flex;
+    flex-wrap: wrap;
+    //justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__item {
+    width: 200px;
+    height: 100px;
+    //margin-bottom: 10px;
+    border-radius: 6px;
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+    &__title {
+      color: #fff;
+    }
+
+    &__star {
+      width: 20px;
+      height: 17px;
+      align-self: flex-end;
+      cursor: pointer;
+    }
+  }
+}
