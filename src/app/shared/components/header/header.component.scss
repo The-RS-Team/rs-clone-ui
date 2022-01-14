@@ -1,0 +1,60 @@
+@import "../../../../assets/mixin";
+.header {
+  width: 100%;
+  max-height: 44px;
+  padding: 6px 4px;
+  background-color: var(--header-color);
+  display: flex;
+  align-items: center;
+
+  &__menu {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--header-hover-color);
+      border-radius: 3px;
+    }
+  }
+
+  &__logo {
+    height: 32px;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--header-hover-color);
+      border-radius: 3px;
+    }
+  }
+
+  &__title {
+    margin-left: 5px;
+    font-size: 1.4rem;
+    font-family: "BeVietnam", "arial", sans-serif;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 5px;
+  }
+}
+
+.create-btn {
+  @include font(14px, normal, 32px);
+  padding: 0 12px;
+  background-color: var(--header-active-color);
+  border: 0;
+  border-radius: 3px;
+  color: #fff;
+  margin: 0 4px;
+
+  &:hover {
+    background-color: var(--header-hover-color);
+  }
+}
