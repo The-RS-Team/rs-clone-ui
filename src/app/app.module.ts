@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AuthGithubService} from './auth/auth-github.service';
-import {HeaderComponent} from './pages/header/header.component';
+import {HeaderComponent} from './shared/components/header/header.component';
 import {MatButtonModule} from '@angular/material/button';
 import {SignupComponent} from './pages/signup/signup.component';
 import {FormsModule} from '@angular/forms';
