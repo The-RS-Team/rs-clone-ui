@@ -7,6 +7,7 @@ import {BoardsComponent} from "./pages/boards/boards.component";
 const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'signup', component: SignupComponent},
+    {path: 'login', component: SignupComponent},
     {path: 'boards', component: BoardsComponent},
     {path: 'home', component: WelcomeComponent},
 ];

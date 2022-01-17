@@ -11,7 +11,10 @@
             <div *ngIf="authService.user | async as user; else noAuth">
                 <h1 i18n>Hello {{user.displayName}}!</h1>
             </div>
-            <ng-template #noAuth><h1>Sign up for your account</h1></ng-template>
+            <ng-template #noAuth>
+                <h1 *ngIf="this.currentRoute === 'signup'" i18n>Sign up for your account</h1>
+                <h1 *ngIf="this.currentRoute === 'login'" i18n>Log in for your account</h1>
+            </ng-template>
 
             <mat-form-field class="example-full-width" appearance="fill">
                 <input type="email" matInput
@@ -23,7 +26,7 @@
                     Please enter a valid email address
                 </mat-error>
             </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field *ngIf="this.currentRoute === 'login'" class="example-full-width" appearance="fill">
                 <input type="password" matInput
                        formControlName="password"
                        placeholder="Enter password">
@@ -32,10 +35,23 @@
                     Please enter a password of at least 6 characters
                 </mat-error>
             </mat-form-field>
+            <mat-form-field *ngIf="signUpVisibility && currentRoute === 'signup'" class="example-full-width" appearance="fill">
+                <input type="text" matInput
+                       placeholder="Enter your full name" autofocus="autofocus">
+            </mat-form-field>
             <div class="signup__buttons-wrapper">
-                <button mat-raised-button
-                        type="submit"
+                <button *ngIf="currentRoute === 'signup' && !signUpVisibility"
+                        mat-raised-button
                         (click)="emailAuth()" i18n>Continue
+                </button>
+                <button *ngIf="signUpVisibility && currentRoute === 'signup'"
+                        mat-raised-button
+                        (click)="emailAuth()" i18n>Sing up
+                </button>
+                <button *ngIf="currentRoute === 'login'"
+                        mat-raised-button
+                        type="submit"
+                        (click)="emailAuth()" i18n>Log in
                 </button>
                 <p class="signup__login-method-separator">OR</p>
                 <button mat-raised-button class="signup__button"
@@ -54,7 +70,10 @@
                 </button>
             </div>
             <div class="signup__login-link">
-                <a class="signup__login-link_text" href="/login" i18n>Already have an account? Log In</a>
+                <a *ngIf="this.currentRoute === 'signup'" class="signup__login-link_text" (click)="goToLoginPage()" i18n>Already
+                    have an account? Log In</a>
+                <a *ngIf="this.currentRoute === 'login'" class="signup__login-link_text" (click)="goToSignUpPage()" i18n>Don't have an account? Sign
+                    Up</a>
             </div>
         </form>
     </div>

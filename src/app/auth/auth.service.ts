@@ -23,7 +23,7 @@ export class AuthService {
     }
 
     emailAuth(email: string, password: string) {
-        this.firebaseAuth
+         this.firebaseAuth
             .createUserWithEmailAndPassword(email, password)
             .then(value => {
                 console.log('Success!', value);
