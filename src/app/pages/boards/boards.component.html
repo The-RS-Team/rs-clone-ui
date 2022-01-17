@@ -11,7 +11,7 @@
 
     <h2 class="space-title" i18n>Your workspace</h2>
     <p *ngIf="!boards.length">You have not been added to any workspace yet.
-        <a >Create workspace</a></p>
+        <a (click)="openDialog()">Create workspace</a></p>
     <div *ngIf="boards.length" class="boards__block">
         <div class="boards__item" *ngFor="let board of boards" [ngStyle]=getBg(board.background)>
             <h4 class="boards__item__title">{{board.title}}</h4>

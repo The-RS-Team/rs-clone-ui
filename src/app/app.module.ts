@@ -17,6 +17,8 @@ import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {AuthService} from "./auth/auth.service";
+import { MatDialogModule } from '@angular/material/dialog';
+import { NewBoardComponent } from './pages/new-board/new-board.component';
 
 @NgModule({
     declarations: [
@@ -25,15 +27,17 @@ import {AuthService} from "./auth/auth.service";
         SignupComponent,
         WelcomeComponent,
         BoardsComponent,
+        NewBoardComponent,
     ],
     imports: [
-        BrowserModule,
+    BrowserModule,
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
         MatButtonModule,
         MatInputModule,
+        MatDialogModule,
         BrowserAnimationsModule,
         MatSnackBarModule,
         AngularFireAuthModule,
@@ -43,7 +47,8 @@ import {AuthService} from "./auth/auth.service";
         AuthService,
         GlobalCoreService,
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [NewBoardComponent]
 })
 export class AppModule {
 }

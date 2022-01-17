@@ -1,0 +1,32 @@
+.popup {
+  height: 100%;
+  
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__form {
+    width: 50%;
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  &__pic {
+    background: url('/assets/images/svg/wave.svg');
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+.btn-full-width {
+  width: 100%;
+}
+
