@@ -1,3 +1,0 @@
-Windows Driver Kit (WDK) 8.1
-http://msdn.microsoft.com/en-us/windows/hardware/gg454513.aspx
-
