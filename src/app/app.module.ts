@@ -16,7 +16,7 @@ import {AngularFireModule} from '@angular/fire/compat';
 import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {AuthService} from "./auth/auth.service";
+import {AuthService} from './auth/auth.service';
 
 @NgModule({
     declarations: [
