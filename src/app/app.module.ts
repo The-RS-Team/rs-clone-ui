@@ -15,8 +15,6 @@ import {SharedModule} from "./shared/shared.module";
 
 export const ROUTES: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
-    // {path: 'sign-up', loadChildren: () => import('./pages/welcome/sign-up/sign-up.module').then(m => m.SignUpModule)},
-    // {path: 'login', loadChildren: () => import('./pages/welcome/sign-up/sign-up.module').then(m => m.SignUpModule)},
     {path: 'boards', loadChildren: () => import('./pages/boards/boards.module').then(m => m.BoardsModule)},
     {path: 'home', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)}
 ];
