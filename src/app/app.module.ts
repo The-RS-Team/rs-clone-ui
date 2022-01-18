@@ -2,46 +2,40 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HeaderComponent} from './shared/components/header/header.component';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {SignupComponent} from './pages/signup/signup.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
-import {WelcomeComponent} from './pages/welcome/welcome.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {BoardsComponent} from './pages/boards/boards.component';
-import {GlobalCoreService} from './shared/global-core.service';
 import {AngularFireModule} from '@angular/fire/compat';
 import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/compat/auth';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {AuthService} from './auth/auth.service';
+import {AuthService} from "./auth/auth.service";
+import {WelcomeModule} from "./pages/welcome/welcome.module";
+import {BoardsModule} from "./pages/boards/boards.module";
+import {Routes} from "@angular/router";
+import {SharedModule} from "./shared/shared.module";
+
+export const ROUTES: Routes = [
+    {path: '', redirectTo: '/home', pathMatch: 'full'},
+    {path: 'boards', loadChildren: () => import('./pages/boards/boards.module').then(m => m.BoardsModule)},
+    {path: 'home', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)}
+];
 
 @NgModule({
     declarations: [
         AppComponent,
-        HeaderComponent,
-        SignupComponent,
-        WelcomeComponent,
-        BoardsComponent,
     ],
     imports: [
+        WelcomeModule,
+        BoardsModule,
         BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
         HttpClientModule,
         AppRoutingModule,
-        MatButtonModule,
-        MatInputModule,
         BrowserAnimationsModule,
-        MatSnackBarModule,
+        SharedModule,
         AngularFireAuthModule,
         AngularFireModule.initializeApp(environment.firebaseConfig)
     ],
     providers: [
         AuthService,
-        GlobalCoreService,
     ],
     bootstrap: [AppComponent]
 })

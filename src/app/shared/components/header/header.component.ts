@@ -1,5 +1,4 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {GlobalCoreService} from "../../global-core.service";
 
 @Component({
     selector: 'app-header',
@@ -9,7 +8,7 @@ import {GlobalCoreService} from "../../global-core.service";
 
 export class HeaderComponent implements OnInit {
 
-    constructor(private globalCoreService: GlobalCoreService) {
+    constructor() {
 
     }
 

@@ -1,4 +1,4 @@
-@import '../../../assets/mixin';
+@import '../../../../assets/mixin';
 
 .signup__section {
   width: 100%;
@@ -110,6 +110,7 @@
         text-decoration: none;
         font-weight: lighter;
         font-size: 14px;
+        cursor: pointer;
 
         &:hover {
           text-decoration: underline;

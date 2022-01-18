@@ -1,23 +1,30 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from "@angular/router";
-import {AuthService} from '../../auth/auth.service';
+import {Router} from "@angular/router";
+import {AuthService} from '../../../auth/auth.service';
 import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {Subscription} from "rxjs";
 
 
 @Component({
     selector: 'app-signup',
-    templateUrl: './signup.component.html',
-    styleUrls: ['./signup.component.scss']
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.scss']
 })
 
-export class SignupComponent implements OnInit {
+export class SignUpComponent implements OnInit {
+
     public loginForm: FormGroup;
+    public signUpVisibility = false
+    public currentRoute = this.route.snapshot.routeConfig?.path;
+    public currentQueryParams = this.route.snapshot.queryParamMap.get('register');
 
     constructor(public authService: AuthService,
                 private fb: FormBuilder,
                 private snackService: MatSnackBar,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private router: Router) {
 
         this.loginForm = this.fb.group({
             password: ['', [Validators.required, Validators.minLength(6)]],
@@ -33,6 +40,15 @@ export class SignupComponent implements OnInit {
         )
     }
 
+    goToAnotherForm(page: string) {
+        this.router.navigate([page], {queryParams: {email: this.loginForm.controls['email'].value}})
+    }
+
+
+    goToRegister() {
+        this.signUpVisibility = this.loginForm.controls['email'].valid;
+    }
+
     gitHubAuth(): void {
         this.authService.gitHubAuth();
     }
@@ -43,6 +59,7 @@ export class SignupComponent implements OnInit {
 
     emailAuth() {
         this.authService.emailAuth(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
+        this.goToRegister();
     }
 
     login() {
@@ -54,8 +71,6 @@ export class SignupComponent implements OnInit {
             this.snackService.open('Check input fields', 'Ok');
             return;
         }
-        const actionModel = this.loginForm.getRawValue();
-        console.log(actionModel)
     }
 
     logout(): void {
