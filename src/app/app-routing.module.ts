@@ -1,15 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SignUpComponent} from './pages/sign-up/sign-up.component';
-import {WelcomeComponent} from './pages/welcome/welcome.component';
 import {BoardsComponent} from "./pages/boards/boards.component";
 
 const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
-    {path: 'sign-up', component: SignUpComponent},
-    {path: 'login', component: SignUpComponent},
+    {path: 'login', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)},
     {path: 'boards', component: BoardsComponent},
-    {path: 'home', component: WelcomeComponent},
+    {path: 'home', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)},
 ];
 
 @NgModule({

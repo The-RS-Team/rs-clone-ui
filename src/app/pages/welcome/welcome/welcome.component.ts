@@ -1,7 +1,6 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
-import {GlobalCoreService} from '../../shared/services/global-core.service';
 import {FormControl} from "@angular/forms";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-welcome',
@@ -16,8 +15,7 @@ export class WelcomeComponent implements OnInit {
     header: HTMLElement|undefined;
     isScrolled = false;
 
-    constructor(private globalCoreService: GlobalCoreService,
-                private router: Router) {
+    constructor(private router: Router) {
     }
 
     ngOnInit(): void {
