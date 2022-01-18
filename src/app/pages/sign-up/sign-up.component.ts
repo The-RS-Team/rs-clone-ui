@@ -9,13 +9,11 @@ import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-signup',
-    templateUrl: './signup.component.html',
-    styleUrls: ['./signup.component.scss']
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.scss']
 })
 
-export class SignupComponent implements OnInit, OnDestroy {
-
-    private sub$ = new Subscription();
+export class SignUpComponent implements OnInit {
 
     public loginForm: FormGroup;
     public signUpVisibility = false
@@ -42,13 +40,10 @@ export class SignupComponent implements OnInit, OnDestroy {
         )
     }
 
-    goToLoginPage() {
-        this.router.navigate(['login'], {queryParams: {email: this.loginForm.controls['email'].value}})
+    goToAnotherForm(page: string) {
+        this.router.navigate([page], {queryParams: {email: this.loginForm.controls['email'].value}})
     }
 
-    goToSignUpPage() {
-        this.router.navigate(['signup'], {queryParams: {email: this.loginForm.controls['email'].value}})
-    }
 
     goToRegister() {
         this.signUpVisibility = this.loginForm.controls['email'].valid;
@@ -80,9 +75,5 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     logout(): void {
         this.authService.logout();
-    }
-
-    public ngOnDestroy(): void {
-        this.sub$.unsubscribe();
     }
 }

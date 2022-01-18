@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Board} from "../../modules/board.interface";
+import {Board} from "../../interfaces/board.interface";
 
 @Component({
   selector: 'app-boards',

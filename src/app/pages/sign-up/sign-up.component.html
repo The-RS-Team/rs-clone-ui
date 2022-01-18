@@ -8,11 +8,11 @@
         </p>
         <form class="signup__form" [formGroup]="loginForm">
 
-            <div *ngIf="authService.user | async as user; else noAuth">
+            <ng-container *ngIf="authService.user | async as user; else noAuth">
                 <h1 i18n>Hello {{user.displayName}}!</h1>
-            </div>
+            </ng-container>
             <ng-template #noAuth>
-                <h1 *ngIf="this.currentRoute === 'signup'" i18n>Sign up for your account</h1>
+                <h1 *ngIf="this.currentRoute === 'sign-up'" i18n>Sign up for your account</h1>
                 <h1 *ngIf="this.currentRoute === 'login'" i18n>Log in for your account</h1>
             </ng-template>
 
@@ -35,16 +35,16 @@
                     Please enter a password of at least 6 characters
                 </mat-error>
             </mat-form-field>
-            <mat-form-field *ngIf="signUpVisibility && currentRoute === 'signup'" class="example-full-width" appearance="fill">
+            <mat-form-field *ngIf="signUpVisibility && currentRoute === 'sign-up'" class="example-full-width" appearance="fill">
                 <input type="text" matInput
                        placeholder="Enter your full name" autofocus="autofocus">
             </mat-form-field>
             <div class="signup__buttons-wrapper">
-                <button *ngIf="currentRoute === 'signup' && !signUpVisibility"
+                <button *ngIf="currentRoute === 'sign-up' && !signUpVisibility"
                         mat-raised-button
                         (click)="emailAuth()" i18n>Continue
                 </button>
-                <button *ngIf="signUpVisibility && currentRoute === 'signup'"
+                <button *ngIf="signUpVisibility && currentRoute === 'sign-up'"
                         mat-raised-button
                         (click)="emailAuth()" i18n>Sing up
                 </button>
@@ -70,9 +70,9 @@
                 </button>
             </div>
             <div class="signup__login-link">
-                <a *ngIf="this.currentRoute === 'signup'" class="signup__login-link_text" (click)="goToLoginPage()" i18n>Already
+                <a *ngIf="this.currentRoute === 'sign-up'" class="signup__login-link_text" (click)="goToAnotherForm('login')" i18n>Already
                     have an account? Log In</a>
-                <a *ngIf="this.currentRoute === 'login'" class="signup__login-link_text" (click)="goToSignUpPage()" i18n>Don't have an account? Sign
+                <a *ngIf="this.currentRoute === 'login'" class="signup__login-link_text" (click)="goToAnotherForm('sign-up')" i18n>Don't have an account? Sign
                     Up</a>
             </div>
         </form>
