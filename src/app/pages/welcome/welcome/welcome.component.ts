@@ -1,6 +1,17 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+<<<<<<< HEAD
 import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+=======
+<<<<<<<< HEAD:src/app/pages/welcome/welcome.component.ts
+import {GlobalCoreService} from '../../shared/global-core.service';
+import {FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
+========
+import {FormControl} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+>>>>>>>> development:src/app/pages/welcome/welcome/welcome.component.ts
+>>>>>>> development
 
 @Component({
     selector: 'app-welcome',

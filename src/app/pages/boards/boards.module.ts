@@ -1,7 +1,9 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {BoardsComponent} from './boards.component';
-import {HeaderComponent} from '../../shared/components/header/header.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {BoardsComponent} from "./boards.component";
+import {HeaderComponent} from "../../shared/components/header/header.component";
+
+
 
 @NgModule({
     declarations: [BoardsComponent, HeaderComponent],
@@ -10,5 +12,4 @@ import {HeaderComponent} from '../../shared/components/header/header.component';
         CommonModule
     ]
 })
-export class BoardsModule {
-}
+export class BoardsModule { }
