@@ -6,7 +6,6 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {RouterModule} from "@angular/router";
-import {NewBoardComponent} from "./components/new-board/new-board.component";
 import {MatDialogModule} from "@angular/material/dialog";
 
 const commonModules = [
@@ -23,7 +22,7 @@ const commonModules = [
 ]
 
 @NgModule({
-    declarations: [NewBoardComponent],
+    declarations: [],
     exports: [
         ...commonModules
     ],

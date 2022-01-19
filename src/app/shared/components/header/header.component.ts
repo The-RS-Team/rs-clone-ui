@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {BoardsService} from './../../../pages/boards/boards.service';
-import {NewBoardComponent} from '../new-board/new-board.component';
+import {NewBoardComponent} from '../../../pages/boards/new-board/new-board.component';
+import {BoardsService} from '../../../pages/boards/boards.service';
 
 @Component({
     selector: 'app-header',

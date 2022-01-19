@@ -13,7 +13,7 @@ import {AppRoutes} from '../app.constants';
 export class AuthService {
     public user: Observable<firebase.User | null>;
     public isLogged: boolean = false;
-    private successRoute: Array<string> =  ['/', AppRoutes.boards];
+    private successRoute: Array<string> = ['/', AppRoutes.boards];
     private logoutRoute: Array<string> = ['/'];
 
     constructor(private firebaseAuth: AngularFireAuth,
@@ -46,7 +46,7 @@ export class AuthService {
     }
 
     emailAuth(email: string, password: string) {
-         this.firebaseAuth
+        this.firebaseAuth
             .createUserWithEmailAndPassword(email, password)
             .then(
                 value => {
