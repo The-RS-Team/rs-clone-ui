@@ -12,7 +12,6 @@ import {WelcomeModule} from './pages/welcome/welcome.module';
 import {BoardsModule} from './pages/boards/boards.module';
 import {Routes} from '@angular/router';
 import {SharedModule} from './shared/shared.module';
-import {NewBoardComponent} from './pages/boards/new-board/new-board.component';
 import {AppRoutes} from './app.constants';
 
 export const ROUTES: Routes = [
@@ -39,8 +38,7 @@ export const ROUTES: Routes = [
     providers: [
         AuthService,
     ],
-    bootstrap: [AppComponent],
-    entryComponents: [NewBoardComponent]
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }

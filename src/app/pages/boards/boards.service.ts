@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Board } from 'src/app/modules/board.interface';
 import { Observable, of } from 'rxjs';
+import {Board} from "../../interfaces/board.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,7 @@ export class BoardsService {
   constructor() { }
 
   getBoards(): Observable<Board[]> {
-    const boards = of(this.boards);
-    return boards;
+    return of(this.boards);
   }
 
   addBoard(title: string) {

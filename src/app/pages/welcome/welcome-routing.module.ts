@@ -6,6 +6,7 @@ import {SignUpComponent} from './sign-up/sign-up.component';
 import {SharedModule} from '../../shared/shared.module';
 import {AppRoutes} from '../../app.constants';
 
+
 export const ROUTES: Routes = [
     {path: '', component: WelcomeComponent},
     {path: AppRoutes.signUp, component: SignUpComponent},

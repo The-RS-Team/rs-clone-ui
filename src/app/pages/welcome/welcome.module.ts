@@ -12,4 +12,5 @@ import {WelcomeRoutingModule} from "./welcome-routing.module";
 })
 
 export class WelcomeModule {
+
 }

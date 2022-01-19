@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute} from "@angular/router";
+import {Router} from "@angular/router";
 import {AuthService} from '../../../auth/auth.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatSnackBar, MatSnackBarModule} from "@angular/material/snack-bar";
+import {Subscription} from "rxjs";
 
 @Component({
     selector: 'app-signup',
