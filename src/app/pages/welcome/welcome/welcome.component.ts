@@ -1,5 +1,4 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
-import {GlobalCoreService} from '../../shared/global-core.service';
 import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
 
@@ -16,8 +15,7 @@ export class WelcomeComponent implements OnInit {
     header: HTMLElement | undefined;
     isScrolled = false;
 
-    constructor(private globalCoreService: GlobalCoreService,
-                private router: Router) {
+    constructor(private router: Router) {
     }
 
     ngOnInit(): void {
@@ -39,6 +37,6 @@ export class WelcomeComponent implements OnInit {
     };
 
     addQueryParameter() {
-        this.router.navigate(['signup'], {queryParams: {email: this.email.value}})
+        this.router.navigate(['sign-up'], {queryParams: {email: this.email.value}})
     }
 }
