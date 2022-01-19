@@ -7,7 +7,7 @@ import {SharedModule} from '../../shared/shared.module';
 
 export const ROUTES: Routes = [
     {path: '', component: WelcomeComponent},
-    {path: 'sign-up', component: SignUpComponent},
+    {path: 'signup', component: SignUpComponent},
     {path: 'login', component: SignUpComponent},
 ];
 

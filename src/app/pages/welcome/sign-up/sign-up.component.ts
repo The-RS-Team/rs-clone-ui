@@ -4,7 +4,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../auth/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
-
 @Component({
     selector: 'app-signup',
     templateUrl: './sign-up.component.html',

@@ -1,8 +1,7 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import {GlobalCoreService} from "../../global-core.service";
-import { NewBoardComponent } from './../../../pages/new-board/new-board.component';
-import { BoardsService } from './../../../pages/boards/boards.service';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {NewBoardComponent} from './../../../pages/new-board/new-board.component';
+import {BoardsService} from './../../../pages/boards/boards.service';
 
 @Component({
     selector: 'app-header',
@@ -12,8 +11,7 @@ import { BoardsService } from './../../../pages/boards/boards.service';
 
 export class HeaderComponent implements OnInit {
 
-    constructor(private globalCoreService: GlobalCoreService,
-                private dialog: MatDialog,
+    constructor(private dialog: MatDialog,
                 private boardsService: BoardsService) {
 
     }
@@ -23,17 +21,17 @@ export class HeaderComponent implements OnInit {
 
     newBoard() {
         const dialogConfig = new MatDialogConfig();
-    
+
         dialogConfig.autoFocus = true;
-        dialogConfig.panelClass = "popup";
-    
+        dialogConfig.panelClass = 'popup';
+
         const dialogRef = this.dialog.open(NewBoardComponent, dialogConfig);
-    
+
         dialogRef.afterClosed().subscribe((data) => {
-          if (!data) return;
-          let title = data.title.trim();
-          this.boardsService.addBoard(title);
+            if (!data) return;
+            let title = data.title.trim();
+            this.boardsService.addBoard(title);
         });
-      }
+    }
 
 }
