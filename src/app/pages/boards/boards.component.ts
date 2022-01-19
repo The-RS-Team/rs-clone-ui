@@ -1,22 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Board} from '../../interfaces/board.interface';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {BoardsService} from './boards.service';
 import {NewBoardComponent} from './new-board/new-board.component';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-boards',
   templateUrl: './boards.component.html',
   styleUrls: ['./boards.component.scss']
 })
-export class BoardsComponent implements OnInit {
+export class BoardsComponent implements OnInit, OnDestroy {
+  private sub$ = new Subscription();
+
   imgBaseUrl = "http://localhost:4200/assets/images/"
-  boards: Board[] = [
-    {id: 1, title: 'Board-1', isFavorite: false, background: 'bg-1.jpg'},
-    {id: 2, title: 'Board-2', isFavorite: false, background: 'bg-2.jpg'},
-    {id: 3, title: 'Board-3', isFavorite: false, background: 'bg-3.jpg'},
-    {id: 4, title: 'Board-4', isFavorite: false, background: 'bg-1.jpg'},
-  ]
+  boards: Board[] = [];
   favorites: Board[] = [];
 
   constructor(
@@ -29,9 +27,10 @@ export class BoardsComponent implements OnInit {
   }
 
   getBoards(): void {
+    this.sub$.add(
     this.boardsService
         .getBoards()
-        .subscribe((boards) => (this.boards = boards));
+        .subscribe((boards) => this.boards = boards));
   }
 
   getBg(pic: string) {
@@ -70,6 +69,10 @@ export class BoardsComponent implements OnInit {
       let title = data.title.trim();
       this.boardsService.addBoard(title);
     });
+  }
+
+  public ngOnDestroy() {
+    this.sub$.unsubscribe();
   }
 
 }
