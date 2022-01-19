@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Board } from 'src/app/modules/board.interface';
 import { Observable, of } from 'rxjs';
+import {Board} from "../../interfaces/board.interface";
 
 @Injectable({
   providedIn: 'root'

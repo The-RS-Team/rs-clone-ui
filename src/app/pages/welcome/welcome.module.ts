@@ -1,10 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-<<<<<<< HEAD
-import {WelcomeRoutingModule} from './welcome-routing.module';
-=======
 import {WelcomeRoutingModule} from "./welcome-routing.module";
->>>>>>> development
 
 
 @NgModule({
@@ -16,4 +12,5 @@ import {WelcomeRoutingModule} from "./welcome-routing.module";
 })
 
 export class WelcomeModule {
+
 }
