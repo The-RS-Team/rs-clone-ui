@@ -1,6 +1,7 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
-import {FormControl} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
+import {FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
+import {AppRoutes} from '../../../app.constants';
 
 @Component({
     selector: 'app-welcome',
@@ -12,7 +13,7 @@ export class WelcomeComponent implements OnInit {
 
     email = new FormControl();
     public svgColor: string = '#0076bc';
-    header: HTMLElement|undefined;
+    header: HTMLElement | undefined;
     isScrolled = false;
 
     constructor(private router: Router) {
@@ -21,7 +22,8 @@ export class WelcomeComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    @ViewChild('headerTop') headerTop: ElementRef|undefined;
+    @ViewChild('headerTop') headerTop: ElementRef | undefined;
+
     ngAfterViewInit(): void {
         this.header = this.headerTop?.nativeElement;
     }
@@ -36,6 +38,6 @@ export class WelcomeComponent implements OnInit {
     };
 
     addQueryParameter() {
-        this.router.navigate(['sign-up'], {queryParams: {email: this.email.value}})
+        this.router.navigate([AppRoutes.signUp], {queryParams: {email: this.email.value}})
     }
 }

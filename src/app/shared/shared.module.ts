@@ -6,14 +6,18 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {RouterModule} from "@angular/router";
+import {MatDialogModule} from "@angular/material/dialog";
 
 const commonModules = [
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
+    MatDialogModule,
     MatSnackBarModule,
     RouterModule,
     ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
     FormsModule
 ]
 
@@ -23,7 +27,6 @@ const commonModules = [
         ...commonModules
     ],
     imports: [
-        CommonModule,
         ...commonModules
     ]
 })

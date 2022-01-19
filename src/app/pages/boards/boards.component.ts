@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {Board} from "../../interfaces/board.interface";
+import {Component, OnInit} from '@angular/core';
+import {Board} from '../../interfaces/board.interface';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {BoardsService} from './boards.service';
+import {NewBoardComponent} from './new-board/new-board.component';
 
 @Component({
   selector: 'app-boards',
@@ -16,11 +19,19 @@ export class BoardsComponent implements OnInit {
   ]
   favorites: Board[] = [];
 
-
-
-  constructor() { }
+  constructor(
+      private boardsService: BoardsService,
+      private dialog: MatDialog
+  ) { }
 
   ngOnInit(): void {
+    this.getBoards();
+  }
+
+  getBoards(): void {
+    this.boardsService
+        .getBoards()
+        .subscribe((boards) => (this.boards = boards));
   }
 
   getBg(pic: string) {
@@ -44,6 +55,21 @@ export class BoardsComponent implements OnInit {
   addToFavorites(id: number) {
     this.boards[id - 1].isFavorite = !this.boards[id - 1].isFavorite;
     this.getFavorites();
+  }
+
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '80vw';
+
+    const dialogRef = this.dialog.open(NewBoardComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (!data) return;
+      let title = data.title.trim();
+      this.boardsService.addBoard(title);
+    });
   }
 
 }
