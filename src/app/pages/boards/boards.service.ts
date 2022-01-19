@@ -17,8 +17,7 @@ export class BoardsService {
   constructor() { }
 
   getBoards(): Observable<Board[]> {
-    const boards = of(this.boards);
-    return boards;
+    return of(this.boards);
   }
 
   addBoard(title: string) {

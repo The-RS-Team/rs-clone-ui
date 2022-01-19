@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Board} from "../../interfaces/board.interface";
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {BoardsService} from "./boards.service";
-import {NewBoardComponent} from "../new-board/new-board.component";
+import {NewBoardComponent} from "../../shared/components/new-board/new-board.component";
 
 @Component({
   selector: 'app-boards',
@@ -25,6 +25,13 @@ export class BoardsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getBoards();
+  }
+
+  getBoards(): void {
+    this.boardsService
+        .getBoards()
+        .subscribe((boards) => (this.boards = boards));
   }
 
   getBg(pic: string) {
@@ -54,6 +61,7 @@ export class BoardsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.autoFocus = true;
+    dialogConfig.width = '80vw';
 
     const dialogRef = this.dialog.open(NewBoardComponent, dialogConfig);
 
