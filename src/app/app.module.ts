@@ -12,13 +12,13 @@ import {WelcomeModule} from './pages/welcome/welcome.module';
 import {BoardsModule} from './pages/boards/boards.module';
 import {Routes} from '@angular/router';
 import {SharedModule} from './shared/shared.module';
-import {NewBoardComponent} from './pages/new-board/new-board.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import {NewBoardComponent} from './pages/boards/new-board/new-board.component';
+import {AppRoutes} from './app.constants';
 
 export const ROUTES: Routes = [
-    {path: '', redirectTo: '/home', pathMatch: 'full'},
-    {path: 'boards', loadChildren: () => import('./pages/boards/boards.module').then(m => m.BoardsModule)},
-    {path: 'home', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)},
+    {path: '', redirectTo: '/' + AppRoutes.home, pathMatch: 'full'},
+    {path: AppRoutes.boards, loadChildren: () => import('./pages/boards/boards.module').then(m => m.BoardsModule)},
+    {path: AppRoutes.home, loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)},
 ];
 
 @NgModule({
@@ -26,7 +26,6 @@ export const ROUTES: Routes = [
         AppComponent,
     ],
     imports: [
-        MatDialogModule,
         WelcomeModule,
         BoardsModule,
         BrowserModule,

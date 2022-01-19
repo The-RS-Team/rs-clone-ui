@@ -17,6 +17,7 @@ const commonModules = [
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
+    CommonModule,
 ]
 
 @NgModule({
@@ -25,7 +26,6 @@ const commonModules = [
         ...commonModules
     ],
     imports: [
-        CommonModule,
         ...commonModules
     ]
 })

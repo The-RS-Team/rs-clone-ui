@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { Board } from "../../modules/board.interface";
 import { BoardsService } from "./boards.service";
-import { NewBoardComponent } from "./../new-board/new-board.component";
+import { NewBoardComponent } from "./new-board/new-board.component";
 
 @Component({
   selector: "app-boards",

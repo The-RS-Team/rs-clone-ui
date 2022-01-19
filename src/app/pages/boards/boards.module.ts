@@ -1,13 +1,21 @@
 import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
 import {BoardsComponent} from './boards.component';
 import {HeaderComponent} from '../../shared/components/header/header.component';
+import {SharedModule} from '../../shared/shared.module';
+import {NewBoardComponent} from './new-board/new-board.component';
 
 @NgModule({
-    declarations: [BoardsComponent, HeaderComponent],
-    exports: [BoardsComponent, HeaderComponent],
+    declarations: [
+        BoardsComponent,
+        HeaderComponent,
+        NewBoardComponent,
+    ],
+    exports: [
+        BoardsComponent,
+        HeaderComponent,
+    ],
     imports: [
-        CommonModule
+        SharedModule
     ]
 })
 export class BoardsModule {

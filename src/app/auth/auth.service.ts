@@ -4,6 +4,7 @@ import {Injectable} from '@angular/core';
 import {first, Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {MessageService} from '../shared/message.service';
+import {AppRoutes} from '../app.constants';
 
 @Injectable({
     providedIn: 'root'
@@ -11,16 +12,14 @@ import {MessageService} from '../shared/message.service';
 
 export class AuthService {
     public user: Observable<firebase.User | null>;
-    private successRoute: string = '/boards';
-    private logoutRoute: string = '/';
-
-    public isLogged: boolean;
+    public isLogged: boolean = false;
+    private successRoute: Array<string> =  ['/', AppRoutes.boards];
+    private logoutRoute: Array<string> = ['/'];
 
     constructor(private firebaseAuth: AngularFireAuth,
                 private router: Router,
                 private messageService: MessageService) {
         this.user = this.firebaseAuth.authState;
-        this.isLogged = false;
     }
 
     isLoggedIn() {
@@ -36,12 +35,12 @@ export class AuthService {
             .signInWithPopup(new firebase.auth.GithubAuthProvider())
             .then(
                 value => {
-                    this.router.navigate([this.successRoute]);
+                    this.router.navigate(this.successRoute);
                 }
             ).catch(
             err => {
                 this.handleError('gitHubAuth', err.message);
-                this.router.navigate([this.logoutRoute]);
+                this.router.navigate(this.logoutRoute);
             }
         );
     }
@@ -51,12 +50,12 @@ export class AuthService {
             .createUserWithEmailAndPassword(email, password)
             .then(
                 value => {
-                    this.router.navigate([this.successRoute]);
+                    this.router.navigate(this.successRoute);
                 }
             )
             .catch(err => {
                 this.handleError('createUserWithEmailAndPassword', err.message);
-                this.router.navigate([this.logoutRoute]);
+                this.router.navigate(this.logoutRoute);
             });
     }
 
@@ -64,17 +63,17 @@ export class AuthService {
         this.firebaseAuth
             .signInWithEmailAndPassword(email, password)
             .then(value => {
-                this.router.navigate([this.successRoute]);
+                this.router.navigate(this.successRoute);
             })
             .catch(err => {
                 this.handleError('signInWithEmailAndPassword', err.message);
-                this.router.navigate([this.logoutRoute]);
+                this.router.navigate(this.logoutRoute);
             });
     }
 
     logout() {
         this.firebaseAuth.signOut();
-        this.router.navigate([this.logoutRoute]);
+        this.router.navigate(this.logoutRoute);
     }
 
     private handleError<T>(operation = 'operation', result?: T) {

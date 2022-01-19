@@ -4,11 +4,12 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {RouterModule, Routes} from '@angular/router';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {SharedModule} from '../../shared/shared.module';
+import {AppRoutes} from '../../app.constants';
 
 export const ROUTES: Routes = [
     {path: '', component: WelcomeComponent},
-    {path: 'signup', component: SignUpComponent},
-    {path: 'login', component: SignUpComponent},
+    {path: AppRoutes.signUp, component: SignUpComponent},
+    {path: AppRoutes.login, component: SignUpComponent},
 ];
 
 @NgModule({
