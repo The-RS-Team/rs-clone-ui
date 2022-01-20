@@ -15,22 +15,16 @@ export class BoardsService {
     httpOptions = {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'
-            // 'Content-Type': 'application/json',
-            // 'Access-Control-Allow-Credentials': 'true',
-            // 'Access-Control-Max-Age': '1000',
-            // 'Access-Control-Allow-Origin': 'http://localhost:3000/boards',
-            // 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Accept-Encoding',
-            // 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
         })
     };
 
+    //TODO: Delete this array
     boards: Board[] = [
         {id: 1, title: 'Board-1', isFavorite: false, background: 'bg-1.jpg'},
         {id: 2, title: 'Board-2', isFavorite: false, background: 'bg-2.jpg'},
         {id: 3, title: 'Board-3', isFavorite: false, background: 'bg-3.jpg'},
         {id: 4, title: 'Board-4', isFavorite: false, background: 'bg-1.jpg'},
     ]
-    favorites: Board[] = []
 
     constructor(private readonly http: HttpClient,
                 private readonly messageService: MessageService) {
@@ -54,6 +48,17 @@ export class BoardsService {
             );
     }
 
+    deleteBoard(id: number): Observable<Board> {
+        const url = `${this.boardsUrl}/${id}`;
+
+        return this.http
+            .delete<Board>(url, this.httpOptions)
+            .pipe(
+                tap(_ => this.log(`deleted board id=${id}`)),
+                catchError(this.handleError<Board>('deleteBoard'))
+            );
+    }
+
     getFavorites(): Observable<Board[]> {
         return this.http
             .get<Board[]>(this.boardsUrl + '/fav', this.httpOptions)
@@ -63,7 +68,17 @@ export class BoardsService {
             );
     }
 
+    updateBoard(board: Board): Observable<any> {
+        return this.http
+            .put(this.boardsUrl, board, this.httpOptions)
+            .pipe(
+                tap(_ => this.log(`updated board id=${board.id}`)),
+                catchError(this.handleError<any>('updateBoard'))
+            );
+    }
+
     addToFavorites(id: number): void {
+        //TODO: Delete this function
         this.boards[id - 1].isFavorite = !this.boards[id - 1].isFavorite;
         this.getFavorites();
     }
