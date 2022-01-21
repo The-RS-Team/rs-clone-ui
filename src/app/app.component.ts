@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-root',
@@ -7,6 +8,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit {
     title = 'TrelloClone';
+
+    constructor(
+        public translate: TranslateService
+    ){
+        translate.addLangs(['en', 'ua']);
+        translate.setDefaultLang('en');
+    }
 
     ngOnInit(): void {
 

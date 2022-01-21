@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div class="boards">
-    <h2 class="space-title" *ngIf="favorites.length" i18n>Marked boards</h2>
+    <h2 class="space-title" *ngIf="favorites.length">{{'marked-boards' | translate}}</h2>
     <div class="boards__block">
         <div class="boards__item" *ngFor="let board of favorites" [ngStyle]=getBg(board.background)>
             <h4 class="boards__item__title">{{board.title}}</h4>
@@ -9,9 +9,9 @@
         </div>
     </div>
 
-    <h2 class="space-title" i18n>Your workspace</h2>
-    <p *ngIf="!boards.length">You have not been added to any workspace yet.
-        <a (click)="openDialog()">Create workspace</a></p>
+    <h2 class="space-title">{{'your-workspace' | translate}}</h2>
+    <p *ngIf="!boards.length">{{'no-workspace' | translate}}
+        <a (click)="openDialog()">{{'create-board' | translate}}</a></p>
     <div *ngIf="boards.length" class="boards__block">
         <div class="boards__item" *ngFor="let board of boards" [ngStyle]=getBg(board.background)>
             <h4 class="boards__item__title">{{board.title}}</h4>

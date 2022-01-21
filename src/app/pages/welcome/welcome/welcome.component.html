@@ -25,8 +25,8 @@
             <span class="header__title">TrelloClone</span>
         </div>
         <div class="float-right">
-            <a mat-flat-button color="" routerLink="/boards" i18n>Log in</a>
-            <a mat-flat-button color="primary" routerLink="/sign-up" class="signup-btn" i18n>Sign up</a>
+            <a mat-flat-button color="" routerLink="/boards" >{{'log-in' | translate}}</a>
+            <a mat-flat-button color="primary" routerLink="/sign-up" class="signup-btn" >{{'sign-up' | translate}}</a>
         </div>
     </nav>
 </header>
@@ -34,13 +34,11 @@
 <section class="welcome-section">
     <div class="welcome">
         <div class="welcome__intro">
-            <h2 class="welcome__title" i18n>TrelloClone helps teams get things done efficiently.</h2>
-            <p class="welcome__text" i18n>Work as a team, manage projects and take productivity to the next level in
-                your own unique way with Trello.</p>
+            <h2 class="welcome__title" >{{'welcome.header' | translate}}</h2>
+            <p class="welcome__text" >{{'welcome.description' | translate}}</p>
             <div class="welcome__form">
                 <input [formControl]="email" type="text" placeholder="E-mail" class="input-email">
-                <a mat-flat-button color="primary" (click)="addQueryParameter()"  class="welcome__form__button" i18n>Register - it's
-                    free!</a>
+                <a mat-flat-button color="primary" (click)="addQueryParameter()"  class="welcome__form__button" >{{"welcome.register" | translate}}</a>
             </div>
         </div>
         <div class="welcome__pic">

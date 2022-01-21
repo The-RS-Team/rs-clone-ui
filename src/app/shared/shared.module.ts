@@ -7,6 +7,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {RouterModule} from "@angular/router";
 import {MatDialogModule} from "@angular/material/dialog";
+import {TranslateModule} from "@ngx-translate/core";
+import {I18nModule} from "./i18n.module";
 
 const commonModules = [
     MatFormFieldModule,
@@ -18,16 +20,19 @@ const commonModules = [
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    TranslateModule,
+    I18nModule
 ]
 
 @NgModule({
     declarations: [],
     exports: [
-        ...commonModules
+        ...commonModules,
+
     ],
     imports: [
-        ...commonModules
+        ...commonModules,
     ]
 })
 export class SharedModule {

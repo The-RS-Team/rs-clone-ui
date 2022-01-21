@@ -13,6 +13,7 @@ import {SharedModule} from '../../shared/shared.module';
     exports: [
         BoardsComponent,
         HeaderComponent,
+        NewBoardComponent,
     ],
     imports: [
         SharedModule
