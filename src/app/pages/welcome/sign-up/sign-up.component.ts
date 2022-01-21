@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../auth/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-signup',
@@ -11,17 +12,18 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 
 export class SignUpComponent implements OnInit {
-
     public loginForm: FormGroup;
     public signUpVisibility = false
     public currentRoute = this.route.snapshot.routeConfig?.path;
     public currentQueryParams = this.route.snapshot.queryParamMap.get('register');
+    public currentLanguage = localStorage.getItem('language') ? localStorage.getItem('language') : '';
 
     constructor(public authService: AuthService,
                 private fb: FormBuilder,
                 private snackService: MatSnackBar,
                 private route: ActivatedRoute,
-                private router: Router) {
+                private router: Router,
+                public translate: TranslateService) {
 
         this.loginForm = this.fb.group({
             password: ['', [Validators.required, Validators.minLength(6)]],
@@ -72,5 +74,21 @@ export class SignUpComponent implements OnInit {
 
     logout(): void {
         this.authService.logout();
+    }
+
+    changeLanguage(lan: string) {
+        localStorage.setItem('language', lan)
+        this.translate.use(lan)
+    }
+
+    getLanguageName(lan: string) {
+        let label = '';
+        switch (lan) {
+            case 'ua': label = 'Українська';
+                       break;
+            case 'en': label = 'English';
+                       break;
+        }
+        return label;
     }
 }

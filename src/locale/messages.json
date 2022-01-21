@@ -1,0 +1,30 @@
+{
+  "locale": "en-US",
+  "translations": {
+    "3911095849406910779": "Marked boards",
+    "8525825789817341907": "Your workspace",
+    "4805541522948881219": " Please enter a title ",
+    "2336550011721758066": "Log in",
+    "7028204981963450021": "Sign up",
+    "702801202101210184": "TrelloClone helps teams get things done efficiently.",
+    "1170414731713516892": "Work as a team, manage projects and take productivity to the next level in your own unique way with Trello.",
+    "3840208580789775130": "Register - it's free!",
+    "5674286808255988565": "Create",
+    "8370306245983482136": "Hello {$INTERPOLATION}!",
+    "5006533348487069158": "Sign up for your account",
+    "4610124639701538022": "Log in for your account",
+    "203827529942340818": "Enter your email",
+    "6673626898717784752": " Please enter a valid email address ",
+    "343410938576058057": "Enter password",
+    "3729474623359169263": " Please enter a password of at least 6 characters ",
+    "5268165571303113726": "Enter your full name",
+    "8743900787768000333": "Continue ",
+    "3866118199608338816": "Sing up ",
+    "3136060218695297500": "Log in ",
+    "290735093992020324": "OR",
+    "5201924334919436383": "{$TAG_IMG}Continue with Google ",
+    "7944098208012260388": "{$TAG_IMG}Continue with GitHub ",
+    "713611249416804288": "Already have an account? Log In",
+    "4496034069704767829": "Don't have an account? Sign Up"
+  }
+}

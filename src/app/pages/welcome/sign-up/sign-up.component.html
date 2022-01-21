@@ -9,72 +9,76 @@
         <form class="signup__form" [formGroup]="loginForm">
 
             <ng-container *ngIf="authService.user | async as user; else noAuth">
-                <h1 i18n>Hello {{user.displayName}}!</h1>
+                <h1>{{'hello' | translate}} {{user.displayName}}!</h1>
             </ng-container>
             <ng-template #noAuth>
-                <h1 *ngIf="this.currentRoute === 'sign-up'" i18n>Sign up for your account</h1>
-                <h1 *ngIf="this.currentRoute === 'login'" i18n>Log in for your account</h1>
+                <h1 *ngIf="this.currentRoute === 'sign-up'" >{{'sign-up-acc' | translate}}</h1>
+                <h1 *ngIf="this.currentRoute === 'login'">{{'log-in-acc' | translate}}</h1>
             </ng-template>
 
             <mat-form-field class="example-full-width" appearance="fill">
                 <input type="email" matInput
                        formControlName="email"
-                       placeholder="Enter your email"
+                       placeholder="{{'enter-email' | translate}}"
                        autocomplete="email">
-                <mat-error *ngIf="loginForm.controls['email'].invalid"
-                           i18n>
-                    Please enter a valid email address
+                <mat-error *ngIf="loginForm.controls['email'].invalid">
+                    {{'email-valid' | translate}}
                 </mat-error>
             </mat-form-field>
             <mat-form-field *ngIf="this.currentRoute === 'login'" class="example-full-width" appearance="fill">
                 <input type="password" matInput
                        formControlName="password"
-                       placeholder="Enter password">
-                <mat-error *ngIf="loginForm.controls['password'].invalid"
-                           i18n>
-                    Please enter a password of at least 6 characters
+                       placeholder="{{'enter-pass' | translate}}">
+                <mat-error *ngIf="loginForm.controls['password'].invalid">
+                    {{'pass-valid' | translate}}
                 </mat-error>
             </mat-form-field>
             <mat-form-field *ngIf="signUpVisibility && currentRoute === 'sign-up'" class="example-full-width" appearance="fill">
                 <input type="text" matInput
-                       placeholder="Enter your full name" autofocus="autofocus">
+                       placeholder="{{'enter-full-name' | translate}}" autofocus="autofocus">
             </mat-form-field>
             <div class="signup__buttons-wrapper">
                 <button *ngIf="currentRoute === 'sign-up' && !signUpVisibility"
                         mat-raised-button
-                        (click)="emailAuth()" i18n>Continue
+                        (click)="emailAuth()">{{'continue' | translate}}
                 </button>
                 <button *ngIf="signUpVisibility && currentRoute === 'sign-up'"
                         mat-raised-button
-                        (click)="emailAuth()" i18n>Sing up
+                        (click)="emailAuth()">{{'sign-up' | translate}}
                 </button>
                 <button *ngIf="currentRoute === 'login'"
                         mat-raised-button
                         type="submit"
-                        (click)="emailAuth()" i18n>Log in
+                        (click)="emailAuth()" >{{'log-in' | translate}}
                 </button>
-                <p class="signup__login-method-separator">OR</p>
+                <p class="signup__login-method-separator">{{'or' | translate}}</p>
                 <button mat-raised-button class="signup__button"
                         type="button"
                         (click)="googleAuth()" i18n>
                     <img class="signup__button-icon"
                          src="../../../../assets/images/svg/google_icon.svg"
-                         alt="google icon">Continue with Google
+                         alt="google icon">{{'cont-google' | translate}}
                 </button>
                 <button mat-raised-button
                         type="button"
-                        (click)="gitHubAuth()" i18n>
+                        (click)="gitHubAuth()" >
                     <img class="signup__button-icon"
                          src="../../../../assets/images/svg/git_icon.svg"
-                         alt="github icon">Continue with GitHub
+                         alt="github icon">{{'cont-github' | translate}}
                 </button>
             </div>
             <div class="signup__login-link">
-                <a *ngIf="this.currentRoute === 'sign-up'" class="signup__login-link_text" (click)="goToAnotherForm('login')" i18n>Already
-                    have an account? Log In</a>
-                <a *ngIf="this.currentRoute === 'login'" class="signup__login-link_text" (click)="goToAnotherForm('sign-up')" i18n>Don't have an account? Sign
-                    Up</a>
+                <a *ngIf="this.currentRoute === 'sign-up'" class="signup__login-link_text" (click)="goToAnotherForm('login')" >{{'have-acc' | translate}}</a>
+                <a *ngIf="this.currentRoute === 'login'" class="signup__login-link_text" (click)="goToAnotherForm('sign-up')">{{'havent-acc' | translate }}</a>
             </div>
         </form>
+
+        <select #langSelect (change)="changeLanguage(langSelect.value)" class="language-switcher">
+            <option
+                    *ngFor="let lang of translate.getLangs()"
+                    [value]="lang"
+                    [selected]="lang === currentLanguage"
+            >{{getLanguageName(lang)}}</option>
+        </select>
     </div>
 </section>
