@@ -27,7 +27,12 @@ export class AuthService {
     }
 
     googleAuth() {
-        this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+            .then(
+                value => {
+                    this.router.navigate(['/boards']);
+                }
+            );
     }
 
     gitHubAuth(): void {
