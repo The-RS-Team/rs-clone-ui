@@ -13,7 +13,7 @@ import {BoardsModule} from './pages/boards/boards.module';
 import {Routes} from '@angular/router';
 import {SharedModule} from './shared/shared.module';
 import {AppRoutes} from './app.constants';
-import {LocalStorageService} from "./shared/services/local-storage.service";
+import {LocalStorageService} from './shared/services/local-storage.service';
 
 export const ROUTES: Routes = [
     {path: '', redirectTo: '/' + AppRoutes.home, pathMatch: 'full'},
@@ -37,7 +37,8 @@ export const ROUTES: Routes = [
         AngularFireModule.initializeApp(environment.firebaseConfig)
     ],
     providers: [
-        AuthService
+        AuthService,
+        LocalStorageService,
     ],
     bootstrap: [AppComponent]
 })
