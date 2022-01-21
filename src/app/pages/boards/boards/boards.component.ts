@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Board} from '../../interfaces/board.interface';
+import {Board} from '../../../interfaces/board.interface';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {BoardsService} from './boards.service';
-import {NewBoardComponent} from './new-board/new-board.component';
+import {BoardsService} from '../boards.service';
+import {NewBoardComponent} from '../new-board/new-board.component';
 import {Subscription} from 'rxjs';
 
 @Component({

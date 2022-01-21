@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="boards">
+<div class="boards" routerLink="/board-content">
     <h2 class="space-title" *ngIf="favorites.length" i18n>Marked boards</h2>
     <div class="boards__block">
         <div class="boards__item" *ngFor="let board of favorites" [ngStyle]=getBg(board.background)>
