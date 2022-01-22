@@ -9,6 +9,7 @@ import {RouterModule} from "@angular/router";
 import {MatDialogModule} from "@angular/material/dialog";
 import {TranslateModule} from "@ngx-translate/core";
 import {I18nModule} from "./i18n.module";
+import {MatMenuModule} from "@angular/material/menu";
 
 const commonModules = [
     MatFormFieldModule,
@@ -16,6 +17,7 @@ const commonModules = [
     MatInputModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatMenuModule,
     RouterModule,
     ReactiveFormsModule,
     FormsModule,

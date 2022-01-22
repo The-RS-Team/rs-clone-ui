@@ -6,6 +6,7 @@
   background-color: var(--header-color);
   display: flex;
   align-items: center;
+  box-sizing: border-box;
 
   &__menu {
     width: 32px;
@@ -42,6 +43,19 @@
     font-weight: 900;
     color: #fff;
     margin-bottom: 5px;
+  }
+
+  &__avatar {
+    width: 35px;
+    height: 35px;
+    margin-left: auto;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
   }
 }
 
