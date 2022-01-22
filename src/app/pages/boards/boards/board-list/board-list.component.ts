@@ -1,9 +1,11 @@
 import {Component, Input, OnInit, OnDestroy} from '@angular/core';
-import {List} from "../../../interfaces/list.interface";
-import {Card} from "../../../interfaces/card.interface";
-import {BoardsService} from "../boards.service";
+import {ListInterface} from "../../../../interfaces/list.interface";
+import {CardInterface} from "../../../../interfaces/card.interface";
+import {BoardsService} from "../../boards.service";
 import {Subscription} from "rxjs";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {Card} from "../../../../models/card";
+import {List} from "../../../../models/list";
 
 
 @Component({
@@ -13,8 +15,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 })
 export class BoardListComponent implements OnInit, OnDestroy {
 
-    @Input() list: List | undefined;
-    cards: Card[] = [];
+    @Input() list: ListInterface = new List(0, [], '', 0);
 
     private sub$ = new Subscription();
 
@@ -22,16 +23,17 @@ export class BoardListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.getCards();
+        // this.getCards();
     }
 
-    getCards(): void {
-        this.sub$.add(
-            this.boardsService
-                .getCards()
-                .subscribe((cards) => this.cards = cards));
-    }
-    drop(event: CdkDragDrop<string[]>) {
+    // getCards(): void {
+    //     this.sub$.add(
+    //         this.boardsService
+    //             .getCards()
+    //             .subscribe((cards) => this.cards = cards));
+    // }
+
+    drop(event: CdkDragDrop<Card[]>) {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
@@ -43,6 +45,14 @@ export class BoardListComponent implements OnInit, OnDestroy {
             );
         }
     }
+
+    public addNewCard(): void {
+        console.log(this.list)
+        this.list.cards.push(new Card('', this.list.id, this.list.cards.length + 1))
+        console.log(this.list)
+
+    }
+
     public ngOnDestroy() {
         this.sub$.unsubscribe();
     }

@@ -11,9 +11,12 @@
 
     <h2 class="space-title">{{'your-workspace' | translate}}</h2>
     <p *ngIf="!boards.length">{{'no-workspace' | translate}}
-        <a (click)="openDialog()">{{'create-board' | translate}}</a></p>
+        <a (click)="openDialog()">{{'create-models' | translate}}</a></p>
     <div *ngIf="boards.length" class="boards__block">
-        <div class="boards__item" *ngFor="let board of boards" [ngStyle]=getBg(board.background)>
+        <div class="boards__item"
+             *ngFor="let board of boards"
+             (click)="openBoard(board.id)"
+             [ngStyle]=getBg(board.background)>
             <h4 class="boards__item__title">{{board.title}}</h4>
             <div class="boards__item__star" (click)="addToFavorites(board.id)" [ngStyle]=getStar(board.isFavorite)></div>
         </div>

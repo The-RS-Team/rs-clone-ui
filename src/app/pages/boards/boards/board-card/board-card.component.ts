@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Card} from "../../../interfaces/card.interface";
+import {CardInterface} from "../../../../interfaces/card.interface";
 
 @Component({
     selector: 'app-board-card',
@@ -7,7 +7,7 @@ import {Card} from "../../../interfaces/card.interface";
     styleUrls: ['./board-card.component.scss']
 })
 export class BoardCardComponent implements OnInit {
-    @Input() card: Card | undefined;
+    @Input() card: CardInterface | undefined;
 
     constructor() {
     }

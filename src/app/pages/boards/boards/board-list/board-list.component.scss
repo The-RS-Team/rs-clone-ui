@@ -1,4 +1,15 @@
+::-webkit-scrollbar {
+  width: 6px;
+  height: 12px;
+  background-color: hsla(210, 5%, 8%, 0.16);
+  border-radius: 5px;
 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsla(240, 7%, 3%, 0.16);
+  border-radius: 5px;
+}
 .list__title {
   font-weight: bold;
   //font-size: 16px;
@@ -10,6 +21,7 @@
 .list__cards-container {
   overflow: auto;
   scroll-snap-type: x mandatory;
+  min-height: 10px;
 
 }
 .list__menu-icon{

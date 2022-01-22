@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 import {AppRoutes} from "../../app.constants";
-import {BoardsComponent} from "./boards/boards.component";
-import {BoardContentComponent} from "./board-content/board-content.component";
+import {BoardsComponent} from "./boards.component";
+import {BoardContentComponent} from "./boards/board-content/board-content.component";
 import {SharedModule} from "../../shared/shared.module";
 import {HeaderComponent} from "../../shared/components/header/header.component";
-import {NewBoardComponent} from "./new-board/new-board.component";
-import {BoardCardComponent} from "./board-card/board-card.component";
-import {BoardListComponent} from "./board-list/board-list.component";
+import {NewBoardComponent} from "./boards/new-board/new-board.component";
+import {BoardCardComponent} from "./boards/board-card/board-card.component";
+import {BoardListComponent} from "./boards/board-list/board-list.component";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 
 export const ROUTES: Routes = [
