@@ -10,7 +10,16 @@ import {AngularFireAuthModule} from '@angular/fire/compat/auth';
 import {AuthService} from './auth/auth.service';
 import {WelcomeModule} from './pages/welcome/welcome.module';
 import {BoardsModule} from './pages/boards/boards.module';
+import {Routes} from '@angular/router';
 import {SharedModule} from './shared/shared.module';
+import {AppRoutes} from './app.constants';
+import {LocalStorageService} from './shared/services/local-storage.service';
+
+export const ROUTES: Routes = [
+    {path: '', redirectTo: '/' + AppRoutes.home, pathMatch: 'full'},
+    {path: AppRoutes.boards, loadChildren: () => import('./pages/boards/boards.module').then(m => m.BoardsModule)},
+    {path: AppRoutes.home, loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)},
+];
 
 @NgModule({
     declarations: [
@@ -29,9 +38,11 @@ import {SharedModule} from './shared/shared.module';
     ],
     providers: [
         AuthService,
+        LocalStorageService,
     ],
     bootstrap: [AppComponent]
 })
+
 export class AppModule {
 
 }

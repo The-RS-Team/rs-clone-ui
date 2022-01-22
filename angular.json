@@ -16,6 +16,15 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ua": {
+            "translation": "src/locale/messages.ua.json",
+            "baseHref": ""
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -58,6 +67,11 @@
               ],
               "outputHashing": "all"
             },
+            "ua": {
+              "localize": ["ua"],
+              "outputPath": "dist/locale-ua/",
+              "i18nMissingTranslation": "error"
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
@@ -74,6 +88,9 @@
           "configurations": {
             "production": {
               "browserTarget": "TrelloClone:build:production"
+            },
+            "ua": {
+              "browserTarget": "TrelloClone:build:ua"
             },
             "development": {
               "browserTarget": "TrelloClone:build:development"

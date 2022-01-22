@@ -1,77 +1,97 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {Board} from "../../interfaces/board.interface";
-import {List} from "../../interfaces/list.interface";
-import {Card} from "../../interfaces/card.interface";
+import {catchError, Observable, of, tap} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {MessageService} from '../../shared/message.service';
+import {environment} from '../../../environments/environment';
+import {Board} from '../../interfaces/board.interface';
 
 @Injectable({
     providedIn: 'root'
 })
+
 export class BoardsService {
+    private boardsUrl = environment.serverAPI + '/board';
+
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
+    };
+
+    //TODO: Delete this array
     boards: Board[] = [
         {id: 1, title: 'Board-1', isFavorite: false, background: 'bg-1.jpg'},
         {id: 2, title: 'Board-2', isFavorite: false, background: 'bg-2.jpg'},
         {id: 3, title: 'Board-3', isFavorite: false, background: 'bg-3.jpg'},
         {id: 4, title: 'Board-4', isFavorite: false, background: 'bg-1.jpg'},
-    ];
-
-    lists: List[] = [
-        {id: 1, title: 'List-1', boardId: 1},
-        {id: 2, title: 'List-2', boardId: 1},
-        {id: 3, title: 'List-3', boardId: 1},
-        {id: 1, title: 'List-4', boardId: 2},
-        {id: 1, title: 'List-5', boardId: 3},
     ]
 
-    cards: Card[] = [
-        {id: 1, description: 'Task1', listId: 1},
-        {id: 2, description: 'Task2', listId: 1},
-        {id: 3, description: 'Task3 Task3 Task3', listId: 1},
-        {id: 1, description: 'Task4 Task4 Task4 Task4 Task4 Task4', listId: 2},
-    ]
-
-    favorites: Board[] = []
-
-    constructor() {
+    constructor(private readonly http: HttpClient,
+                private readonly messageService: MessageService) {
     }
-
 
     getBoards(): Observable<Board[]> {
-        return of(this.boards);
+        return this.http
+            .get<Board[]>(this.boardsUrl + '/all', this.httpOptions)
+            .pipe(
+                tap(_ => this.messageService.add('fetched Boards')),
+                catchError(this.handleError<Board[]>('getBoards', []))
+            );
     }
 
-    getLists(): Observable<List[]> {
-        return of(this.lists);
+    addBoard(board: Board): Observable<Board> {
+        return this.http
+            .post<Board>(this.boardsUrl, board, this.httpOptions)
+            .pipe(
+                tap((newBoard: Board) => this.log(`added board w/ id=${newBoard.id}`)),
+                catchError(this.handleError<Board>('addBoard'))
+            );
     }
 
-    getCards(): Observable<Card[]> {
-        return of(this.cards);
+    deleteBoard(id: number): Observable<Board> {
+        const url = `${this.boardsUrl}/${id}`;
+
+        return this.http
+            .delete<Board>(url, this.httpOptions)
+            .pipe(
+                tap(_ => this.log(`deleted board id=${id}`)),
+                catchError(this.handleError<Board>('deleteBoard'))
+            );
     }
 
-    addCard(description: string) {
-        let newCard: Card = {
-            id: this.cards.length + 1,
-            description: description
-        };
-        this.cards.push(newCard);
+    getFavorites(): Observable<Board[]> {
+        return this.http
+            .get<Board[]>(this.boardsUrl + '/fav', this.httpOptions)
+            .pipe(
+                tap(_ => this.messageService.add('fetched Boards')),
+                catchError(this.handleError<Board[]>('getBoards', []))
+            );
     }
 
-    addBoard(title: string) {
-        let newBoard: Board = {
-            id: this.boards.length + 1,
-            title: title,
-            isFavorite: false,
-            background: "bg-1.jpg",
-        };
-        this.boards.push(newBoard);
-    }
-
-    getFavorites(): void {
-        this.favorites = this.boards.filter((el) => el.isFavorite);
+    updateBoard(board: Board): Observable<any> {
+        return this.http
+            .put(this.boardsUrl, board, this.httpOptions)
+            .pipe(
+                tap(_ => this.log(`updated board id=${board.id}`)),
+                catchError(this.handleError<any>('updateBoard'))
+            );
     }
 
     addToFavorites(id: number): void {
+        //TODO: Delete this function
         this.boards[id - 1].isFavorite = !this.boards[id - 1].isFavorite;
         this.getFavorites();
+    }
+
+    private handleError<T>(operation = 'operation', result?: T) {
+        return (error: any): Observable<T> => {
+            console.error(error);
+            this.messageService.add(`${operation} failed: ${error.message}`);
+            return of(result as T);
+        };
+    }
+
+    private log(message: string) {
+        this.messageService.add(`BoardService: ${message}`);
     }
 }

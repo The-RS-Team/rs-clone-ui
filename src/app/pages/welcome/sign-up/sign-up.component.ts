@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../auth/auth.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from '@ngx-translate/core';
+import {LocalStorageService} from '../../../shared/services/local-storage.service';
 
 @Component({
     selector: 'app-signup',
@@ -11,23 +13,26 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 
 export class SignUpComponent implements OnInit {
-
     public loginForm: FormGroup;
     public signUpVisibility = false
     public currentRoute = this.route.snapshot.routeConfig?.path;
     public currentQueryParams = this.route.snapshot.queryParamMap.get('register');
+    public currentLanguage: string = 'en';
 
-    constructor(public authService: AuthService,
-                private fb: FormBuilder,
-                private snackService: MatSnackBar,
-                private route: ActivatedRoute,
-                private router: Router) {
+    constructor(public readonly authService: AuthService,
+                private readonly fb: FormBuilder,
+                private readonly snackService: MatSnackBar,
+                private readonly route: ActivatedRoute,
+                private readonly router: Router,
+                public readonly translate: TranslateService,
+                private readonly storage: LocalStorageService) {
 
         this.loginForm = this.fb.group({
             password: ['', [Validators.required, Validators.minLength(6)]],
             email: ['', [Validators.email, Validators.required]]
         })
 
+        this.currentLanguage = storage.getItem('language') ? storage.getItem('language') : '';
     }
 
     ngOnInit(): void {
@@ -72,5 +77,23 @@ export class SignUpComponent implements OnInit {
 
     logout(): void {
         this.authService.logout();
+    }
+
+    changeLanguage(lan: string) {
+        this.storage.setItem('language', lan)
+        this.translate.use(lan)
+    }
+
+    getLanguageName(lan: string) {
+        let label = '';
+        switch (lan) {
+            case 'ua':
+                label = 'Українська';
+                break;
+            case 'en':
+                label = 'English';
+                break;
+        }
+        return label;
     }
 }
