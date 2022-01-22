@@ -1,94 +1,13 @@
 <app-header></app-header>
 
 <section class="board__section">
-    <div class="board__lists-wrapper">
+    <div class="board__lists-wrapper" cdkDropListGroup>
+        <app-board-list class="board__list"
+                        *ngFor="let list of lists"
+                        [list]="list">
+        </app-board-list>
         <div class="board__list">
-            <div class="list__title-container">
-                <p class="list__title">To do</p>
-                <button mat-icon-button>
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-            </div>
-            <div class="list_cards-container">
-                <mat-card class="list__card">
-                    <mat-card-content>
-                        <img mat-card-image
-                             src="https://i.pinimg.com/236x/17/85/83/17858318d45e995f3ea88fb7ea5684ca--mans-best-friend-best-friends.jpg"
-                             alt="cat">
-                        Lorem ipsum Lorem ipsum
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="list__card">
-                    <mat-card-content>
-                        <img mat-card-image
-                             src="https://i.pinimg.com/236x/17/85/83/17858318d45e995f3ea88fb7ea5684ca--mans-best-friend-best-friends.jpg"
-                             alt="cat">
-                        Lorem ipsum Lorem ipsum
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="list__card">
-                    <mat-card-content>
-                        <img mat-card-image
-                             src="https://i.pinimg.com/236x/17/85/83/17858318d45e995f3ea88fb7ea5684ca--mans-best-friend-best-friends.jpg"
-                             alt="cat">
-                        Lorem ipsum Lorem ipsum
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="list__card">
-                    <mat-card-content>
-                        <img mat-card-image
-                             src="https://i.pinimg.com/236x/17/85/83/17858318d45e995f3ea88fb7ea5684ca--mans-best-friend-best-friends.jpg"
-                             alt="cat">
-                        Lorem ipsum Lorem ipsum
-                    </mat-card-content>
-                </mat-card>
-            </div>
-            <button class="list__new-card-btn" mat-stroked-button>+Add new card</button>
-        </div>
-        <div class="board__list">
-            <div class="list__title-container">
-                <p class="list__title">In progress</p>
-                <button mat-icon-button>
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-            </div>
-            <div class="list_cards-container">
-                <mat-card class="list__card">
-                    <mat-card-content>
-                        Lorem ipsum Lorem ipsum
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="list__card">
-                    <mat-card-content>
-                        <img mat-card-image
-                             src="https://i.pinimg.com/236x/17/85/83/17858318d45e995f3ea88fb7ea5684ca--mans-best-friend-best-friends.jpg"
-                             alt="cat">
-                        Lorem ipsum Lorem ipsum
-                    </mat-card-content>
-                </mat-card>
-            </div>
-            <button class="list__new-card-btn" mat-stroked-button>+Add new card</button>
-        </div>
-        <div class="board__list">
-            <div class="list__title-container">
-                <p class="list__title">Done</p>
-                <button mat-icon-button>
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-            </div>
-            <div class="list_cards-container">
-                <mat-card class="list__card">
-                    <mat-card-content>
-                        Lorem ipsum Lorem ipsum
-                    </mat-card-content>
-                </mat-card>
-                <mat-card class="list__card">
-                    <mat-card-content>
-                        Loremipsumloremipsum
-                    </mat-card-content>
-                </mat-card>
-            </div>
-            <button class="list__new-card-btn" mat-stroked-button>+Add new card</button>
+            <button class="list__new-column-btn" mat-stroked-button>+Add new column</button>
         </div>
     </div>
 </section>

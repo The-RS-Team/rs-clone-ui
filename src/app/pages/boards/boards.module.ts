@@ -6,6 +6,10 @@ import {BoardsRoutingModule} from "./boards-routing.module";
     imports: [
         SharedModule,
         BoardsRoutingModule
+    ],
+    exports: [
+    ],
+    declarations: [
     ]
 })
 export class BoardsModule {

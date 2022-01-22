@@ -7,6 +7,9 @@ import {BoardContentComponent} from "./board-content/board-content.component";
 import {SharedModule} from "../../shared/shared.module";
 import {HeaderComponent} from "../../shared/components/header/header.component";
 import {NewBoardComponent} from "./new-board/new-board.component";
+import {BoardCardComponent} from "./board-card/board-card.component";
+import {BoardListComponent} from "./board-list/board-list.component";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
@@ -14,12 +17,13 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-    declarations: [BoardsComponent, BoardContentComponent, HeaderComponent, NewBoardComponent],
-    exports: [BoardsComponent, BoardContentComponent, HeaderComponent, NewBoardComponent],
+    declarations: [BoardsComponent, BoardContentComponent, HeaderComponent, NewBoardComponent, BoardListComponent, BoardCardComponent],
+    exports: [BoardsComponent, BoardContentComponent, HeaderComponent, NewBoardComponent, BoardListComponent, BoardCardComponent],
     imports: [
         CommonModule,
         SharedModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        DragDropModule,
     ]
 })
 export class BoardsRoutingModule {

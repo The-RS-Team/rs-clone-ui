@@ -1,33 +1,36 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {List} from "../../../interfaces/list.interface";
+import {Card} from "../../../interfaces/card.interface";
 import {BoardsService} from "../boards.service";
+import {Subscription} from "rxjs";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 
 @Component({
-    selector: 'app-board-content',
-    templateUrl: './board-content.component.html',
-    styleUrls: ['./board-content.component.scss']
+    selector: 'app-board-list',
+    templateUrl: './board-list.component.html',
+    styleUrls: ['./board-list.component.scss']
 })
-export class BoardContentComponent implements OnInit, OnDestroy {
+export class BoardListComponent implements OnInit, OnDestroy {
+
+    @Input() list: List | undefined;
+    cards: Card[] = [];
+
     private sub$ = new Subscription();
 
-    lists: List[] = [];
-
-    constructor( private boardsService: BoardsService) {
+    constructor(private boardsService: BoardsService) {
     }
 
     ngOnInit(): void {
-        this.getLists();
-    }
-    getLists(): void {
-        this.sub$.add(
-            this.boardsService
-                .getLists()
-                .subscribe((lists) => this.lists = lists));
+        this.getCards();
     }
 
+    getCards(): void {
+        this.sub$.add(
+            this.boardsService
+                .getCards()
+                .subscribe((cards) => this.cards = cards));
+    }
     drop(event: CdkDragDrop<string[]>) {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -40,7 +43,6 @@ export class BoardContentComponent implements OnInit, OnDestroy {
             );
         }
     }
-
     public ngOnDestroy() {
         this.sub$.unsubscribe();
     }

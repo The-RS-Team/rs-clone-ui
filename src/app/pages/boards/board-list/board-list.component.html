@@ -1,0 +1,15 @@
+<div class="list__title-container">
+    <p class="list__title">{{list?.title}}</p>
+    <button mat-icon-button>
+        <img class="list__menu-icon" src="assets/images/svg/three_dots_icon.svg" alt="Tree dots icon">
+    </button>
+</div>
+<div class="list__cards-container"
+     cdkDropList
+     (cdkDropListDropped)="drop($event)">
+    <app-board-card class="list__card"
+                    *ngFor="let card of cards"
+                    [card]="card"
+                    cdkDrag></app-board-card>
+</div>
+<button class="list__new-card-btn" mat-stroked-button>+Add new card</button>
