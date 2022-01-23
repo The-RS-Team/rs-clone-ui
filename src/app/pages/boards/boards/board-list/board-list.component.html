@@ -11,6 +11,7 @@
     <app-board-card class="list__card"
                     *ngFor="let card of this.list?.cards"
                     [card]="card"
+                    (OnDeleteCard)="deleteCard($event)"
                     cdkDrag></app-board-card>
 </div>
 <button class="list__new-card-btn" mat-stroked-button

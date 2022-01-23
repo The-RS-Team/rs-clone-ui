@@ -17,21 +17,12 @@ export class BoardListComponent implements OnInit, OnDestroy {
 
     @Input() list: ListInterface = new List(0, [], '', 0);
 
-    private sub$ = new Subscription();
-
-    constructor(private boardsService: BoardsService) {
+    constructor() {
     }
 
     ngOnInit(): void {
-        // this.getCards();
-    }
 
-    // getCards(): void {
-    //     this.sub$.add(
-    //         this.boardsService
-    //             .getCards()
-    //             .subscribe((cards) => this.cards = cards));
-    // }
+    }
 
     drop(event: CdkDragDrop<Card[]>) {
         if (event.previousContainer === event.container) {
@@ -46,14 +37,18 @@ export class BoardListComponent implements OnInit, OnDestroy {
         }
     }
 
-    public addNewCard(): void {
-        console.log(this.list)
-        this.list.cards.push(new Card('', this.list.id, this.list.cards.length + 1))
-        console.log(this.list)
+    public deleteCard(cardId: number) {
+        const cardToDelete = this.list.cards.find(card => card.id === cardId)
+        if (cardToDelete) {
+            this.list.cards.splice(this.list.cards.indexOf(cardToDelete), 1);
+        }
+    }
 
+// Первый параметр new Card() пока что сделан таким, чтобы карточки отличались друг от друга на данном этапе
+    public addNewCard(): void {
+        this.list.cards.push(new Card((this.list.cards.length + 1).toString(), this.list.id, this.list.cards.length + 1))
     }
 
     public ngOnDestroy() {
-        this.sub$.unsubscribe();
     }
 }

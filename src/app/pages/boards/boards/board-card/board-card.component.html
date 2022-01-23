@@ -1,4 +1,8 @@
 <mat-card class="list__card">
+    <img class="card__close-icon"
+         src="assets/images/svg/close_icon.svg"
+         alt="Close icon"
+         (click)="deleteCard(card?.id)">
     <mat-card-content>
         {{card?.description}}
     </mat-card-content>

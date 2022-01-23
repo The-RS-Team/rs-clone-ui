@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CardInterface} from "../../../../interfaces/card.interface";
+import {ListInterface} from "../../../../interfaces/list.interface";
+import {List} from "../../../../models/list";
 
 @Component({
     selector: 'app-board-card',
@@ -7,13 +9,19 @@ import {CardInterface} from "../../../../interfaces/card.interface";
     styleUrls: ['./board-card.component.scss']
 })
 export class BoardCardComponent implements OnInit {
+
+    @Output() OnDeleteCard = new EventEmitter<number>();
+
     @Input() card: CardInterface | undefined;
+    @Input() list: ListInterface = new List(0, [], '', 0);
 
     constructor() {
     }
 
     ngOnInit(): void {
-        console.log(this.card)
     }
 
+    public deleteCard(cardId?: number): void {
+        this.OnDeleteCard.emit(cardId);
+    }
 }

@@ -1,5 +1,13 @@
 .list__card {
   margin: 0 3px 0 3px;
+  position: relative;
   //scroll-snap-align: start;
-  //overflow: hidden;
+}
+
+.card__close-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 12px;
+  height: 12px;
 }
