@@ -4,6 +4,7 @@
          alt="Close icon"
          (click)="deleteCard(card?.id)">
     <mat-card-content>
+            <input class="card__input-title" matInput type="text" placeholder="Enter a title for this card"  autocomplete="off">
         {{card?.description}}
     </mat-card-content>
 </mat-card>

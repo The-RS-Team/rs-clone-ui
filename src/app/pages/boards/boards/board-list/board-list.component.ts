@@ -44,9 +44,8 @@ export class BoardListComponent implements OnInit, OnDestroy {
         }
     }
 
-// Первый параметр new Card() пока что сделан таким, чтобы карточки отличались друг от друга на данном этапе
     public addNewCard(): void {
-        this.list.cards.push(new Card((this.list.cards.length + 1).toString(), this.list.id, this.list.cards.length + 1))
+        this.list.cards.push(new Card('','', this.list.id, this.list.cards.length + 1))
     }
 
     public ngOnDestroy() {

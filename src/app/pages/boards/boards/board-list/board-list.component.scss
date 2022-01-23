@@ -12,7 +12,10 @@
 }
 .list__title {
   font-weight: bold;
-  //font-size: 16px;
+  outline: none;
+  border: none;
+  background: none;
+
   &new-card-btn {
     color: #7a7a7a;
   }
