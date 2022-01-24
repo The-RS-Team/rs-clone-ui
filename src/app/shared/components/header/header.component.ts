@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {NewBoardComponent} from '../../../pages/boards/components/new-board/new-board.component';
 import {BoardsService} from '../../../pages/boards/boards.service';
+import {AuthService} from "../../../auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-header',
@@ -12,8 +14,9 @@ import {BoardsService} from '../../../pages/boards/boards.service';
 export class HeaderComponent implements OnInit {
 
     constructor(private dialog: MatDialog,
-                private boardsService: BoardsService) {
-
+                private boardsService: BoardsService,
+                public authService: AuthService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
@@ -33,5 +36,16 @@ export class HeaderComponent implements OnInit {
             this.boardsService.addBoard(title);
         });
     }
+
+    logOutUser() {
+        this.authService.logout();
+    }
+
+    goToWelcome() {
+        this.router.navigate(['/home']);
+    }
+
+
+
 
 }
