@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {NewBoardComponent} from '../../../pages/boards/boards/new-board/new-board.component';
+import {NewBoardComponent} from '../../../pages/boards/components/new-board/new-board.component';
 import {BoardsService} from '../../../pages/boards/boards.service';
 
 @Component({

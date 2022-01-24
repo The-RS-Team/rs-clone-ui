@@ -1,0 +1,43 @@
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {CardInterface} from "../../../../interfaces/card.interface";
+import {ColumnInterface} from "../../../../interfaces/column.interface";
+import {Column} from "../../../../models/column";
+import {MatDialog} from "@angular/material/dialog";
+import {CardPopUpInfoComponent} from "../card-pop-up-info/card-pop-up-info.component";
+
+@Component({
+    selector: 'app-board-card',
+    templateUrl: './card.component.html',
+    styleUrls: ['./card.component.scss']
+})
+export class CardComponent implements OnInit, AfterViewInit {
+
+    @Output() OnDeleteCard = new EventEmitter<number>();
+
+    @Input() card: CardInterface | undefined;
+    @Input() list: ColumnInterface = new Column(0, [], '', 0, 0);
+
+    @ViewChild('cardTitleInput') cardTitleInput: ElementRef | undefined;
+
+    constructor(public dialog: MatDialog) {
+    }
+
+    ngOnInit(): void {
+    }
+
+    ngAfterViewInit(): void {
+        this.cardTitleInput?.nativeElement.focus();
+    }
+
+    openDialog() {
+        const dialogRef = this.dialog.open(CardPopUpInfoComponent);
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(`Dialog result: ${result}`);
+        });
+    }
+    
+    public deleteCard(cardId?: number): void {
+        this.OnDeleteCard.emit(cardId);
+    }
+}

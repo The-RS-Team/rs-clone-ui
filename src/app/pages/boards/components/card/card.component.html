@@ -1,0 +1,27 @@
+<mat-card>
+    <mat-card-content>
+        <input #cardTitleInput
+               class="card__input-title"
+               matInput type="text"
+               placeholder="Enter a title for this card"
+               autocomplete="off">
+        {{card?.description}}
+    </mat-card-content>
+    <button mat-icon-button
+            class="card__edit-btn"
+            [matMenuTriggerFor]="cardMenu">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <mat-menu #cardMenu="matMenu">
+        <button mat-menu-item
+                (click)="openDialog()">
+            <mat-icon>picture_in_picture</mat-icon>
+            <span>Open card</span>
+        </button>
+        <button mat-menu-item
+                (click)="deleteCard(card?.id)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete card</span>
+        </button>
+    </mat-menu>
+</mat-card>

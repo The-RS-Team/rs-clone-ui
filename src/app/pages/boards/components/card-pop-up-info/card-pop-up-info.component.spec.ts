@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BoardCardComponent } from './board-card.component';
+import { CardPopUpInfoComponent } from './card-pop-up-info.component';
 
-describe('BoardCardComponent', () => {
-  let component: BoardCardComponent;
-  let fixture: ComponentFixture<BoardCardComponent>;
+describe('CardPopUpComponent', () => {
+  let component: CardPopUpInfoComponent;
+  let fixture: ComponentFixture<CardPopUpInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BoardCardComponent ]
+      declarations: [ CardPopUpInfoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BoardCardComponent);
+    fixture = TestBed.createComponent(CardPopUpInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

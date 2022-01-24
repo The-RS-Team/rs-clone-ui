@@ -1,8 +1,9 @@
 import {CardInterface} from "./card.interface";
 
-export interface ListInterface {
+export interface ColumnInterface {
     id: number;
     title: string;
     cards: CardInterface[];
+    position: number;
     boardId: number;
 }

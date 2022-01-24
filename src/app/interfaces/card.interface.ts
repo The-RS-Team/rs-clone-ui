@@ -2,6 +2,7 @@
     id: number;
     title: string;
     description: string;
-    listId: number;
+    position: number;
+    columnId: number;
 }
 

@@ -1,20 +1,19 @@
-import {ListInterface} from "../interfaces/list.interface";
+import {ColumnInterface} from "../interfaces/column.interface";
 import {BoardInterface} from "../interfaces/board.interface";
 
 export class Board implements BoardInterface {
-    background: string;
     id: number;
-    isFavorite: boolean;
-    lists: ListInterface[];
     title: string;
+    isFavorite: boolean;
+    background: string;
+    columns: ColumnInterface[];
 
-    constructor(id: number, title: string, isFavorite: boolean, lists: ListInterface[], background: string) {
-        this.background = background;
+    constructor(id: number, title: string, isFavorite: boolean, background: string, columns: ColumnInterface[]) {
+        this.id = id;
         this.title = title;
         this.isFavorite = isFavorite;
         this.background = background;
-        this.lists = lists;
-        this.id = id;
+        this.columns = columns;
     }
 
 

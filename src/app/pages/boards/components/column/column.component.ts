@@ -9,28 +9,29 @@ import {
     EventEmitter,
     AfterViewInit,
 } from '@angular/core';
-import {ListInterface} from "../../../../interfaces/list.interface";
+import {ColumnInterface} from "../../../../interfaces/column.interface";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Card} from "../../../../models/card";
-import {List} from "../../../../models/list";
+import {Column} from "../../../../models/column";
 import {CardInterface} from "../../../../interfaces/card.interface";
 
 
 @Component({
     selector: 'app-board-list',
-    templateUrl: './board-list.component.html',
-    styleUrls: ['./board-list.component.scss']
+    templateUrl: './column.component.html',
+    styleUrls: ['./column.component.scss']
 })
-export class BoardListComponent implements OnInit, AfterViewInit {
+export class ColumnComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteList = new EventEmitter<number>();
 
-    @Input() list: ListInterface = new List(0, [], '', 0);
+    @Input() column: ColumnInterface = new Column(0, [], '', 0, 0);
     @ViewChild('listTitleInput') listTitleInput: ElementRef | undefined;
 
     constructor() {
     }
 
     ngOnInit(): void {
+
     }
 
     ngAfterViewInit(): void {
@@ -51,17 +52,17 @@ export class BoardListComponent implements OnInit, AfterViewInit {
     }
 
     public deleteCard(cardId: number) {
-        const cardToDelete = this.list.cards.find(card => card.id === cardId)
+        const cardToDelete = this.column.cards.find(card => card.id === cardId)
         if (cardToDelete) {
-            this.list.cards.splice(this.list.cards.indexOf(cardToDelete), 1);
+            this.column.cards.splice(this.column.cards.indexOf(cardToDelete), 1);
         }
     }
 
     public addNewCard(): void {
-        this.list.cards.push(new Card('', '', this.list.id, this.list.cards.length + 1));
+        this.column.cards.push(new Card(this.column.cards.length + 1, '', '', this.column.id,0));
     }
 
-    public deleteList(listId?: number): void {
-        this.OnDeleteList.emit(listId);
+    public deleteList(columnId?: number): void {
+        this.OnDeleteList.emit(columnId);
     }
 }

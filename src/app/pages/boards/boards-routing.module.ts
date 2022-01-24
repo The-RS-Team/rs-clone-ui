@@ -2,23 +2,23 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 import {AppRoutes} from "../../app.constants";
-import {BoardsComponent} from "./boards.component";
-import {BoardContentComponent} from "./boards/board-content/board-content.component";
+import {BoardsComponent} from "./components/boards/boards.component";
+import {BoardComponent} from "./components/board/board.component";
 import {SharedModule} from "../../shared/shared.module";
 import {HeaderComponent} from "../../shared/components/header/header.component";
-import {NewBoardComponent} from "./boards/new-board/new-board.component";
-import {BoardCardComponent} from "./boards/board-card/board-card.component";
-import {BoardListComponent} from "./boards/board-list/board-list.component";
+import {NewBoardComponent} from "./components/new-board/new-board.component";
+import {CardComponent} from "./components/card/card.component";
+import {ColumnComponent} from "./components/column/column.component";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
-    {path: AppRoutes.boardContent, component: BoardContentComponent},
+    {path: AppRoutes.boardContent, component: BoardComponent},
 ];
 
 @NgModule({
-    declarations: [BoardsComponent, BoardContentComponent, HeaderComponent, NewBoardComponent, BoardListComponent, BoardCardComponent],
-    exports: [BoardsComponent, BoardContentComponent, HeaderComponent, NewBoardComponent, BoardListComponent, BoardCardComponent],
+    declarations: [BoardsComponent, BoardComponent, HeaderComponent, NewBoardComponent, ColumnComponent, CardComponent],
+    exports: [BoardsComponent, BoardComponent, HeaderComponent, NewBoardComponent, ColumnComponent, CardComponent],
     imports: [
         CommonModule,
         SharedModule,

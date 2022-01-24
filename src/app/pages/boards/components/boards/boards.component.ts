@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {BoardInterface} from '../../interfaces/board.interface';
+import {BoardInterface} from '../../../../interfaces/board.interface';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {BoardsService} from './boards.service';
-import {NewBoardComponent} from './boards/new-board/new-board.component';
+import {BoardsService} from '../../boards.service';
+import {NewBoardComponent} from '../new-board/new-board.component';
 import {Subscription} from 'rxjs';
 import {Router} from "@angular/router";
 
@@ -76,7 +76,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
     }
 
     public openBoard(id: number) {
-        this.router.navigate(['board-content'], {queryParams: {id: id}})
+        this.router.navigate(['board'], {queryParams: {id: id}})
     }
 
     public ngOnDestroy() {

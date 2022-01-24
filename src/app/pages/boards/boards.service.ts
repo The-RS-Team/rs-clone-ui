@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MessageService} from '../../shared/message.service';
 import {environment} from '../../../environments/environment';
 import {BoardInterface} from '../../interfaces/board.interface';
-import {ListInterface} from "../../interfaces/list.interface";
+import {ColumnInterface} from "../../interfaces/column.interface";
 import {CardInterface} from "../../interfaces/card.interface";
 
 @Injectable({
@@ -14,12 +14,12 @@ import {CardInterface} from "../../interfaces/card.interface";
 export class BoardsService {
     private boardsUrl = environment.serverAPI + '/board';
 
-    // lists: ListInterface[] = [
-    //     {id: 1, title: 'List-1', boardId: 1},
-    //     {id: 2, title: 'List-2', boardId: 1},
-    //     {id: 3, title: 'List-3', boardId: 2},
-    //     {id: 4, title: 'List-4', boardId: 2},
-    //     {id: 5, title: 'List-5', boardId: 2},
+    // lists: ColumnInterface[] = [
+    //     {id: 1, title: 'Column-1', boardId: 1},
+    //     {id: 2, title: 'Column-2', boardId: 1},
+    //     {id: 3, title: 'Column-3', boardId: 2},
+    //     {id: 4, title: 'Column-4', boardId: 2},
+    //     {id: 5, title: 'Column-5', boardId: 2},
     // ]
 
     // cards: CardInterface[] = [

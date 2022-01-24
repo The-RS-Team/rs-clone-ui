@@ -4,8 +4,8 @@
     <div class="board__lists-wrapper" cdkDropListGroup>
         <app-board-list class="board__list"
                         (OnDeleteList)="deleteList($event)"
-                        *ngFor="let list of this.board?.lists"
-                        [list]="list">
+                        *ngFor="let column of this.board?.columns"
+                        [column]="column">
         </app-board-list>
         <div class="board__list">
             <button class="list__new-column-btn"
