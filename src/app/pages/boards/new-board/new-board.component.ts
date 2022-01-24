@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {BoardsService} from "../boards.service";
+import {Board} from "../../../interfaces/board.interface";
 
 @Component({
     selector: 'app-new-board',
@@ -11,18 +13,29 @@ export class NewBoardComponent implements OnInit {
     public formGroup: FormGroup | any;
 
     constructor(private fb: FormBuilder,
-                private dialogRef: MatDialogRef<NewBoardComponent>) {
+                public dialogRef: MatDialogRef<NewBoardComponent>,
+                private boardsService: BoardsService
+               ) {
     }
 
     ngOnInit(): void {
         this.formGroup = this.fb.group({
-            title: ['', [Validators.required]]
+            title: ['', [Validators.required]],
+            description: ['', []]
         });
     }
 
     create() {
         if (this.formGroup.invalid) return;
-        this.dialogRef.close(this.formGroup.value);
+        const board = {
+            "title": this.formGroup.value.title,
+            "description": this.formGroup.value.description,
+            "isFavorite": false,
+            "background": "bg-1.jpg"
+        }
+        this.boardsService.addBoard(board as Board)
+            .subscribe(
+                board => this.dialogRef.close(board)
+            );
     }
-
 }

@@ -14,13 +14,15 @@ export class LocalStorageService {
     }
 
     getItem(key: string): any {
-        try {
-            const item: string | null = localStorage.getItem(key);
-            if (item)
-                return JSON.parse(item);
-        } catch (e) {
-            return null;
-        }
+        // try {
+        //     const item: string | null = localStorage.getItem(key);
+        //     if (item)
+        //         return JSON.parse(item);
+        // } catch (e) {
+        //     return null;
+        // }
+        const item = localStorage.getItem(key);
+        return  item ? JSON.parse(item) : null;
     }
 
     removeItem(key: string): any {

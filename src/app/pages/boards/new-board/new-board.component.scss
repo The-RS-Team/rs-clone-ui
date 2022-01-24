@@ -3,7 +3,7 @@
   
   &__wrapper {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
   }
 
@@ -17,12 +17,22 @@
 
   &__pic {
     background: url('./../../../../assets/images/svg/wave.svg');
-    background-position: top right;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
+    flex: 1;
     align-items: center;
-    height: 100%;
+    justify-content: center;
+    margin-left: 40px;
+  }
+
+  &__textarea {
+    width: 100%;
+
+    textarea {
+      height: 90px;
+    }
   }
 }
 

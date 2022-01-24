@@ -5,7 +5,10 @@
     <div class="boards__block">
         <div class="boards__item" *ngFor="let board of favorites" [ngStyle]=getBg(board.background)>
             <h4 class="boards__item__title">{{board.title}}</h4>
-            <div class="boards__item__star" (click)="addToFavorites(board.id)" [ngStyle]=getStar(board.isFavorite)></div>
+            <div class="boards__item__settings">
+                <div class="boards__item__star" (click)="addToFavorites(board)" [ngStyle]=getStar(board.isFavorite)></div>
+                <div class="boards__item__delete" (click)="deleteBoard(board)"></div>
+            </div>
         </div>
     </div>
 
@@ -15,7 +18,10 @@
     <div *ngIf="boards.length" class="boards__block">
         <div class="boards__item" *ngFor="let board of boards" [ngStyle]=getBg(board.background)>
             <h4 class="boards__item__title">{{board.title}}</h4>
-            <div class="boards__item__star" (click)="addToFavorites(board.id)" [ngStyle]=getStar(board.isFavorite)></div>
+            <div class="boards__item__settings">
+                <div class="boards__item__star" (click)="addToFavorites(board)" [ngStyle]=getStar(board.isFavorite)></div>
+                <div class="boards__item__delete" (click)="deleteBoard(board)"></div>
+            </div>
         </div>
     </div>
 </div>

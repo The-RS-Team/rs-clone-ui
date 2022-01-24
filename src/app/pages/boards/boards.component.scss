@@ -9,8 +9,6 @@
   max-width: 620px;
   margin: 0 auto;
 
-
-
   &__block {
     display: flex;
     flex-wrap: wrap;
@@ -29,6 +27,12 @@
     flex-direction: column;
     justify-content: space-between;
 
+    &__settings {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      color: #fff;
+    }
 
     &__title {
       color: #fff;
@@ -39,6 +43,20 @@
       height: 17px;
       align-self: flex-end;
       cursor: pointer;
+    }
+
+    &__delete {
+      width: 17px;
+      height: 17px;
+      background: url("../../../assets/images/svg/trash.svg") no-repeat;
+      background-size: contain;
+      cursor: pointer;
+      opacity: 0;
+      transition: 0.5s;
+    }
+
+    &:hover &__delete {
+      opacity: 1;
     }
   }
 }

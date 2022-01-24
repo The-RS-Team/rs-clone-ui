@@ -14,23 +14,24 @@ export class BoardsComponent implements OnInit, OnDestroy {
   private sub$ = new Subscription();
 
   imgBaseUrl = "http://localhost:4200/assets/images/"
-  boards: Board[] = [];
+  boards: Board[] = []
   favorites: Board[] = [];
 
   constructor(
       private boardsService: BoardsService,
-      private dialog: MatDialog
+      private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.getBoards();
+    this.getFavorites();
   }
 
   getBoards(): void {
     this.sub$.add(
     this.boardsService
         .getBoards()
-        .subscribe((boards) => this.boards = boards));
+        .subscribe(boards => this.boards = boards));
   }
 
   getBg(pic: string) {
@@ -43,17 +44,40 @@ export class BoardsComponent implements OnInit, OnDestroy {
   getStar(isFav: boolean) {
     let star = isFav ? 'star-solid.svg' : 'star-line.svg';
     return {
-      background: `url('${this.imgBaseUrl}svg/${star}')`,
+      background: `url('${this.imgBaseUrl}svg/${star}') no-repeat`,
     }
   }
 
   getFavorites() {
-    this.favorites = this.boards.filter( el => el.isFavorite);
+    this.sub$.add(
+    this.boardsService
+        .getFavorites()
+        .subscribe( fav => this.favorites = fav)
+    )
   }
 
-  addToFavorites(id: number) {
-    this.boards[id - 1].isFavorite = !this.boards[id - 1].isFavorite;
-    this.getFavorites();
+  addToFavorites(board: Board): void {
+    board.isFavorite = !board.isFavorite;
+    this.boardsService.updateBoard(board as Board)
+        .subscribe(
+            _ => {
+              if (board.isFavorite) {
+              this.favorites.push(board)
+              } else {
+                this.favorites = this.favorites.filter( el => el.isFavorite)
+              }
+            }
+        )
+  }
+
+  deleteBoard(board: Board): void {
+    this.boardsService.deleteBoard(board.id!)
+        .subscribe(
+            _ => {
+              this.boards = this.boards.filter( el => board.id != el.id)
+              this.favorites = this.favorites.filter( el => board.id != el.id)
+            }
+        )
   }
 
   openDialog() {
@@ -64,10 +88,8 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
     const dialogRef = this.dialog.open(NewBoardComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe((data) => {
-      if (!data) return;
-      let title = data.title.trim();
-      this.boardsService.addBoard(title);
+   dialogRef.afterClosed().subscribe(board => {
+      this.boards.push(board)
     });
   }
 

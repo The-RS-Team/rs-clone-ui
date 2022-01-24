@@ -22,6 +22,7 @@ export class I18nModule {
                 private readonly storage: LocalStorageService) {
         translate.addLangs(['en', 'ua']);
         // const browserLang = translate.getBrowserLang();
+        // const browserLang = localStorage.getItem('language')
         const browserLang = this.storage.getItem('language')!
         if (browserLang) translate.use(browserLang.match(/en|ua/) ? browserLang : 'en');
     }

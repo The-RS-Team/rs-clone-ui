@@ -18,14 +18,6 @@ export class BoardsService {
         })
     };
 
-    //TODO: Delete this array
-    boards: Board[] = [
-        {id: 1, title: 'Board-1', isFavorite: false, background: 'bg-1.jpg'},
-        {id: 2, title: 'Board-2', isFavorite: false, background: 'bg-2.jpg'},
-        {id: 3, title: 'Board-3', isFavorite: false, background: 'bg-3.jpg'},
-        {id: 4, title: 'Board-4', isFavorite: false, background: 'bg-1.jpg'},
-    ]
-
     constructor(private readonly http: HttpClient,
                 private readonly messageService: MessageService) {
     }
@@ -77,11 +69,6 @@ export class BoardsService {
             );
     }
 
-    addToFavorites(id: number): void {
-        //TODO: Delete this function
-        this.boards[id - 1].isFavorite = !this.boards[id - 1].isFavorite;
-        this.getFavorites();
-    }
 
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
