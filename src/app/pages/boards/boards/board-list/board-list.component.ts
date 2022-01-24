@@ -1,11 +1,19 @@
-import {Component, Input, OnInit, OnDestroy} from '@angular/core';
+import {
+    Component,
+    Input,
+    OnInit,
+    OnDestroy,
+    ViewChild,
+    ElementRef,
+    Output,
+    EventEmitter,
+    AfterViewInit,
+} from '@angular/core';
 import {ListInterface} from "../../../../interfaces/list.interface";
-import {CardInterface} from "../../../../interfaces/card.interface";
-import {BoardsService} from "../../boards.service";
-import {Subscription} from "rxjs";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Card} from "../../../../models/card";
 import {List} from "../../../../models/list";
+import {CardInterface} from "../../../../interfaces/card.interface";
 
 
 @Component({
@@ -13,15 +21,20 @@ import {List} from "../../../../models/list";
     templateUrl: './board-list.component.html',
     styleUrls: ['./board-list.component.scss']
 })
-export class BoardListComponent implements OnInit, OnDestroy {
+export class BoardListComponent implements OnInit, AfterViewInit {
+    @Output() OnDeleteList = new EventEmitter<number>();
 
     @Input() list: ListInterface = new List(0, [], '', 0);
+    @ViewChild('listTitleInput') listTitleInput: ElementRef | undefined;
 
     constructor() {
     }
 
     ngOnInit(): void {
+    }
 
+    ngAfterViewInit(): void {
+        this.listTitleInput?.nativeElement.focus();
     }
 
     drop(event: CdkDragDrop<Card[]>) {
@@ -45,9 +58,10 @@ export class BoardListComponent implements OnInit, OnDestroy {
     }
 
     public addNewCard(): void {
-        this.list.cards.push(new Card('','', this.list.id, this.list.cards.length + 1))
+        this.list.cards.push(new Card('', '', this.list.id, this.list.cards.length + 1));
     }
 
-    public ngOnDestroy() {
+    public deleteList(listId?: number): void {
+        this.OnDeleteList.emit(listId);
     }
 }

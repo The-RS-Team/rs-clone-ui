@@ -12,6 +12,12 @@
   border-radius: 5px;
 }
 
+mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 16px;
+}
+
 .board__section {
   width: 100%;
   height: 100%;
@@ -39,6 +45,7 @@
     border-radius: 5px;
     background-color: #091e4214;
   }
+
   .cdk-drag-preview {
     box-sizing: border-box;
     border-radius: 4px;

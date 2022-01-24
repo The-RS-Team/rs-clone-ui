@@ -11,12 +11,14 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatIconModule} from "@angular/material/icon";
 import {TranslateModule} from '@ngx-translate/core';
 import {I18nModule} from "./i18n.module";
+import {MatMenuModule} from "@angular/material/menu";
 
 const commonModules = [
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
     MatIconModule,
+    MatMenuModule,
     MatDialogModule,
     MatSnackBarModule,
     MatCardModule,

@@ -1,8 +1,21 @@
 <div class="list__title-container">
-    <input class="list__title" matInput type="text" placeholder="Enter a title for this card" autocomplete="off">
-    <button mat-icon-button>
-        <img class="list__menu-icon" src="../../../../../assets/images/svg/three_dots_icon.svg" alt="Tree dots icon">
+    <input #listTitleInput
+           class="list__title"
+           matInput type="text"
+           placeholder="Enter a title for this card"
+           autocomplete="off">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <img class="list__menu-icon"
+             src="../../../../../assets/images/svg/three_dots_icon.svg"
+             alt="Tree dots icon">
     </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item
+                (click)="deleteList(list?.id)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete list</span>
+        </button>
+    </mat-menu>
 </div>
 <div class="list__cards-container"
      cdkDropList
@@ -14,5 +27,9 @@
                     (OnDeleteCard)="deleteCard($event)"
                     cdkDrag></app-board-card>
 </div>
-<button class="list__new-card-btn" mat-stroked-button
-        (click)="addNewCard()">+Add new card</button>
+<button class="list__new-card-btn"
+        mat-stroked-button
+        (click)="addNewCard()">
+    <mat-icon>add</mat-icon>
+    Add a new card
+</button>
