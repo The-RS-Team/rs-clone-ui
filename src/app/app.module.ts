@@ -14,6 +14,7 @@ import {Routes} from '@angular/router';
 import {SharedModule} from './shared/shared.module';
 import {AppRoutes} from './app.constants';
 import {LocalStorageService} from './shared/services/local-storage.service';
+import {WebsocketService} from './shared/services/socket.service';
 
 export const ROUTES: Routes = [
     {path: '', redirectTo: '/' + AppRoutes.home, pathMatch: 'full'},
@@ -39,6 +40,7 @@ export const ROUTES: Routes = [
     providers: [
         AuthService,
         LocalStorageService,
+        WebsocketService,
     ],
     bootstrap: [AppComponent]
 })

@@ -1,19 +1,10 @@
-import {
-    Component,
-    Input,
-    OnInit,
-    OnDestroy,
-    ViewChild,
-    ElementRef,
-    Output,
-    EventEmitter,
-    AfterViewInit,
-} from '@angular/core';
-import {ColumnInterface} from "../../../../interfaces/column.interface";
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
+import {ColumnInterface} from '../../../../interfaces/column.interface';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {Card} from "../../../../models/card";
-import {Column} from "../../../../models/column";
-import {CardInterface} from "../../../../interfaces/card.interface";
+import {Card} from '../../../../models/card';
+import {Column} from '../../../../models/column';
+import {WebsocketService} from '../../../../shared/services/socket.service';
+import {Messages} from '../../../../app.constants';
 
 
 @Component({
@@ -27,11 +18,17 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     @Input() column: ColumnInterface = new Column(0, [], '', 0, 0);
     @ViewChild('listTitleInput') listTitleInput: ElementRef | undefined;
 
-    constructor() {
+    constructor(private readonly socketService: WebsocketService) {
     }
 
     ngOnInit(): void {
-
+        this.socketService.socket.on(Messages.newCard, msg => {
+            console.log(Messages.newCard, msg)
+            if (msg) {
+                console.log(Messages.newCard, msg)
+                this.column.cards.push(msg as Card);
+            }
+        });
     }
 
     ngAfterViewInit(): void {
@@ -59,7 +56,8 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     }
 
     public addNewCard(): void {
-        this.column.cards.push(new Card(this.column.cards.length + 1, '', '', this.column.id,0));
+        const card = new Card(this.column.cards.length + 1, '', '', this.column.id, 0);
+        this.socketService.newCard(card);
     }
 
     public deleteList(columnId?: number): void {

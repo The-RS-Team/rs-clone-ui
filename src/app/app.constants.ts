@@ -3,5 +3,17 @@ export enum AppRoutes {
     login = 'login',
     boards = 'boards',
     home = 'home',
-    board = 'board'
+    board = 'board',
+    boardContent = 'board-content'
+}
+
+export enum Messages {
+    connect = 'connect',
+    connectError = 'connect_error',
+    disconnect = 'disconnect',
+    sendMessage = 'send_message',
+    hello = 'hello',
+    createRoom = 'create_room',
+    newColumn = 'new_column',
+    newCard = 'new_card',
 }
