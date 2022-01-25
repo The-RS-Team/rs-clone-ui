@@ -13,7 +13,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
-    {path: AppRoutes.boardContent, component: BoardComponent},
+    {path: AppRoutes.board, component: BoardComponent},
 ];
 
 @NgModule({

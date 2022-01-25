@@ -3,5 +3,5 @@ export enum AppRoutes {
     login = 'login',
     boards = 'boards',
     home = 'home',
-    boardContent = 'board-content'
+    board = 'board'
 }

@@ -7,7 +7,7 @@ const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'login', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)},
     {path: 'home', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)},
-    {path: 'models-content', loadChildren: () => import('./pages/boards/boards.module').then(m => m.BoardsModule)},
+    {path: 'board', loadChildren: () => import('./pages/boards/boards.module').then(m => m.BoardsModule)},
     {path: 'boards', loadChildren: () => import('./pages/boards/boards.module').then(m => m.BoardsModule), canActivate: [AuthGuard]},
 ];
 
