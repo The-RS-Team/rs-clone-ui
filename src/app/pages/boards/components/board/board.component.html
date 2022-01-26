@@ -1,0 +1,19 @@
+<app-header></app-header>
+
+<section class="board__section">
+    <div class="board__lists-wrapper" cdkDropListGroup>
+        <app-board-list class="board__list"
+                        (OnDeleteList)="deleteList($event)"
+                        *ngFor="let column of this.board?.columns"
+                        [column]="column">
+        </app-board-list>
+        <div class="board__list">
+            <button class="list__new-column-btn"
+                    (click)="addNewList()"
+                    mat-stroked-button>
+                <mat-icon>add</mat-icon>
+                Add a new column
+            </button>
+        </div>
+    </div>
+</section>

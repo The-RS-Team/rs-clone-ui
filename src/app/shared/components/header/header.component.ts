@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {NewBoardComponent} from '../../../pages/boards/new-board/new-board.component';
+import {NewBoardComponent} from '../../../pages/boards/components/new-board/new-board.component';
 import {BoardsService} from '../../../pages/boards/boards.service';
 import {AuthService} from "../../../auth/auth.service";
 import {Router} from "@angular/router";

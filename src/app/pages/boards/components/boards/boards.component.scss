@@ -1,4 +1,4 @@
-@import "../../../assets/mixin";
+@import "../../../../../assets/mixin";
 
 .space-title {
   @include font(16px, 700, 24px);
@@ -8,7 +8,6 @@
 .boards {
   max-width: 620px;
   margin: 0 auto;
-
 
 
   &__block {

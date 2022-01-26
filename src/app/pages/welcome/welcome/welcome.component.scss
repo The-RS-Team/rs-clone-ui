@@ -118,9 +118,12 @@ h2 {
   }
 }
 
+.button {
+  margin-left: 10px;
+}
+
 .signup-btn {
   background-color: var(--btn-main);
-  margin-left: 10px;
 
   &:hover {
     background-color: var(--btn-hover);
