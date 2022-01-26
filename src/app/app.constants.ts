@@ -4,7 +4,6 @@ export enum AppRoutes {
     boards = 'boards',
     home = 'home',
     board = 'board',
-    boardContent = 'board-content'
 }
 
 export enum Messages {
