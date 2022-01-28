@@ -12,7 +12,7 @@ import {Board} from "../../../../models/board";
 export class BoardComponent implements OnInit, OnDestroy {
     private sub$ = new Subscription();
 
-    public board: Board = new Board(0, '', false, '', []);
+    public board: Board = new Board(0, '', '',false, '', []);
 
     constructor(private boardsService: BoardsService,
                 private activatedRoute: ActivatedRoute) {
@@ -22,6 +22,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.boardsService.getBoardById(this.activatedRoute.snapshot.queryParams['id'])
             .subscribe((board) => {
                 this.board = board;
+                console.log(this.board)
                 this.board.columns = this.board.columns || [];
             })
     }
