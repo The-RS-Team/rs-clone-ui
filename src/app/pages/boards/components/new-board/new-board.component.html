@@ -1,23 +1,27 @@
 <div class="popup">
     <div class="popup__wrapper">
         <div class="popup__form">
-            <h2 mat-dialog-title class="popup__title">{{'new-models.create-models' | translate}}</h2>
-            <p class="popup__description">{{'new-models.description' | translate}}</p>
+            <h2 mat-dialog-title class="popup__title">{{'new-board.create-board' | translate}}</h2>
+            <p class="popup__description">{{'new-board.description' | translate}}</p>
             <mat-dialog-content [formGroup]="formGroup">
                 <mat-form-field appearance="outline" class="popup__input">
-                    <input matInput placeholder="{{'new-models.models-title' | translate}}" formControlName="title">
+                    <input matInput placeholder="{{'new-board.board-title' | translate}}" formControlName="title">
                     <mat-error *ngIf="formGroup.controls['title'].invalid" >
-                        {{'new-models.enter-title' | translate}}
+                        {{'new-board.enter-title' | translate}}
                     </mat-error>
-                    <mat-hint>{{'new-models.enter-models-name' | translate}}</mat-hint>
+                    <mat-hint>{{'new-board.enter-board-name' | translate}}</mat-hint>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="popup__textarea">
+                    <textarea matInput placeholder="{{'new-board.description-plch' | translate}}" formControlName="description"></textarea>
+                    <mat-hint>{{'new-board.enter-board-desc' | translate}}</mat-hint>
                 </mat-form-field>
             </mat-dialog-content>
-      <mat-dialog-actions>
-        <button type="button" mat-stroked-button (click)="create()" class="btn-full-width">{{'new-models.create' | translate}}</button>
-      </mat-dialog-actions>
+            <mat-dialog-actions>
+                <button type="button" mat-stroked-button (click)="create()" class="btn-full-width">{{'new-board.create' | translate}}</button>
+            </mat-dialog-actions>
+        </div>
+        <div class="popup__pic">
+            <img src="/assets/images/svg/empty-board.svg" alt="new board">
+        </div>
     </div>
-    <div class="popup__pic">
-      <img src="../../assets/images/svg/empty-board.svg" alt="new board">
-    </div>
-</div>
 </div>

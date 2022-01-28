@@ -3,22 +3,31 @@
 <div class="boards">
     <h2 class="space-title" *ngIf="favorites.length">{{'marked-boards' | translate}}</h2>
     <div class="boards__block">
-        <div class="boards__item" *ngFor="let board of favorites" [ngStyle]=getBg(board.background)>
+        <div class="boards__item"
+             *ngFor="let board of favorites"
+             [ngStyle]=getBg(board.background)
+             (click)="openBoard(board.id)">
             <h4 class="boards__item__title">{{board.title}}</h4>
-            <div class="boards__item__star" (click)="addToFavorites(board.id)" [ngStyle]=getStar(board.isFavorite)></div>
+            <div class="boards__item__settings">
+                <div class="boards__item__star" (click)="addToFavorites(board);$event.stopPropagation()" [ngStyle]=getStar(board.isFavorite)></div>
+                <div class="boards__item__delete" (click)="deleteBoard(board);$event.stopPropagation()"></div>
+            </div>
         </div>
     </div>
 
     <h2 class="space-title">{{'your-workspace' | translate}}</h2>
     <p *ngIf="!boards.length">{{'no-workspace' | translate}}
-        <a (click)="openDialog()">{{'create-models' | translate}}</a></p>
+        <a (click)="openDialog()" class="new-board-link">{{'create-board' | translate}}</a></p>
     <div *ngIf="boards.length" class="boards__block">
         <div class="boards__item"
              *ngFor="let board of boards"
              (click)="openBoard(board.id)"
              [ngStyle]=getBg(board.background)>
             <h4 class="boards__item__title">{{board.title}}</h4>
-            <div class="boards__item__star" (click)="addToFavorites(board.id)" [ngStyle]=getStar(board.isFavorite)></div>
+            <div class="boards__item__settings">
+                <div class="boards__item__star" (click)="addToFavorites(board);$event.stopPropagation()" [ngStyle]=getStar(board.isFavorite)></div>
+                <div class="boards__item__delete" (click)="deleteBoard(board);$event.stopPropagation()"></div>
+            </div>
         </div>
     </div>
 </div>
