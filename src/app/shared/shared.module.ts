@@ -12,6 +12,7 @@ import {I18nModule} from "./i18n.module";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
+import {MatListModule} from "@angular/material/list";
 
 const commonModules = [
     MatFormFieldModule,
@@ -21,6 +22,7 @@ const commonModules = [
     MatSnackBarModule,
     MatMenuModule,
     MatIconModule,
+    MatListModule,
     MatCardModule,
     RouterModule,
     ReactiveFormsModule,
