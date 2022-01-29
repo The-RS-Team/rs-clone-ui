@@ -1,7 +1,8 @@
 export interface CardInterface {
-    id?: number;
+    id: string;
     title: string;
+    description: string;
     position: number;
-    column: number;
+    columnId: string;
 }
 

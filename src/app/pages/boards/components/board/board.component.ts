@@ -13,7 +13,7 @@ import {WebsocketService} from "../../../../shared/services/socket.service";
 export class BoardComponent implements OnInit, OnDestroy {
     private sub$ = new Subscription();
 
-    public board: Board = new Board(0, '', '', false, '', []);
+    public board: Board = new Board('', '', '', false, '', []);
 
     constructor(private boardsService: BoardsService,
                 private socketService:WebsocketService,
@@ -31,18 +31,17 @@ export class BoardComponent implements OnInit, OnDestroy {
     public addNewList(): void {
         // ToDo: create  new list. Change, after implement API
         const newCardModel = {
-            id: this.board.columns.length,
+            id: this.board.columns.length.toString(),
             title: '',
             cards: [],
-            board: this.board.id,
-            description: '',
+            boardId: this.board.id,
             position: 0
-        }
+        };
         this.board.columns.push(newCardModel);
         this.socketService.newColumn(newCardModel);
     }
 
-    public deleteList(columnId: number){
+    public deleteList(columnId: string){
         const listToDelete = this.board.columns.find(column => column.id === columnId)
         if (listToDelete) {
             this.board.columns.splice(this.board.columns.indexOf(listToDelete), 1);

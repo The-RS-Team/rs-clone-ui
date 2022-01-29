@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from '@angular/material/snack-bar';
-
 @Component({
     selector: 'app-card-pop-up-info',
     templateUrl: './card-pop-up-info.component.html',

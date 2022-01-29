@@ -18,15 +18,16 @@ import {Router} from "@angular/router";
 export class BoardsComponent implements OnInit, OnDestroy {
     private sub$ = new Subscription();
 
-    imgBaseUrl = "http://localhost:4200/assets/images/"
-    boards: BoardInterface[] = []
+    imgBaseUrl = 'http://localhost:4200/assets/images/'
+    boards: BoardInterface[] = [];
     favorites: BoardInterface[] = [];
 
     constructor(
         private boardsService: BoardsService,
         private router: Router,
-        private dialog: MatDialog,
-    ) { }
+        private dialog: MatDialog
+    ) {
+    }
 
     ngOnInit(): void {
         this.getBoards();
@@ -37,7 +38,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
         this.sub$.add(
             this.boardsService
                 .getBoards()
-                .subscribe(boards => this.boards = boards));
+                .subscribe((boards) => this.boards = boards));
     }
 
     getBg(pic: string) {
@@ -47,10 +48,11 @@ export class BoardsComponent implements OnInit, OnDestroy {
             backgroundSize: 'cover'
         }
     }
+
     getStar(isFav: boolean) {
         let star = isFav ? 'star-solid.svg' : 'star-line.svg';
         return {
-            background: `url('${this.imgBaseUrl}svg/${star}') no-repeat`,
+            background: `url('${this.imgBaseUrl}svg/${star}')`,
         }
     }
 
@@ -61,6 +63,14 @@ export class BoardsComponent implements OnInit, OnDestroy {
                 .subscribe( fav => this.favorites = fav)
         )
     }
+
+    // addToFavorites(id: string) {
+    //     const board = this.boards.find(element => element.id = id);
+    //     if (board) {
+    //         board.isFavorite = !board.isFavorite;
+    //         this.getFavorites();
+    //     }
+    // }
 
     addToFavorites(board: BoardInterface): void {
         board.isFavorite = !board.isFavorite;
@@ -101,7 +111,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
         )
     }
 
-    public openBoard(id: number) {
+    public openBoard(id: string) {
         this.router.navigate(['board'], {queryParams: {id: id}})
     }
 

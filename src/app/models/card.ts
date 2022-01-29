@@ -1,13 +1,17 @@
-import {CardInterface} from "../interfaces/card.interface";
+import {CardInterface} from '../interfaces/card.interface';
 
 export class Card implements CardInterface {
+    id: string;
     title: string;
+    description: string;
+    columnId: string;
     position: number;
-    column: number;
 
-    constructor(title: string, columnId: number, position: number) {
+    constructor(id: string, title: string, description: string, columnId: string, position: number) {
+        this.id = id;
         this.title = title;
-        this.column = columnId;
+        this.description = description;
+        this.columnId = columnId;
         this.position = position;
     }
 
