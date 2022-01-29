@@ -1,21 +1,21 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {CardInterface} from "../../../../interfaces/card.interface";
-import {ColumnInterface} from "../../../../interfaces/column.interface";
-import {Column} from "../../../../models/column";
-import {MatDialog} from "@angular/material/dialog";
-import {CardPopUpInfoComponent} from "../card-pop-up-info/card-pop-up-info.component";
+import {CardInterface} from '../../../../interfaces/card.interface';
+import {ColumnInterface} from '../../../../interfaces/column.interface';
+import {Column} from '../../../../models/column';
+import {MatDialog} from '@angular/material/dialog';
+import {CardPopUpInfoComponent} from '../card-pop-up-info/card-pop-up-info.component';
 
 @Component({
-    selector: 'app-board-card',
+    selector: 'app-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit, AfterViewInit {
 
-    @Output() OnDeleteCard = new EventEmitter<number>();
+    @Output() OnDeleteCard = new EventEmitter<string>();
 
     @Input() card: CardInterface | undefined;
-    @Input() list: ColumnInterface = new Column(0, [], '', 0, 0);
+    @Input() list: ColumnInterface = new Column('', [], '', '', 0);
 
     @ViewChild('cardTitleInput') cardTitleInput: ElementRef | undefined;
 
@@ -36,8 +36,8 @@ export class CardComponent implements OnInit, AfterViewInit {
             console.log(`Dialog result: ${result}`);
         });
     }
-    
-    public deleteCard(cardId?: number): void {
+
+    public deleteCard(cardId?: string): void {
         this.OnDeleteCard.emit(cardId);
     }
 }

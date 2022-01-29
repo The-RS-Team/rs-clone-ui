@@ -1,1 +1,23 @@
-<h2>Card information</h2>
+<section class="popup">
+    <h2>Card info</h2>
+    <b>Add to card</b>
+    <div class="popup__add-to-card-section">
+        <button mat-button
+                (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+            Attachments
+        </button>
+        <input type="file" class="popup__file-input"
+               (change)="onFileSelected($event)" #fileUpload>
+
+        <b>Uploaded files</b>
+        <mat-list class="popup-upload-file-list">
+            <div mat-line *ngIf="files.length === 0">No file uploaded yet.</div>
+
+            <mat-list-item *ngFor="let file of files">
+                <mat-icon>insert_drive_file</mat-icon>
+                <p (click)="openImg(file.name)">{{file.name}}</p>
+            </mat-list-item>
+        </mat-list>
+    </div>
+</section>

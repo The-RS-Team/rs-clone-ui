@@ -8,14 +8,14 @@ import {Messages} from '../../../../app.constants';
 
 
 @Component({
-    selector: 'app-board-list',
+    selector: 'app-column',
     templateUrl: './column.component.html',
     styleUrls: ['./column.component.scss']
 })
 export class ColumnComponent implements OnInit, AfterViewInit {
-    @Output() OnDeleteList = new EventEmitter<number>();
+    @Output() OnDeleteList = new EventEmitter<string>();
 
-    @Input() column: ColumnInterface = new Column(0, [], '', 0, 0);
+    @Input() column: ColumnInterface = new Column('', [], '', '', 0);
     @ViewChild('listTitleInput') listTitleInput: ElementRef | undefined;
 
     constructor(private readonly socketService: WebsocketService) {
@@ -48,7 +48,7 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         }
     }
 
-    public deleteCard(cardId: number) {
+    public deleteCard(cardId: string) {
         const cardToDelete = this.column.cards.find(card => card.id === cardId)
         if (cardToDelete) {
             this.column.cards.splice(this.column.cards.indexOf(cardToDelete), 1);
@@ -56,11 +56,17 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     }
 
     public addNewCard(): void {
-        const card = new Card(this.column.cards.length + 1, '', '', this.column.id, 0);
-        this.socketService.newCard(card);
+        // const card = new Card('', '', '', this.column.id, 0);
+        this.socketService.newCard(
+            {
+                title: 'newCard',
+                description: '',
+                columnId: this.column.id,
+                position: this.column.cards.length + 1,
+            } as Card);
     }
 
-    public deleteList(columnId?: number): void {
+    public deleteList(columnId?: string): void {
         this.OnDeleteList.emit(columnId);
     }
 }

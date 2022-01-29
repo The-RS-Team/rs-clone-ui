@@ -30,6 +30,9 @@
     "board-title": "Board title",
     "enter-title" : "Please enter a title",
     "enter-board-name": "Enter the name of your team, company or organization.",
+    "board-description": "Board description",
+    "description-plch" : "Here our team stores all the necessary information.",
+    "enter-board-desc": "Tell the participants a little about the board.",
     "create": "Create"
   }
- }
+}

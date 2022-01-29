@@ -51,7 +51,7 @@ export class BoardsService {
             );
     }
 
-    deleteBoard(id: number): Observable<BoardInterface> {
+    deleteBoard(id: string): Observable<BoardInterface> {
         const url = `${this.boardsUrl}/${id}`;
 
         return this.http

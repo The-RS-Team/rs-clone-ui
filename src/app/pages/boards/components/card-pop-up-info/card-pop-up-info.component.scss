@@ -1,0 +1,16 @@
+mat-icon {
+  background: none;
+}
+
+.popup {
+  min-width: 300px;
+
+  &__file-input {
+    display: none;
+  }
+
+  &__add-to-card-section {
+    display: flex;
+    flex-direction: column;
+  }
+}

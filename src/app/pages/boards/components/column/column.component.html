@@ -22,11 +22,11 @@
      cdkDropList
      [cdkDropListData]="column.cards"
      (cdkDropListDropped)="drop($event)">
-    <app-board-card class="list__card"
+    <app-card class="list__card"
                     *ngFor="let card of this.column?.cards"
                     [card]="card"
                     (OnDeleteCard)="deleteCard($event)"
-                    cdkDrag></app-board-card>
+                    cdkDrag></app-card>
 </div>
 <button class="list__new-card-btn"
         mat-stroked-button
