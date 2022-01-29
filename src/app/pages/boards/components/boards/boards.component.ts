@@ -4,7 +4,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {BoardsService} from '../../boards.service';
 import {NewBoardComponent} from '../new-board/new-board.component';
 import {Subscription} from 'rxjs';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-boards',
@@ -14,7 +14,7 @@ import {Router} from "@angular/router";
 export class BoardsComponent implements OnInit, OnDestroy {
     private sub$ = new Subscription();
 
-    imgBaseUrl = "http://localhost:4200/assets/images/"
+    imgBaseUrl = 'http://localhost:4200/assets/images/'
     boards: BoardInterface[] = [];
     favorites: BoardInterface[] = [];
 
@@ -55,9 +55,12 @@ export class BoardsComponent implements OnInit, OnDestroy {
         this.favorites = this.boards.filter(el => el.isFavorite);
     }
 
-    addToFavorites(id: number) {
-        this.boards[id - 1].isFavorite = !this.boards[id - 1].isFavorite;
-        this.getFavorites();
+    addToFavorites(id: string) {
+        const board = this.boards.find(element => element.id = id);
+        if (board) {
+            board.isFavorite = !board.isFavorite;
+            this.getFavorites();
+        }
     }
 
     openDialog() {
@@ -75,7 +78,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
         });
     }
 
-    public openBoard(id: number) {
+    public openBoard(id: string) {
         this.router.navigate(['board'], {queryParams: {id: id}})
     }
 

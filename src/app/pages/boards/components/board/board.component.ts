@@ -12,7 +12,7 @@ import {Board} from "../../../../models/board";
 export class BoardComponent implements OnInit, OnDestroy {
     private sub$ = new Subscription();
 
-    public board: Board = new Board(0, '', '', false, '', []);
+    public board: Board = new Board('', '', '', false, '', []);
 
     constructor(private boardsService: BoardsService,
                 private activatedRoute: ActivatedRoute) {
@@ -29,7 +29,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     public addNewList(): void {
         // ToDo: create  new list. Change, after implement API
         this.board.columns.push({
-            id: this.board.columns.length,
+            id: this.board.columns.length.toString(),
             title: '',
             cards: [],
             boardId: this.board.id,
@@ -37,7 +37,7 @@ export class BoardComponent implements OnInit, OnDestroy {
         });
     }
 
-    public deleteList(columnId: number){
+    public deleteList(columnId: string){
         const listToDelete = this.board.columns.find(column => column.id === columnId)
         if (listToDelete) {
             this.board.columns.splice(this.board.columns.indexOf(listToDelete), 1);

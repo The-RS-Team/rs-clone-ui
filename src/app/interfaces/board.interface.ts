@@ -1,7 +1,7 @@
-import {ColumnInterface} from "./column.interface";
+import {ColumnInterface} from './column.interface';
 
 export interface BoardInterface {
-    id: number;
+    id: string;
     title: string;
     description: string;
     isFavorite: boolean;
