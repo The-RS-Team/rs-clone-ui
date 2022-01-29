@@ -5,5 +5,6 @@ export interface ColumnInterface {
     title: string;
     cards: CardInterface[];
     position: number;
-    boardId: number;
+    board: number;
+    description: string,
 }

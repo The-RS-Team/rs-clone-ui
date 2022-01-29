@@ -6,7 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {CardPopUpInfoComponent} from "../card-pop-up-info/card-pop-up-info.component";
 
 @Component({
-    selector: 'app-board-card',
+    selector: 'app-card',
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss']
 })
@@ -15,7 +15,7 @@ export class CardComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteCard = new EventEmitter<number>();
 
     @Input() card: CardInterface | undefined;
-    @Input() list: ColumnInterface = new Column(0, [], '', 0, 0);
+    @Input() list: ColumnInterface = new Column(0, [], '', 0, 0,'');
 
     @ViewChild('cardTitleInput') cardTitleInput: ElementRef | undefined;
 

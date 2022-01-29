@@ -16,7 +16,7 @@
 
             <mat-list-item *ngFor="let file of files">
                 <mat-icon>insert_drive_file</mat-icon>
-                {{file}}
+                <p (click)="openImg(file.name)">{{file.name}}</p>
             </mat-list-item>
         </mat-list>
     </div>

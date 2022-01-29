@@ -1,23 +1,19 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'app-card-pop-up',
+    selector: 'app-card-pop-up-info',
     templateUrl: './card-pop-up-info.component.html',
     styleUrls: ['./card-pop-up-info.component.scss']
 })
 export class CardPopUpInfoComponent implements OnInit {
 
-    // @ViewChild('files') files: ElementRef | undefined;
+    public imageEl: HTMLImageElement | undefined;
+    public files: File[] = [];
 
-    public fileName = '';
-
-    public selectedFiles: FileList | undefined;
-
-    public files: string[] = [];
-
-
-    constructor(private http: HttpClient) {
+    constructor(public dialog: MatDialog,
+                private _snackBar: MatSnackBar) {
     }
 
     ngOnInit(): void {
@@ -26,8 +22,14 @@ export class CardPopUpInfoComponent implements OnInit {
     onFileSelected(event: Event) {
         // @ts-ignore
         const file: File = event.target?.files[0];
+        this.files.push(file);
+        this.imageEl = document.createElement('img')
+        this.imageEl.src = URL.createObjectURL(file);
+        // @ts-ignore
+        URL.revokeObjectURL(file);
+    }
 
-        this.files.push(file.name);
-        console.log(this.files, 'files')
+    openImg(fileName: string) {
+        const img = this.files.find(el => el.name === fileName);
     }
 }

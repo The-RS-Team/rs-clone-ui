@@ -3,9 +3,10 @@ import {Subscription} from "rxjs";
 import {BoardsService} from "../../boards.service";
 import {ActivatedRoute} from "@angular/router";
 import {Board} from "../../../../models/board";
+import {WebsocketService} from "../../../../shared/services/socket.service";
 
 @Component({
-    selector: 'app-board-content',
+    selector: 'app-board',
     templateUrl: './board.component.html',
     styleUrls: ['./board.component.scss']
 })
@@ -15,6 +16,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     public board: Board = new Board(0, '', '', false, '', []);
 
     constructor(private boardsService: BoardsService,
+                private socketService:WebsocketService,
                 private activatedRoute: ActivatedRoute) {
     }
 
@@ -28,13 +30,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
     public addNewList(): void {
         // ToDo: create  new list. Change, after implement API
-        this.board.columns.push({
+        const newCardModel = {
             id: this.board.columns.length,
             title: '',
             cards: [],
-            boardId: this.board.id,
+            board: this.board.id,
+            description: '',
             position: 0
-        });
+        }
+        this.board.columns.push(newCardModel);
+        this.socketService.newColumn(newCardModel);
     }
 
     public deleteList(columnId: number){

@@ -8,14 +8,14 @@ import {Messages} from '../../../../app.constants';
 
 
 @Component({
-    selector: 'app-board-list',
+    selector: 'app-column',
     templateUrl: './column.component.html',
     styleUrls: ['./column.component.scss']
 })
 export class ColumnComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteList = new EventEmitter<number>();
 
-    @Input() column: ColumnInterface = new Column(0, [], '', 0, 0);
+    @Input() column: ColumnInterface = new Column(0, [], '', 0, 0, '');
     @ViewChild('listTitleInput') listTitleInput: ElementRef | undefined;
 
     constructor(private readonly socketService: WebsocketService) {
@@ -56,7 +56,8 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     }
 
     public addNewCard(): void {
-        const card = new Card(this.column.cards.length + 1, '', '', this.column.id, 0);
+        const card = new Card('', this.column.id,this.column.cards.length + 1);
+        console.log(card)
         this.socketService.newCard(card);
     }
 
