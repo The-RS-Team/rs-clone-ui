@@ -1,23 +1,51 @@
 <section class="popup">
-    <h2>Card info</h2>
-    <b>Add to card</b>
-    <div class="popup__add-to-card-section">
-        <button mat-button
-                (click)="fileUpload.click()">
-            <mat-icon>attach_file</mat-icon>
-            Attachments
-        </button>
-        <input type="file" class="popup__file-input"
-               (change)="onFileSelected($event)" #fileUpload>
+    <h2>Card title</h2>
+    <div class="popup__content">
+        <div class="popup__main-content">
+            <div class="popup__description">
+                <h3 class="popup__section-title"><mat-icon>view_headline</mat-icon>Description</h3>
+                <textarea #descriptionTextarea
+                          autosize
+                          class="popup__description-input"
+                          placeholder="Add a more detailed description..."
+                          autocomplete="off"></textarea>
+            </div>
+            <div class="popup__actions">
+                <h3 class="popup__section-title"><mat-icon>view_headline</mat-icon>Actions</h3>
+                <input autosize
+                       class="popup__comment-input"
+                       placeholder="Add a comment..."
+                       autocomplete="off">
+            </div>
+<!--            <div class="popup__add-to-card-section">-->
+<!--                <button mat-button-->
+<!--                        (click)="fileUpload.click()">-->
+<!--                    <mat-icon>attach_file</mat-icon>-->
+<!--                    Attachments-->
+<!--                </button>-->
+<!--                <input type="file" class="popup__file-input"-->
+<!--                       (change)="onFileSelected($event)" #fileUpload>-->
 
-        <b>Uploaded files</b>
-        <mat-list class="popup-upload-file-list">
-            <div mat-line *ngIf="files.length === 0">No file uploaded yet.</div>
+<!--                <b>Uploaded files</b>-->
+<!--                <mat-list class="popup-upload-file-list">-->
+<!--                    <div mat-line *ngIf="files.length === 0">No file uploaded yet.</div>-->
 
-            <mat-list-item *ngFor="let file of files">
-                <mat-icon>insert_drive_file</mat-icon>
-                <p (click)="openImg(file.name)">{{file.name}}</p>
-            </mat-list-item>
-        </mat-list>
+<!--                    <mat-list-item *ngFor="let file of files">-->
+<!--                        <mat-icon>insert_drive_file</mat-icon>-->
+<!--                        <p (click)="openImg(file.name)">{{file.name}}</p>-->
+<!--                    </mat-list-item>-->
+<!--                </mat-list>-->
+<!--            </div>-->
+        </div>
+        <div class="popup__aside-content">
+            <b>Add to card</b>
+            <div class="popup__aside-buttons">
+                <button mat-button><mat-icon>person</mat-icon>Participants</button>
+                <button mat-button><mat-icon>local_offer</mat-icon>Tags</button>
+                <button mat-button><mat-icon>playlist_add_check</mat-icon>Checklist</button>
+                <button mat-button><mat-icon>access_time</mat-icon>Dates</button>
+                <button mat-button><mat-icon>attach_file</mat-icon>Attachments</button>
+            </div>
+        </div>
     </div>
 </section>

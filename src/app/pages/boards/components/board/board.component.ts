@@ -16,7 +16,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     public board: Board = new Board('', '', '', false, '', []);
 
     constructor(private boardsService: BoardsService,
-                private socketService:WebsocketService,
+                private socketService: WebsocketService,
                 private activatedRoute: ActivatedRoute) {
     }
 
@@ -30,18 +30,18 @@ export class BoardComponent implements OnInit, OnDestroy {
 
     public addNewList(): void {
         // ToDo: create  new list. Change, after implement API
-        const newCardModel = {
-            id: this.board.columns.length.toString(),
+        const newColumnModel = {
             title: '',
             cards: [],
             boardId: this.board.id,
+            board: this.board.id,
             position: 0
         };
-        this.board.columns.push(newCardModel);
-        this.socketService.newColumn(newCardModel);
+        this.board.columns.push(newColumnModel);
+        this.socketService.newColumn(newColumnModel);
     }
 
-    public deleteList(columnId: string){
+    public deleteList(columnId: string) {
         const listToDelete = this.board.columns.find(column => column.id === columnId)
         if (listToDelete) {
             this.board.columns.splice(this.board.columns.indexOf(listToDelete), 1);

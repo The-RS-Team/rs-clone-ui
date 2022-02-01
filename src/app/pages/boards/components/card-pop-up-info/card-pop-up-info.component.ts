@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
@@ -7,6 +7,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     styleUrls: ['./card-pop-up-info.component.scss']
 })
 export class CardPopUpInfoComponent implements OnInit {
+
+    @ViewChild('descriptionTextarea') descriptionTextarea: ElementRef | undefined;
 
     public imageEl: HTMLImageElement | undefined;
     public files: File[] = [];

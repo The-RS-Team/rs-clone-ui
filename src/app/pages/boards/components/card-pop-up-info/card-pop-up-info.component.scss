@@ -1,9 +1,71 @@
-mat-icon {
-  background: none;
+*{
+  color: #172b4d;
 }
 
 .popup {
-  min-width: 300px;
+  width: 700px;
+
+  &__content {
+    display: grid;
+    grid-template-columns: minmax(150px, 3.33fr) minmax(150px, 1.33fr);
+    grid-template-rows: 1fr;
+    grid-gap: 10px;
+  }
+
+  &__main-content {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__popup__description {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+  }
+
+  &__description-input{
+    display: block;
+    width: 100%;
+    outline: none;
+    border: none;
+    min-height: 50px;
+    background-color: #091e4214;
+    border-radius: 3px;
+    padding: 8px 12px;
+    resize: none;
+    color: #7a7a7a;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+
+  &__section-title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  &__comment-input{
+    width: 100%;
+    min-height: 20px;
+    background-color: #FFFFFF;
+    outline: none;
+    border: 2px solid #c9c9c9;
+    border-radius: 5px;
+    padding: 8px 12px;
+    resize: none;
+  }
+
+  &__aside-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+  }
 
   &__file-input {
     display: none;
@@ -13,4 +75,18 @@ mat-icon {
     display: flex;
     flex-direction: column;
   }
+
+  button {
+    background-color: #091e4214;
+    width: 100%;
+    margin: 3px 0;
+    text-align: start;
+  }
+
+  mat-icon {
+    color: #7a7a7a;
+    font-size: 18px;
+    height: 18px;
+  }
 }
+
