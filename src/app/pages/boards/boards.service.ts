@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {catchError, Observable, of, tap} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {MessageService} from '../../shared/message.service';
 import {environment} from '../../../environments/environment';
 import {BoardInterface} from '../../interfaces/board.interface';
@@ -11,6 +11,7 @@ import {BoardInterface} from '../../interfaces/board.interface';
 
 export class BoardsService {
     private boardsUrl = environment.serverAPI + '/board';
+    private filesUrl = environment.serverAPI + '/file';
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -90,5 +91,31 @@ export class BoardsService {
 
     private log(message: string) {
         this.messageService.add(`BoardService: ${message}`);
+    }
+
+    // addBoard(board: BoardInterface): Observable<BoardInterface> {
+    //     return this.http
+    //         .post<BoardInterface>(this.boardsUrl, board, this.httpOptions)
+    //         .pipe(
+    //             tap((newBoard: BoardInterface) => this.log(`added board w/ id=${newBoard.id}`)),
+    //             catchError(this.handleError<BoardInterface>('addBoard'))
+    //         );
+    // }
+
+
+
+    postFile(fileToUpload: File, cardId: string): Observable<File> {
+        const formData: FormData = new FormData();
+        formData.append('file', fileToUpload);
+
+        const httpHeaders = new HttpHeaders().set('Content-Type', 'multipart/form-data');
+        const httpParams = new HttpParams().set('cardId', cardId);
+        return this.http
+            // .post<File>(this.filesUrl + '/upload', formData, {headers: httpHeaders, params:httpParams})
+            .post<File>(`${this.filesUrl}/upload/${cardId}`, formData, {headers: httpHeaders})
+            .pipe(
+                tap((newFile: File) => this.log(`added file w/ id=${newFile}`)),
+                catchError(this.handleError<File>('addFile'))
+            );
     }
 }
