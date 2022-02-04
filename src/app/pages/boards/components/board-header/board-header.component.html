@@ -1,0 +1,41 @@
+<div class="header">
+    <div class="header__menu">
+        <div class="header__menu__title">TrelloClone</div>
+        <div class="header__menu__star">
+            <div class="icon"></div>
+        </div>
+    </div>
+    <div class="header__settings">
+        <button class="header__settings__btn"
+        (click)="openMenu()"
+        *ngIf = "!isMenuOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#172b4d" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="5" cy="12" r="1" />
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="19" cy="12" r="1" />
+            </svg>
+            {{ 'menu' | translate }}</button>
+    </div>
+
+</div>
+<div class="menu" #menuWrapper>
+    <div class="menu__header">
+        <div class="menu__back-arrow" (click)="goBack('')">
+            <div class="menu__back-arrow__icon" *ngIf="isSubMenu"></div>
+        </div>
+        <div class="menu__title">{{ 'menu' | translate }}</div>
+        <div class="menu__close" (click)="closeMenu()">
+            <div class="menu__close__icon"></div>
+        </div>
+    </div>
+    <mat-nav-list>
+        <a mat-list-item (click)="openSettings('bg')">
+            <mat-icon matListIcon>image</mat-icon>
+            {{'bg-change' | translate}}</a>
+    </mat-nav-list>
+    <app-background *ngIf="settings == 'bg'" [boardWrapper]="boardWrapper"></app-background>
+
+
+</div>
+

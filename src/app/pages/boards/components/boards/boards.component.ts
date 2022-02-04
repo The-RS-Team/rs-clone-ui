@@ -5,6 +5,7 @@ import {BoardsService} from "../../boards.service";
 import {NewBoardComponent} from "../new-board/new-board.component";
 import {BoardInterface} from "../../../../interfaces/board.interface";
 import {Router} from "@angular/router";
+import {BackgroundComponent} from "../board-header/background/background.component";
 
 @Injectable({
     providedIn: 'root'
@@ -41,12 +42,8 @@ export class BoardsComponent implements OnInit, OnDestroy {
                 .subscribe((boards) => this.boards = boards));
     }
 
-    getBg(pic: string) {
-        return {
-            background: `url('${this.imgBaseUrl}boards/${pic}') #6d6a6b80`,
-            backgroundBlendMode: 'multiply',
-            backgroundSize: 'cover'
-        }
+    getBg(board: BoardInterface) {
+            return JSON.parse(board.background)
     }
 
     getStar(isFav: boolean) {
@@ -63,14 +60,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
                 .subscribe( fav => this.favorites = fav)
         )
     }
-
-    // addToFavorites(id: string) {
-    //     const board = this.boards.find(element => element.id = id);
-    //     if (board) {
-    //         board.isFavorite = !board.isFavorite;
-    //         this.getFavorites();
-    //     }
-    // }
 
     addToFavorites(board: BoardInterface): void {
         board.isFavorite = !board.isFavorite;
