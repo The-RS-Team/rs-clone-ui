@@ -15,6 +15,22 @@
   --header-color: #026aa7;
   --header-hover-color: #4e97c2;
   --header-active-color: #02517f;
+  --light-button: #00000014;
+  --light-button-hover: #838891a6;
+  --light-button-text: #172b4d;
+
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 12px;
+  background-color: hsla(210, 5%, 8%, 0.16);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsla(240, 7%, 3%, 0.16);
+  border-radius: 5px;
 }
 
 html, body {

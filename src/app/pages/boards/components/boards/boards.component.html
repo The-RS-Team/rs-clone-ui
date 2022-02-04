@@ -5,7 +5,7 @@
     <div class="boards__block">
         <div class="boards__item"
              *ngFor="let board of favorites"
-             [ngStyle]=getBg(board.background)
+             [ngStyle]=getBg(board)
              (click)="openBoard(board.id)">
             <h4 class="boards__item__title">{{board.title}}</h4>
             <div class="boards__item__settings">
@@ -22,7 +22,7 @@
         <div class="boards__item"
              *ngFor="let board of boards"
              (click)="openBoard(board.id)"
-             [ngStyle]=getBg(board.background)>
+             [ngStyle]=getBg(board)>
             <h4 class="boards__item__title">{{board.title}}</h4>
             <div class="boards__item__settings">
                 <div class="boards__item__star" (click)="addToFavorites(board);$event.stopPropagation()" [ngStyle]=getStar(board.isFavorite)></div>

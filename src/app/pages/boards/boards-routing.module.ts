@@ -10,8 +10,9 @@ import {NewBoardComponent} from "./components/new-board/new-board.component";
 import {CardComponent} from "./components/card/card.component";
 import {ColumnComponent} from "./components/column/column.component";
 import {DragDropModule} from "@angular/cdk/drag-drop";
-import {BoardsModule} from "./boards.module";
 import {CardPopUpInfoComponent} from "./components/card-pop-up-info/card-pop-up-info.component";
+import {BoardHeaderComponent} from "./components/board-header/board-header.component";
+import {BackgroundComponent} from "./components/board-header/background/background.component";
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
@@ -19,9 +20,25 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-    declarations: [BoardsComponent, BoardComponent, HeaderComponent, NewBoardComponent, ColumnComponent, CardComponent, CardPopUpInfoComponent
+    declarations: [BoardsComponent,
+        BoardComponent,
+        HeaderComponent,
+        BoardHeaderComponent,
+        NewBoardComponent,
+        ColumnComponent,
+        CardComponent,
+        CardPopUpInfoComponent,
+        BackgroundComponent
     ],
-    exports: [BoardsComponent, BoardComponent, HeaderComponent, NewBoardComponent, ColumnComponent, CardComponent, CardPopUpInfoComponent
+    exports: [BoardsComponent,
+        BoardComponent,
+        HeaderComponent,
+        BoardHeaderComponent,
+        NewBoardComponent,
+        ColumnComponent,
+        CardComponent,
+        CardPopUpInfoComponent,
+        BackgroundComponent
     ],
     imports: [
         CommonModule,
