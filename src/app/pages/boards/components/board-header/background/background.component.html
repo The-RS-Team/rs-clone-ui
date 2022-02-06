@@ -1,0 +1,35 @@
+<div class="menu-block ">
+<div class="bg" *ngIf="bgType == ''">
+    <div class="bg__item " (click)="choseType('unsplash')">
+        <div class="bg__item__img bg__unsplash"></div>
+        <span class="bg__item__title">{{'pictures' | translate}}</span>
+    </div>
+    <div class="bg__item " (click)="choseType('colors')">
+        <div class="bg__item__img bg__colors"></div>
+        <span class="bg__item__title">{{'colors' | translate}}</span>
+    </div>
+    <hr class="divider">
+    <input type="file" class="img-input"
+           (change)="onFileSelected($event)" #imgUpload>
+    <div class="bg__item " (click)="imgUpload.click()">
+        <div class="bg__item__img bg__upload">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="52" height="52" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+        </div>
+    </div>
+</div>
+
+<div class="bg-wrapper" *ngIf="bgType == 'unsplash'">
+    <div class="bg__item" *ngFor="let item of unsplashImages" (click)="setBg(item.urls.regular, 'unsplash')">
+        <img src="{{ item.urls.small }}" class="bg__item__img">
+    </div>
+</div>
+<div class="bg-wrapper" *ngIf="bgType == 'colors'">
+    <div class="bg__item" *ngFor="let color of bgColors" (click)="setBg(color, 'color')">
+        <div class="bg__item__img" [ngStyle]="{'background': color}"></div>
+    </div>
+</div>
+</div>
