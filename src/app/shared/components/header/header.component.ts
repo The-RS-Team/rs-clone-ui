@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {NewBoardComponent} from '../../../pages/boards/components/new-board/new-board.component';
 import {BoardsService} from '../../../pages/boards/boards.service';
-import {AuthService} from "../../../auth/auth.service";
-import {Router} from "@angular/router";
-import {BoardsComponent} from "../../../pages/boards/components/boards/boards.component";
-import {BoardInterface} from "../../../interfaces/board.interface";
+import {AuthService} from '../../../auth/auth.service';
+import {Router} from '@angular/router';
+import {BoardsComponent} from '../../../pages/boards/components/boards/boards.component';
+import {BoardInterface} from '../../../interfaces/board.interface';
+import {AppRoutes} from '../../../app.constants';
 
 @Component({
     selector: 'app-header',
@@ -43,10 +44,7 @@ export class HeaderComponent implements OnInit {
     }
 
     goToWelcome() {
-        this.router.navigate(['/home']);
+        this.router.navigate([AppRoutes.home]);
     }
-
-
-
 
 }

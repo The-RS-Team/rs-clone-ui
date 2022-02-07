@@ -11,7 +11,6 @@ export enum Messages {
     connectError = 'connect_error',
     disconnect = 'disconnect',
     sendMessage = 'send_message',
-    hello = 'hello',
     createRoom = 'create_room',
     newColumn = 'new_column',
     newCard = 'new_card',
