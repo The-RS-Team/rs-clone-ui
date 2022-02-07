@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularFireModule} from '@angular/fire/compat';
 import {environment} from '../environments/environment';
@@ -15,6 +15,7 @@ import {SharedModule} from './shared/shared.module';
 import {AppRoutes} from './app.constants';
 import {LocalStorageService} from './shared/services/local-storage.service';
 import {WebsocketService} from './shared/services/socket.service';
+import {AuthInterceptor} from './auth/auth.interceptor';
 
 export const ROUTES: Routes = [
     {path: '', redirectTo: '/' + AppRoutes.home, pathMatch: 'full'},
@@ -41,6 +42,11 @@ export const ROUTES: Routes = [
         AuthService,
         LocalStorageService,
         WebsocketService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
     ],
     bootstrap: [AppComponent]
 })
