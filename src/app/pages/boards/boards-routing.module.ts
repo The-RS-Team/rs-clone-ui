@@ -13,6 +13,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {CardPopUpInfoComponent} from "./components/card-pop-up-info/card-pop-up-info.component";
 import {BoardHeaderComponent} from "./components/board-header/board-header.component";
 import {BackgroundComponent} from "./components/board-header/background/background.component";
+import {SafePipe} from "./components/card-pop-up-info/safe.pipe";
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
@@ -28,7 +29,8 @@ export const ROUTES: Routes = [
         ColumnComponent,
         CardComponent,
         CardPopUpInfoComponent,
-        BackgroundComponent
+        BackgroundComponent,
+        SafePipe,
     ],
     exports: [BoardsComponent,
         BoardComponent,
@@ -38,13 +40,14 @@ export const ROUTES: Routes = [
         ColumnComponent,
         CardComponent,
         CardPopUpInfoComponent,
-        BackgroundComponent
+        BackgroundComponent,
+        SafePipe,
     ],
     imports: [
         CommonModule,
         SharedModule,
         RouterModule.forChild(ROUTES),
-        DragDropModule
+        DragDropModule,
     ]
 })
 export class BoardsRoutingModule {

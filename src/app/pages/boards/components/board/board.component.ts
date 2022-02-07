@@ -1,4 +1,4 @@
-import {Component, ElementRef, Injectable, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Injectable, OnDestroy, OnInit, ViewChild, AfterViewInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {BoardsService} from "../../boards.service";
 import {ActivatedRoute} from "@angular/router";
@@ -11,23 +11,24 @@ import {WebsocketService} from "../../../../shared/services/socket.service";
     styleUrls: ['./board.component.scss']
 })
 
-export class BoardComponent implements OnInit, OnDestroy {
+export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     private sub$ = new Subscription();
     public bg = {};
     public boardWrapper: HTMLElement | undefined;
     public board: Board = new Board('', '', '', false, '', []);
 
     constructor(private boardsService: BoardsService,
-                private socketService:WebsocketService,
+                private socketService: WebsocketService,
                 private activatedRoute: ActivatedRoute,
-               ) {
+    ) {
     }
 
-    @ViewChild('boardWrapper') boardWrap: ElementRef | undefined;
+    @ViewChild('boardWrapper')
+    boardWrap
+        :
+        ElementRef | undefined;
 
-    ngAfterViewInit() {
-        this.boardWrapper = this.boardWrap?.nativeElement;
-    }
+
     ngOnInit(): void {
         this.boardsService.getBoardById(this.activatedRoute.snapshot.queryParams['id'])
             .subscribe((board) => {
@@ -37,20 +38,24 @@ export class BoardComponent implements OnInit, OnDestroy {
             })
     }
 
+    ngAfterViewInit() {
+        this.boardWrapper = this.boardWrap?.nativeElement;
+    }
+
     public addNewList(): void {
         // ToDo: create  new list. Change, after implement API
-        const newCardModel = {
-            id: this.board.columns.length.toString(),
+        const newColumnModel = {
             title: '',
             cards: [],
             boardId: this.board.id,
+            board: this.board.id,
             position: 0
         };
-        this.board.columns.push(newCardModel);
-        this.socketService.newColumn(newCardModel);
+        this.board.columns.push(newColumnModel);
+        this.socketService.newColumn(newColumnModel);
     }
 
-    public deleteList(columnId: string){
+    public deleteList(columnId: string) {
         const listToDelete = this.board.columns.find(column => column.id === columnId)
         if (listToDelete) {
             this.board.columns.splice(this.board.columns.indexOf(listToDelete), 1);

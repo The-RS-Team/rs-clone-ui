@@ -5,6 +5,7 @@ import {Card} from '../../../../models/card';
 import {Column} from '../../../../models/column';
 import {WebsocketService} from '../../../../shared/services/socket.service';
 import {Messages} from '../../../../app.constants';
+import {CardInterface} from "../../../../interfaces/card.interface";
 
 
 @Component({
@@ -15,7 +16,7 @@ import {Messages} from '../../../../app.constants';
 export class ColumnComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteList = new EventEmitter<string>();
 
-    @Input() column: ColumnInterface = new Column('', [], '', '', 0);
+    @Input() column: ColumnInterface = new Column('', '', [], '', '', 0,'');
     @ViewChild('listTitleInput') listTitleInput: ElementRef | undefined;
 
     constructor(private readonly socketService: WebsocketService) {
@@ -35,7 +36,7 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         this.listTitleInput?.nativeElement.focus();
     }
 
-    drop(event: CdkDragDrop<Card[]>) {
+    drop(event: CdkDragDrop<CardInterface[]>) {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
@@ -56,13 +57,13 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     }
 
     public addNewCard(): void {
-        // const card = new Card('', '', '', this.column.id, 0);
         this.socketService.newCard(
             {
-                title: 'newCard',
+                title: '',
                 description: '',
                 columnId: this.column.id,
                 position: this.column.cards.length + 1,
+                column: this.column.id,
             } as Card);
     }
 
