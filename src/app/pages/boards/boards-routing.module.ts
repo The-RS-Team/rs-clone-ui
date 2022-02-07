@@ -10,9 +10,9 @@ import {NewBoardComponent} from "./components/new-board/new-board.component";
 import {CardComponent} from "./components/card/card.component";
 import {ColumnComponent} from "./components/column/column.component";
 import {DragDropModule} from "@angular/cdk/drag-drop";
-import {BoardsModule} from "./boards.module";
 import {CardPopUpInfoComponent} from "./components/card-pop-up-info/card-pop-up-info.component";
-import {AppModule} from "../../app.module";
+import {BoardHeaderComponent} from "./components/board-header/board-header.component";
+import {BackgroundComponent} from "./components/board-header/background/background.component";
 import {SafePipe} from "./components/card-pop-up-info/safe.pipe";
 
 export const ROUTES: Routes = [
@@ -24,15 +24,23 @@ export const ROUTES: Routes = [
     declarations: [BoardsComponent,
         BoardComponent,
         HeaderComponent,
+        BoardHeaderComponent,
         NewBoardComponent,
         ColumnComponent,
         CardComponent,
         CardPopUpInfoComponent,
+        BackgroundComponent,
         SafePipe,
     ],
-    exports: [BoardsComponent, BoardComponent, HeaderComponent, NewBoardComponent, ColumnComponent,
+    exports: [BoardsComponent,
+        BoardComponent,
+        HeaderComponent,
+        BoardHeaderComponent,
+        NewBoardComponent,
+        ColumnComponent,
         CardComponent,
         CardPopUpInfoComponent,
+        BackgroundComponent,
         SafePipe,
     ],
     imports: [

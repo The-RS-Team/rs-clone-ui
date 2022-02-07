@@ -32,7 +32,11 @@ export class NewBoardComponent implements OnInit {
             "title": this.formGroup.value.title,
             "description": this.formGroup.value.description,
             "isFavorite": false,
-            "background": "bg-1.jpg"
+            "background": JSON.stringify({
+                background: 'url(http://localhost:4200/assets/images/boards/bg-1.jpg) #6d6a6b80',
+                backgroundBlendMode: 'multiply',
+                backgroundSize: 'cover'
+            })
         }
         this.boardsService.addBoard(board as BoardInterface)
             .subscribe(

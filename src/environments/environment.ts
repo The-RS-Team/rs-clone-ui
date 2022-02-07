@@ -11,9 +11,10 @@ export const environment = {
         storageBucket: 'trelloclone-rss.appspot.com',
         messagingSenderId: '910163260311',
         appId: '1:910163260311:web:695f3e8e2627956deb4ad2',
-        measurementId: 'G-N5K61PQCG3'
+        measurementId: 'G-N5K61PQCG3',
     },
-    serverAPI: 'http://localhost:3000'
+    serverAPI: 'http://localhost:3000',
+    unsplashKey: 'RO5Ncb8YKZ7Bm9rQhhvaz9s6SIynbZkOTqDG11qCjeE'
 };
 
 /*
