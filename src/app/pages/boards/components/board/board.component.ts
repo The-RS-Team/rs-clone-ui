@@ -11,22 +11,23 @@ import {WebsocketService} from "../../../../shared/services/socket.service";
     styleUrls: ['./board.component.scss']
 })
 
-export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
+export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     private sub$ = new Subscription();
     public bg = {};
     public boardWrapper: HTMLElement | undefined;
     public board: Board = new Board('', '', '', false, '', []);
 
     constructor(private boardsService: BoardsService,
-                private socketService:WebsocketService,
+                private socketService: WebsocketService,
                 private activatedRoute: ActivatedRoute,
-               ) {
-
-    @ViewChild('boardWrapper') boardWrap: ElementRef | undefined;
-
-    ngAfterViewInit() {
-        this.boardWrapper = this.boardWrap?.nativeElement;
+    ) {
     }
+
+    @ViewChild('boardWrapper')
+    boardWrap
+        :
+        ElementRef | undefined;
+
 
     ngOnInit(): void {
         this.boardsService.getBoardById(this.activatedRoute.snapshot.queryParams['id'])
@@ -35,6 +36,10 @@ export class BoardComponent implements OnInit, OnDestroy, AfterViewInit {
                 this.bg = JSON.parse(board.background)
                 this.board.columns = this.board.columns || [];
             })
+    }
+
+    ngAfterViewInit() {
+        this.boardWrapper = this.boardWrap?.nativeElement;
     }
 
     public addNewList(): void {
