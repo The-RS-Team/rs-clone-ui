@@ -9,6 +9,7 @@ import {RouterModule} from "@angular/router";
 import {MatDialogModule} from "@angular/material/dialog";
 import {TranslateModule} from "@ngx-translate/core";
 import {I18nModule} from "./i18n.module";
+import {AutosizeModule} from 'ngx-autosize';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
@@ -26,6 +27,7 @@ const commonModules = [
     MatListModule,
     MatCardModule,
     RouterModule,
+    AutosizeModule,
     ReactiveFormsModule,
     FormsModule,
     CommonModule,

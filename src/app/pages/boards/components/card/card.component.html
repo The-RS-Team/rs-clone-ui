@@ -1,25 +1,33 @@
-<mat-card>
+<mat-card (click)="openDialog($event);$event.stopPropagation()">
     <mat-card-content>
-        <input #cardTitleInput
-               class="card__input-title"
-               matInput type="text"
-               placeholder="Enter a title for this card"
-               autocomplete="off">
-        {{card?.title}}
+        <p>{{card?.title}}</p>
     </mat-card-content>
-    <button mat-icon-button
+<!--    <mat-card-content>-->
+<!--        <input *ngIf="trigger.menuOpen"-->
+<!--               #cardTitleInput-->
+<!--               [value]="card?.title"-->
+<!--               class="card__input-title"-->
+<!--               matInput type="text"-->
+<!--               placeholder="Enter a title for this card"-->
+<!--               autocomplete="off"-->
+<!--               autofocus>-->
+<!--    </mat-card-content>-->
+    <button #cardEditBtn
+            mat-icon-button
+            (click)="$event.stopPropagation()"
             class="card__edit-btn"
-            [matMenuTriggerFor]="cardMenu">
-        <mat-icon>edit</mat-icon>
+            [matMenuTriggerFor]="cardMenu"
+            #trigger="matMenuTrigger">
+        <mat-icon class="card__edit-icon">edit</mat-icon>
     </button>
     <mat-menu #cardMenu="matMenu">
         <button mat-menu-item
-                (click)="openDialog()">
+                (click)="openDialog($event);$event.stopPropagation()">
             <mat-icon>picture_in_picture</mat-icon>
             <span>Open card</span>
         </button>
         <button mat-menu-item
-                (click)="deleteCard(card?.id)">
+                (click)="deleteCard(card?.id);$event.stopPropagation()">
             <mat-icon>delete</mat-icon>
             <span>Delete card</span>
         </button>

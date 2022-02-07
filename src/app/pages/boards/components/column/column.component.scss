@@ -1,13 +1,16 @@
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
   height: 12px;
   background-color: hsla(210, 5%, 8%, 0.16);
   border-radius: 5px;
+  margin: 0 10px;
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: hsla(240, 7%, 3%, 0.16);
   border-radius: 5px;
+  margin: 0 10px;
+
 }
 
 .mat-menu-item {
@@ -64,7 +67,7 @@ mat-icon {
   &__card {
     display: flex;
     align-items: center;
-    margin: 7px 0;
+    margin: 5px 3px;
     //scroll-snap-align: start;
 
     &:last-child {

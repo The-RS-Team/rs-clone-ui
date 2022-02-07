@@ -17,6 +17,7 @@ import {SettingsComponent} from "../settings/settings.component";
 import {TabSettingsComponent} from "../settings/tab-settings/tab-settings.component";
 import {LangSwitcherComponent} from "../../shared/components/lang-switcher/lang-switcher.component";
 import {TabAccauntComponent} from "../settings/tab-accaunt/tab-accaunt.component";
+import {SafePipe} from "./components/card-pop-up-info/safe.pipe";
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
@@ -38,6 +39,7 @@ export const ROUTES: Routes = [
         TabAccauntComponent,
         LangSwitcherComponent,
         SettingsComponent
+        SafePipe,
     ],
     exports: [BoardsComponent,
         BoardComponent,
@@ -52,14 +54,13 @@ export const ROUTES: Routes = [
         TabAccauntComponent,
         LangSwitcherComponent,
         SettingsComponent
-
-
+        SafePipe,
     ],
     imports: [
         CommonModule,
         SharedModule,
         RouterModule.forChild(ROUTES),
-        DragDropModule
+        DragDropModule,
     ]
 })
 export class BoardsRoutingModule {
