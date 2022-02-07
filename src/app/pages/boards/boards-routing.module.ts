@@ -13,11 +13,16 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {CardPopUpInfoComponent} from "./components/card-pop-up-info/card-pop-up-info.component";
 import {BoardHeaderComponent} from "./components/board-header/board-header.component";
 import {BackgroundComponent} from "./components/board-header/background/background.component";
+import {SettingsComponent} from "../settings/settings.component";
+import {TabSettingsComponent} from "../settings/tab-settings/tab-settings.component";
+import {LangSwitcherComponent} from "../../shared/components/lang-switcher/lang-switcher.component";
+import {TabAccauntComponent} from "../settings/tab-accaunt/tab-accaunt.component";
 import {SafePipe} from "./components/card-pop-up-info/safe.pipe";
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
     {path: AppRoutes.board, component: BoardComponent},
+    {path: AppRoutes.settings, component: SettingsComponent}
 ];
 
 @NgModule({
@@ -30,6 +35,10 @@ export const ROUTES: Routes = [
         CardComponent,
         CardPopUpInfoComponent,
         BackgroundComponent,
+        TabSettingsComponent,
+        TabAccauntComponent,
+        LangSwitcherComponent,
+        SettingsComponent
         SafePipe,
     ],
     exports: [BoardsComponent,
@@ -41,6 +50,10 @@ export const ROUTES: Routes = [
         CardComponent,
         CardPopUpInfoComponent,
         BackgroundComponent,
+        TabSettingsComponent,
+        TabAccauntComponent,
+        LangSwitcherComponent,
+        SettingsComponent
         SafePipe,
     ],
     imports: [
