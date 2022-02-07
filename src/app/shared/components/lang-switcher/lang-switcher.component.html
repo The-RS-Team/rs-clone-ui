@@ -1,0 +1,7 @@
+<select #langSelect (change)="changeLanguage(langSelect.value)" class="language-switcher">
+    <option
+            *ngFor="let lang of translate.getLangs()"
+            [value]="lang"
+            [selected]="lang === currentLanguage"
+    >{{getLanguageName(lang)}}</option>
+</select>

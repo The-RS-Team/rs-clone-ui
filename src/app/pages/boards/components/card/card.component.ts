@@ -15,25 +15,30 @@ export class CardComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteCard = new EventEmitter<string>();
 
     @Input() card: CardInterface | undefined;
-    @Input() list: ColumnInterface = new Column('', [], '', '', 0);
+    @Input() list: ColumnInterface = new Column('', '', [], '', '', 0, '');
 
     @ViewChild('cardTitleInput') cardTitleInput: ElementRef | undefined;
+
 
     constructor(public dialog: MatDialog) {
     }
 
     ngOnInit(): void {
+
     }
 
     ngAfterViewInit(): void {
         this.cardTitleInput?.nativeElement.focus();
     }
 
-    openDialog() {
-        const dialogRef = this.dialog.open(CardPopUpInfoComponent);
+    openDialog(event: Event) {
+        // @ts-ignore
+        const classList = event.target?.classList;
+        if (classList.contains('card__edit-icon') || classList.contains('card__edit-icon')) return;
+
+        const dialogRef = this.dialog.open(CardPopUpInfoComponent, {data: this.card});
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log(`Dialog result: ${result}`);
         });
     }
 

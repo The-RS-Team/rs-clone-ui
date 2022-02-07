@@ -47,4 +47,7 @@ export class HeaderComponent implements OnInit {
         this.router.navigate([AppRoutes.home]);
     }
 
+    goToSettings() {
+        this.router.navigate(['/settings']);
+    }
 }

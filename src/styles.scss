@@ -33,6 +33,10 @@
   border-radius: 5px;
 }
 
+*{
+  box-sizing:border-box;
+}
+
 html, body {
   height: 100%;
   box-sizing: border-box;
@@ -42,5 +46,16 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+
+.my-class .mat-dialog-container{
+  min-width: 1000px!important;
+  min-height: 600px;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0;
+}
+
 
 

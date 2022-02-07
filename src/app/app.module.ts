@@ -25,7 +25,7 @@ export const ROUTES: Routes = [
 
 @NgModule({
     declarations: [
-        AppComponent,
+        AppComponent
     ],
     imports: [
         WelcomeModule,

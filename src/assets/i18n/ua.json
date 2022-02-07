@@ -35,9 +35,26 @@
     "enter-board-desc": "Розкажіть учасникам трохи про дошку.",
     "create": "Створити"
   },
+  "log-out": "Вийти",
   "menu": "Меню",
   "bg-change": "Сменить фон",
   "pictures": "Фотографії",
-  "colors": "Кольори"
-
+  "colors": "Кольори",
+  "boards": "Дошки",
+  "settings": {
+    "settings": "Налаштування",
+    "tab-profile": "Профіль та доступ",
+    "tab-actions": "Дії",
+    "tab-cards": "Картки",
+    "tab-settings": "Налаштування"
+  },
+  "tab-settings": {
+    "lang-change": "Вибрати мову"
+  },
+  "tab-profile": {
+    "acc-settings": "Налаштування профілю",
+    "nickname": "Псевдонім",
+    "nick-enter": "Введіть псевдонім",
+    "save": "Зберегти"
+  }
 }
