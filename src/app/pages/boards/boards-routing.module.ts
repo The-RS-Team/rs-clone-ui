@@ -1,23 +1,23 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from "@angular/router";
-import {AppRoutes} from "../../app.constants";
-import {BoardsComponent} from "./components/boards/boards.component";
-import {BoardComponent} from "./components/board/board.component";
-import {SharedModule} from "../../shared/shared.module";
-import {HeaderComponent} from "../../shared/components/header/header.component";
-import {NewBoardComponent} from "./components/new-board/new-board.component";
-import {CardComponent} from "./components/card/card.component";
-import {ColumnComponent} from "./components/column/column.component";
-import {DragDropModule} from "@angular/cdk/drag-drop";
-import {CardPopUpInfoComponent} from "./components/card-pop-up-info/card-pop-up-info.component";
-import {BoardHeaderComponent} from "./components/board-header/board-header.component";
-import {BackgroundComponent} from "./components/board-header/background/background.component";
-import {SettingsComponent} from "../settings/settings.component";
-import {TabSettingsComponent} from "../settings/tab-settings/tab-settings.component";
-import {LangSwitcherComponent} from "../../shared/components/lang-switcher/lang-switcher.component";
-import {TabAccauntComponent} from "../settings/tab-accaunt/tab-accaunt.component";
-import {SafePipe} from "./components/card-pop-up-info/safe.pipe";
+import {RouterModule, Routes} from '@angular/router';
+import {AppRoutes} from '../../app.constants';
+import {BoardsComponent} from './components/boards/boards.component';
+import {BoardComponent} from './components/board/board.component';
+import {SharedModule} from '../../shared/shared.module';
+import {HeaderComponent} from '../../shared/components/header/header.component';
+import {NewBoardComponent} from './components/new-board/new-board.component';
+import {CardComponent} from './components/card/card.component';
+import {ColumnComponent} from './components/column/column.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {CardPopUpInfoComponent} from './components/card-pop-up-info/card-pop-up-info.component';
+import {BoardHeaderComponent} from './components/board-header/board-header.component';
+import {BackgroundComponent} from './components/board-header/background/background.component';
+import {SettingsComponent} from '../settings/settings.component';
+import {TabSettingsComponent} from '../settings/tab-settings/tab-settings.component';
+import {LangSwitcherComponent} from '../../shared/components/lang-switcher/lang-switcher.component';
+import {TabAccauntComponent} from '../settings/tab-accaunt/tab-accaunt.component';
+import {SafePipe} from './components/card-pop-up-info/safe.pipe';
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
@@ -26,7 +26,8 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-    declarations: [BoardsComponent,
+    declarations: [
+        BoardsComponent,
         BoardComponent,
         HeaderComponent,
         BoardHeaderComponent,
@@ -38,7 +39,7 @@ export const ROUTES: Routes = [
         TabSettingsComponent,
         TabAccauntComponent,
         LangSwitcherComponent,
-        SettingsComponent
+        SettingsComponent,
         SafePipe,
     ],
     exports: [BoardsComponent,
@@ -53,7 +54,7 @@ export const ROUTES: Routes = [
         TabSettingsComponent,
         TabAccauntComponent,
         LangSwitcherComponent,
-        SettingsComponent
+        SettingsComponent,
         SafePipe,
     ],
     imports: [
