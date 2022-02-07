@@ -36,13 +36,17 @@
         </svg>
         <span class="header__title">TrelloClone</span>
     </div>
+    <button class="create-btn" routerLink="/boards">{{'boards' | translate}}</button>
     <button class="create-btn" (click)="newBoard()" >{{'new-board.create' | translate}}</button>
     <div #avatar class="header__avatar" [matMenuTriggerFor]="menu">
         <img src="/assets/images/avatar.jpg" alt="avatar">
     </div>
     <mat-menu #menu="matMenu">
         <button mat-menu-item>
-            <span (click)="logOutUser()">Log out</span>
+            <span (click)="logOutUser()">{{ 'log-out' | translate}}</span>
+        </button>
+        <button mat-menu-item>
+            <span (click)="goToSettings()">{{ 'settings.settings' | translate}}</span>
         </button>
     </mat-menu>
 </header>

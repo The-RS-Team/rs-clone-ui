@@ -35,9 +35,26 @@
     "enter-board-desc": "Tell the participants a little about the board.",
     "create": "Create"
   },
+  "log-out": "Log out",
   "menu": "Menu",
   "bg-change": "Change background",
   "pictures": "Photos",
-  "colors": "Colors"
-
+  "colors": "Colors",
+  "boards": "Boards",
+  "settings": {
+    "settings": "Settings",
+    "tab-profile": "Profile and access",
+    "tab-actions": "Actions",
+    "tab-cards": "Cards",
+    "tab-settings": "Settings"
+  },
+  "tab-settings": {
+    "lang-change": "Select language"
+  },
+  "tab-profile": {
+    "acc-settings": "Profile settings",
+    "nickname": "Nickname",
+    "nick-enter": "Enter nickname",
+    "save": "Save"
+  }
 }

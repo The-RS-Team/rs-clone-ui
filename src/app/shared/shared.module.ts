@@ -13,6 +13,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
+import {MatTabsModule} from "@angular/material/tabs";
 
 const commonModules = [
     MatFormFieldModule,
@@ -30,7 +31,8 @@ const commonModules = [
     CommonModule,
     FormsModule,
     TranslateModule,
-    I18nModule
+    I18nModule,
+    MatTabsModule
 ]
 
 @NgModule({
