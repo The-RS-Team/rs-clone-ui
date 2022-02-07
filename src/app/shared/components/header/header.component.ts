@@ -48,6 +48,6 @@ export class HeaderComponent implements OnInit {
     }
 
     goToSettings() {
-        this.router.navigate(['/settings']);
+        this.router.navigate([AppRoutes.settings]);
     }
 }

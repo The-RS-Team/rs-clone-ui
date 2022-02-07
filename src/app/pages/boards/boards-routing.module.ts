@@ -42,7 +42,8 @@ export const ROUTES: Routes = [
         SettingsComponent,
         SafePipe,
     ],
-    exports: [BoardsComponent,
+    exports: [
+        BoardsComponent,
         BoardComponent,
         HeaderComponent,
         BoardHeaderComponent,
