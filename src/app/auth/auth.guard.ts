@@ -15,12 +15,11 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         return this.firebaseAuth.authState.pipe(
-            map((user: any) => {
-                this.authService.isLogged = !!user;
-                if (!this.authService.isLogged) {
+            map(() => {
+                if (this.authService.currentUser == undefined) {
                     this.router.navigate([AppRoutes.home]);
                 }
-                return this.authService.isLogged;
+                return this.authService.currentUser !== undefined;
             })
         );
     }

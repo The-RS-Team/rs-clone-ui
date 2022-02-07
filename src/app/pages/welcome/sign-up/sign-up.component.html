@@ -8,7 +8,7 @@
         </p>
         <form class="signup__form" [formGroup]="loginForm">
 
-            <ng-container *ngIf="authService.user | async as user; else noAuth">
+            <ng-container *ngIf="authService.firebaseUser | async as user; else noAuth">
                 <h1>{{'hello' | translate}} {{user.displayName}}!</h1>
             </ng-container>
             <ng-template #noAuth>

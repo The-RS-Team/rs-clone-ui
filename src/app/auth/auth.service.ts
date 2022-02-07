@@ -8,14 +8,15 @@ import {AppRoutes} from '../app.constants';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LocalStorageService} from '../shared/services/local-storage.service';
+import {User} from '../models/user';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthService {
-    public user: Observable<firebase.User | null>;
-    public isLogged: boolean = false;
+    public firebaseUser: Observable<firebase.User | null>;
+    public currentUser: User | undefined;
     public accessToken: string = '';
     private successRoute: Array<string> = ['/', AppRoutes.boards];
     private logoutRoute: Array<string> = ['/'];
@@ -25,11 +26,13 @@ export class AuthService {
                 private readonly messageService: MessageService,
                 private readonly storageService: LocalStorageService,
                 private readonly http: HttpClient,) {
-        this.user = this.firebaseAuth.authState;
+        this.firebaseUser = this.firebaseAuth.authState;
 
         this.firebaseAuth.onAuthStateChanged(user => {
                 if (user) {
                     user.getIdToken().then(idToken => {
+                        this.currentUser = new User(user.uid, user.email, user.displayName, user.photoURL);
+                        console.log('onAuthStateChanged: sendToken');
                         this.sendToken(idToken);
                     });
                 }
