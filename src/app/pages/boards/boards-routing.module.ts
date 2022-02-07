@@ -12,6 +12,8 @@ import {ColumnComponent} from "./components/column/column.component";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {BoardsModule} from "./boards.module";
 import {CardPopUpInfoComponent} from "./components/card-pop-up-info/card-pop-up-info.component";
+import {AppModule} from "../../app.module";
+import {SafePipe} from "./components/card-pop-up-info/safe.pipe";
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
@@ -19,15 +21,25 @@ export const ROUTES: Routes = [
 ];
 
 @NgModule({
-    declarations: [BoardsComponent, BoardComponent, HeaderComponent, NewBoardComponent, ColumnComponent, CardComponent, CardPopUpInfoComponent
+    declarations: [BoardsComponent,
+        BoardComponent,
+        HeaderComponent,
+        NewBoardComponent,
+        ColumnComponent,
+        CardComponent,
+        CardPopUpInfoComponent,
+        SafePipe,
     ],
-    exports: [BoardsComponent, BoardComponent, HeaderComponent, NewBoardComponent, ColumnComponent, CardComponent, CardPopUpInfoComponent
+    exports: [BoardsComponent, BoardComponent, HeaderComponent, NewBoardComponent, ColumnComponent,
+        CardComponent,
+        CardPopUpInfoComponent,
+        SafePipe,
     ],
     imports: [
         CommonModule,
         SharedModule,
         RouterModule.forChild(ROUTES),
-        DragDropModule
+        DragDropModule,
     ]
 })
 export class BoardsRoutingModule {

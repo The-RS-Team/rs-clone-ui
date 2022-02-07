@@ -93,28 +93,45 @@ export class BoardsService {
         this.messageService.add(`BoardService: ${message}`);
     }
 
-    // addBoard(board: BoardInterface): Observable<BoardInterface> {
-    //     return this.http
-    //         .post<BoardInterface>(this.boardsUrl, board, this.httpOptions)
-    //         .pipe(
-    //             tap((newBoard: BoardInterface) => this.log(`added board w/ id=${newBoard.id}`)),
-    //             catchError(this.handleError<BoardInterface>('addBoard'))
-    //         );
-    // }
 
+    deleteFile(id: string): Observable<any> {
+        const url = `${this.filesUrl}/${id}`;
 
+        return this.http
+            .delete<any>(url, this.httpOptions)
+            .pipe(
+                tap(_ => this.log(`deleted file id=${id}`)),
+                catchError(this.handleError<any>('deleteFile'))
+            );
+    }
+
+    getFileById(id: any): Observable<any> {
+        const url = `${this.filesUrl}/id/${id}`;
+        // const httpHeaders = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+        const httpHeaders = new HttpHeaders();
+
+        return this.http
+            // .get<any>(url, {headers: httpHeaders, responseType: 'blob'} )
+            //@ts-ignore
+            .get<any>(url, {headers: httpHeaders, responseType: 'blob'})
+            .pipe(
+                tap(_ => this.log(`get file id=${id}`)),
+                catchError(this.handleError<any>('getFileById'))
+            );
+    }
 
     postFile(fileToUpload: File, cardId: string): Observable<File> {
+
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload);
-
-        const httpHeaders = new HttpHeaders().set('Content-Type', 'multipart/form-data');
-        const httpParams = new HttpParams().set('cardId', cardId);
+        // const httpHeaders = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+        const httpHeaders = new HttpHeaders();
+        // @ts-ignore
         return this.http
             // .post<File>(this.filesUrl + '/upload', formData, {headers: httpHeaders, params:httpParams})
             .post<File>(`${this.filesUrl}/upload/${cardId}`, formData, {headers: httpHeaders})
             .pipe(
-                tap((newFile: File) => this.log(`added file w/ id=${newFile}`)),
+                tap((newFile: any) => this.log(`added file w/ id=${newFile}`)),
                 catchError(this.handleError<File>('addFile'))
             );
     }

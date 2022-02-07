@@ -64,14 +64,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
         )
     }
 
-    // addToFavorites(id: string) {
-    //     const board = this.boards.find(element => element.id = id);
-    //     if (board) {
-    //         board.isFavorite = !board.isFavorite;
-    //         this.getFavorites();
-    //     }
-    // }
-
     addToFavorites(board: BoardInterface): void {
         board.isFavorite = !board.isFavorite;
         this.boardsService.updateBoard(board as BoardInterface)

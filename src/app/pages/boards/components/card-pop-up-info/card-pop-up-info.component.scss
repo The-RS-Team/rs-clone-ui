@@ -1,5 +1,18 @@
-*{
+* {
   color: #172b4d;
+}
+
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 12px;
+  background-color: hsla(210, 5%, 8%, 0.16);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsla(240, 7%, 3%, 0.16);
+  border-radius: 5px;
 }
 
 .popup {
@@ -19,14 +32,32 @@
     gap: 10px;
   }
 
-  &__popup__description {
+  &__input-title {
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: #FFFFFF;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 12px;
+    resize: none;
+
+    &:focus {
+      font-weight: normal;
+      width: 100%;
+      border: 2px solid #839bff;
+      background-color: rgba(255, 255, 255, 0.92);
+    }
+  }
+
+  &__description {
     display: flex;
     justify-content: center;
     align-items: start;
     flex-direction: column;
   }
 
-  &__description-input{
+  &__description-input {
     display: block;
     width: 100%;
     outline: none;
@@ -38,9 +69,17 @@
     resize: none;
     color: #7a7a7a;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+
+    &:focus {
+      font-weight: normal;
+      border-radius: 3px;
+      width: 100%;
+      border: 2px solid #839bff;
+      background-color: rgba(255, 255, 255, 0.92);
+    }
   }
 
-  &__section-title{
+  &__section-title {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -49,7 +88,7 @@
     margin: 0;
   }
 
-  &__comment-input{
+  &__comment-input {
     width: 100%;
     min-height: 20px;
     background-color: #FFFFFF;
@@ -83,10 +122,10 @@
     text-align: start;
   }
 
- .upload-btn{
-   width: 40px;
-   text-align: center;
- }
+  .upload-btn {
+    width: 40px;
+    text-align: center;
+  }
 
   mat-icon {
     color: #7a7a7a;
@@ -94,8 +133,21 @@
     height: 18px;
   }
 
-  .mat-menu-item{
-    width: 250px!important;
+  .mat-menu-item {
+    width: 250px !important;
+  }
+
+  .image{
+    width: 100px;
+  }
+
+  //.my-class .mat-dialog-container{
+  //  width: 1000px!important;
+  //}
+
+  app-open-file{
+    width: 100% !important;
+    height: 100% !important;
   }
 }
 

@@ -1,5 +1,14 @@
-<section class="popup">
-    <h2>Card title</h2>
+<mat-dialog-content class="popup">
+    <input
+        #cardTitleInput
+        [value]="data?.title"
+        class="popup__input-title"
+        matInput
+        type="text"
+        placeholder="Enter a title for this card"
+        autocomplete="off"
+        required>
+
     <div class="popup__content">
         <div class="popup__main-content">
             <div class="popup__description">
@@ -11,10 +20,11 @@
                           autosize
                           class="popup__description-input"
                           placeholder="Add a more detailed description..."
-                          autocomplete="off"></textarea>
+                          autocomplete="off"
+                          autofocus="off"></textarea>
             </div>
 
-
+            <button (click)="getFile()">Get file</button>
             <div class="popup__file-upload">
 
                 {{fileName || "No file uploaded yet."}}
@@ -23,6 +33,13 @@
                         (click)="fileUpload.click()">
                     <mat-icon>attach_file</mat-icon>
                 </button>
+                <div>
+                    <div #test *ngFor="let file of data.files" (click)="openDialog($event)">
+                        <p>name: {{file['originalname']}}</p>
+                        <img class="image" [src]="file?.src| safe: 'resourceUrl'" alt="test"/>
+                        <button (click)="onDeleteFile(file['id'])">Delete file</button>
+                    </div>
+                </div>
             </div>
 
 
@@ -36,6 +53,7 @@
                        placeholder="Add a comment..."
                        autocomplete="off">
             </div>
+
             <!--            <div class="popup__add-to-card-section">-->
             <!--                <button mat-button-->
             <!--                        (click)="fileUpload.click()">-->
@@ -94,4 +112,4 @@
             </button>
         </mat-menu>
     </div>
-</section>
+</mat-dialog-content>

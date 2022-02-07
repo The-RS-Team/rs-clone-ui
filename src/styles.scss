@@ -32,3 +32,14 @@ body {
 }
 
 
+.my-class .mat-dialog-container{
+  min-width: 1000px!important;
+  min-height: 600px;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0;
+}
+
+
+

@@ -49,10 +49,6 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         }
     }
 
-    public func(event:ElementRef){
-        console.log(event, '+++button')
-    }
-
     public deleteCard(cardId: string) {
         const cardToDelete = this.column.cards.find(card => card.id === cardId)
         if (cardToDelete) {
@@ -61,10 +57,9 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     }
 
     public addNewCard(): void {
-        // const card = new Card('', '', '', this.column.id, 0);
         this.socketService.newCard(
             {
-                title: 'newCard',
+                title: '',
                 description: '',
                 columnId: this.column.id,
                 position: this.column.cards.length + 1,
