@@ -5,6 +5,8 @@ import {Messages} from '../../app.constants';
 import {environment} from '../../../environments/environment';
 import {Card} from '../../models/card';
 import {ColumnInterface} from '../../interfaces/column.interface';
+import {Column} from "../../models/column";
+import {CardInterface} from "../../interfaces/card.interface";
 
 @Injectable()
 export class WebsocketService {
@@ -62,8 +64,16 @@ export class WebsocketService {
     }
 
     newCard(card: Card): void {
+        console.log(Messages.newColumn, card);
         if (this.socket.connected) {
             this.socket.emit(Messages.newCard, card);
+        }
+    }
+
+    deleteCard(cardId: string): void {
+        console.log(Messages.deleteCard, cardId);
+        if (this.socket.connected) {
+            this.socket.emit(Messages.deleteCard, cardId);
         }
     }
 
@@ -74,4 +84,10 @@ export class WebsocketService {
         }
     }
 
+    deleteColumn(columnId: string): void {
+        console.log(Messages.deleteColumn, columnId);
+        if (this.socket.connected) {
+            this.socket.emit(Messages.deleteColumn, columnId);
+        }
+    }
 }

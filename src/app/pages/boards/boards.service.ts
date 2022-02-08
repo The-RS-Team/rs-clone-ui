@@ -93,19 +93,6 @@ export class BoardsService {
             );
     }
 
-    // uploadFile(file: File): Observable<File> {
-    //     const formData = new FormData();
-    //     formData.append("bg", file);
-    //
-    //     const httpHeaders = new HttpHeaders();
-    //     return this.http
-    //         .post<File>(this.fileUrl + '/upload', formData, {headers: httpHeaders})
-    //         .pipe(
-    //             tap(newFile => this.messageService.add(`upload file w/ id=${newFile}`)),
-    //             catchError(this.handleError<File>('uploadFile'))
-    //         );
-    // }
-
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             console.error(error);
@@ -118,6 +105,14 @@ export class BoardsService {
         this.messageService.add(`BoardService: ${message}`);
     }
 
+    getAllFiles(cardId: string): Observable<File[]> {
+        return this.http
+            .get<File[]>(this.filesUrl + '/all/' + cardId, this.httpOptions)
+            .pipe(
+                tap(_ => this.messageService.add('fetched Boards')),
+                catchError(this.handleError<File[]>('getBoards', []))
+            );
+    }
 
     deleteFile(id: string): Observable<any> {
         const url = `${this.filesUrl}/${id}`;
@@ -130,13 +125,11 @@ export class BoardsService {
             );
     }
 
-    getFileById(id: any): Observable<any> {
+    getFileById(id: string): Observable<any> {
         const url = `${this.filesUrl}/id/${id}`;
-        // const httpHeaders = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
         const httpHeaders = new HttpHeaders();
 
         return this.http
-            // .get<any>(url, {headers: httpHeaders, responseType: 'blob'} )
             //@ts-ignore
             .get<any>(url, {headers: httpHeaders, responseType: 'blob'})
             .pipe(
@@ -149,11 +142,8 @@ export class BoardsService {
 
         const formData: FormData = new FormData();
         formData.append('file', fileToUpload);
-        // const httpHeaders = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
         const httpHeaders = new HttpHeaders();
-        // @ts-ignore
         return this.http
-            // .post<File>(this.filesUrl + '/upload', formData, {headers: httpHeaders, params:httpParams})
             .post<File>(`${this.filesUrl}/upload/${cardId}`, formData, {headers: httpHeaders})
             .pipe(
                 tap((newFile: any) => this.log(`added file w/ id=${newFile}`)),

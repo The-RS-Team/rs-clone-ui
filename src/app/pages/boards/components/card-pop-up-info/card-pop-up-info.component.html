@@ -24,7 +24,7 @@
                           autofocus="off"></textarea>
             </div>
 
-            <button (click)="getFile()">Get file</button>
+            <!--                        <button (click)="getFile(file.id)">Get file</button>-->
             <div class="popup__file-upload">
 
                 {{"Upload file"}}
@@ -33,11 +33,26 @@
                         (click)="fileUpload.click()">
                     <mat-icon>attach_file</mat-icon>
                 </button>
-                <div>
-                    <div #test *ngFor="let file of data.files" (click)="openDialog($event)">
-                        <p>name: {{file['originalname']}}</p>
-                        <img class="image" [src]="file?.src| safe: 'resourceUrl'" alt="test"/>
-                        <button (click)="onDeleteFile(file['id'])">Delete file</button>
+                <div class="popup__files-container">
+                    <div class="popup__file-wrapper"
+                         #test
+                         *ngFor="let file of files">
+                        <img class="image"
+                             *ngIf="file?.mimetype.split('/')[0] === 'image'"
+                             (click)="openDialog(file)"
+                             [src]="file?.src| safe: 'resourceUrl'"
+                             alt="image"/>
+                        <img class="image"
+                             *ngIf="file?.mimetype.split('/')[0] !== 'image'"
+                             (click)="openDialog(file)"
+                             src="../../../../../assets/images/jpg/file-image.jpg"
+                             alt="image"/>
+
+                        <div class="file-info">
+                            <p><b>{{file?.originalname}}</b></p>
+                            <!--                            <p>Size:{{(file['size']/1024) + ' kb'}}</p>-->
+                            <button mat-button class="delete-image-btn" (click)="onDeleteFile(file?.id)">Delete file</button>
+                        </div>
                     </div>
                 </div>
             </div>

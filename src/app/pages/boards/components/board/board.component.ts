@@ -4,6 +4,8 @@ import {BoardsService} from "../../boards.service";
 import {ActivatedRoute} from "@angular/router";
 import {Board} from "../../../../models/board";
 import {WebsocketService} from "../../../../shared/services/socket.service";
+import {Messages} from "../../../../app.constants";
+import {Column} from "../../../../models/column";
 
 @Component({
     selector: 'app-board',
@@ -24,9 +26,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     @ViewChild('boardWrapper')
-    boardWrap
-        :
-        ElementRef | undefined;
+    boardWrap: ElementRef | undefined;
 
 
     ngOnInit(): void {
@@ -36,6 +36,13 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.bg = JSON.parse(board.background)
                 this.board.columns = this.board.columns || [];
             })
+        this.socketService.socket.on(Messages.newColumn, msg => {
+            console.log(Messages.newColumn, msg)
+            if (msg) {
+                console.log(Messages.newColumn, msg)
+                this.board.columns.push(msg as Column);
+            }
+        });
     }
 
     ngAfterViewInit() {
@@ -59,6 +66,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         const listToDelete = this.board.columns.find(column => column.id === columnId)
         if (listToDelete) {
             this.board.columns.splice(this.board.columns.indexOf(listToDelete), 1);
+            this.socketService.deleteColumn(columnId);
         }
     }
 

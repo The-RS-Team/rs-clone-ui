@@ -15,4 +15,6 @@ export enum Messages {
     createRoom = 'create_room',
     newColumn = 'new_column',
     newCard = 'new_card',
+    deleteCard = 'delete_card',
+    deleteColumn = 'delete_column',
 }
