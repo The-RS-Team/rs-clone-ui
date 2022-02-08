@@ -5,21 +5,61 @@ import {first, Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {MessageService} from '../shared/message.service';
 import {AppRoutes} from '../app.constants';
+import {environment} from '../../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LocalStorageService} from '../shared/services/local-storage.service';
+import {User} from '../models/user';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthService {
-    public user: Observable<firebase.User | null>;
-    public isLogged: boolean = false;
+    public firebaseUser: Observable<firebase.User | null>;
+    public currentUser: User | undefined;
+    public accessToken: string = '';
     private successRoute: Array<string> = ['/', AppRoutes.boards];
     private logoutRoute: Array<string> = ['/'];
 
-    constructor(private firebaseAuth: AngularFireAuth,
-                private router: Router,
-                private messageService: MessageService) {
-        this.user = this.firebaseAuth.authState;
+    constructor(private readonly firebaseAuth: AngularFireAuth,
+                private readonly router: Router,
+                private readonly messageService: MessageService,
+                private readonly storageService: LocalStorageService,
+                private readonly http: HttpClient,) {
+        this.firebaseUser = this.firebaseAuth.authState;
+
+        this.firebaseAuth.onAuthStateChanged(user => {
+                if (user) {
+                    user.getIdToken().then(idToken => {
+                        this.currentUser = new User(user.uid, user.email, user.displayName, user.photoURL);
+                        console.log('onAuthStateChanged: sendToken');
+                        this.sendToken(idToken);
+                    });
+                }
+            }
+        )
+    }
+
+    sendToken(idToken: string): void {
+        const url = environment.serverAPI + '/auth/login';
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${idToken}`,
+            })
+        };
+
+        interface AccessToken {
+            access_token: string;
+        }
+
+        this.http
+            .get<AccessToken>(url, httpOptions)
+            .subscribe((value) => {
+                if (value) {
+                    this.accessToken = value.access_token;
+                }
+            })
     }
 
     isLoggedIn() {
@@ -30,7 +70,7 @@ export class AuthService {
         this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
             .then(
                 value => {
-                    this.router.navigate(['/boards']);
+                    this.router.navigate([AppRoutes.boards]);
                 }
             );
     }

@@ -1,0 +1,11 @@
+@import "../../../../assets/mixin";
+
+.wrapper {
+  padding: 20px;
+
+  &__title {
+    border-bottom: 1px solid #091e4221;
+    padding: 8px 0;
+    @include font(14px, bold, 20px);
+  }
+}
