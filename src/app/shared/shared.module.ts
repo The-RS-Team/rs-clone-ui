@@ -15,6 +15,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 const commonModules = [
     MatFormFieldModule,
@@ -24,6 +25,7 @@ const commonModules = [
     MatSnackBarModule,
     MatMenuModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     MatListModule,
     MatCardModule,
     RouterModule,
