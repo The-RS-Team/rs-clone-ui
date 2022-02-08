@@ -53,6 +53,7 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         const cardToDelete = this.column.cards.find(card => card.id === cardId)
         if (cardToDelete) {
             this.column.cards.splice(this.column.cards.indexOf(cardToDelete), 1);
+            this.socketService.deleteCard(cardId);
         }
     }
 

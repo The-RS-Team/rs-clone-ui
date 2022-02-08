@@ -1,7 +1,8 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {BoardsService} from "../../../boards.service";
 import {ActivatedRoute} from "@angular/router";
-import {BoardInterface, UnsplashImg} from "../../../../../interfaces/board.interface";
+import {BoardInterface} from "../../../../../interfaces/board.interface";
+import {UnsplashImg} from "../../../../../interfaces/unsplash-img.interface";
 import {HttpClient} from "@angular/common/http";
 import {BoardComponent} from "../../board/board.component";
 

@@ -18,6 +18,7 @@ import {TabSettingsComponent} from '../settings/tab-settings/tab-settings.compon
 import {LangSwitcherComponent} from '../../shared/components/lang-switcher/lang-switcher.component';
 import {TabAccauntComponent} from '../settings/tab-accaunt/tab-accaunt.component';
 import {SafePipe} from './components/card-pop-up-info/safe.pipe';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
@@ -62,8 +63,7 @@ export const ROUTES: Routes = [
         CommonModule,
         SharedModule,
         RouterModule.forChild(ROUTES),
-        DragDropModule,
-    ]
+        DragDropModule,]
 })
 export class BoardsRoutingModule {
 }
