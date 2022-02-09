@@ -5,8 +5,8 @@ import {Messages} from '../../app.constants';
 import {environment} from '../../../environments/environment';
 import {Card} from '../../models/card';
 import {ColumnInterface} from '../../interfaces/column.interface';
-import {Column} from "../../models/column";
-import {CardInterface} from "../../interfaces/card.interface";
+import {EventsMap} from 'socket.io/dist/typed-events';
+import {ReservedOrUserEventNames, ReservedOrUserListener} from '@socket.io/component-emitter';
 
 @Injectable()
 export class WebsocketService {
@@ -41,26 +41,24 @@ export class WebsocketService {
         }
     }
 
-    sendMessage(msg: string): void {
+    on<Ev extends ReservedOrUserEventNames<EventsMap, EventsMap>>(eventName: string, listener: ReservedOrUserListener<EventsMap, EventsMap, Ev>): void {
         if (this.socket.connected) {
-            this.socket.emit(Messages.sendMessage, msg); // this.socket.volatile.emit
+            this.socket.on(eventName, listener)
+        }
+    };
+
+    emit(eventName: string, eventObject: EventsMap): void {
+        if (this.socket.connected) {
+            this.socket.emit(eventName, eventObject);
         }
     }
 
-    createRoom(): void {
+   createRoom(): void {
         console.log(Messages.createRoom)
         if (this.socket.connected) {
             this.socket.emit(Messages.createRoom);
             console.log('After emit', Messages.createRoom)
         }
-    }
-
-    onNewColumn(): Observable<ColumnInterface> {
-        return new Observable(observer => {
-            this.socket.on(Messages.newColumn, msg => {
-                observer.next(msg);
-            });
-        });
     }
 
     newCard(card: Card): void {
