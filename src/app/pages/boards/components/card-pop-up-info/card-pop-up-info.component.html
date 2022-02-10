@@ -64,12 +64,8 @@
                     <mat-icon>view_headline</mat-icon>
                     Actions
                 </h3>
-                <input autosize
-                       class="popup__comment-input"
-                       placeholder="Add a comment..."
-                       autocomplete="off">
+                <app-add-comment [currentCard]="this.data"></app-add-comment>
             </div>
-
             <!--            <div class="popup__add-to-card-section">-->
             <!--                <button mat-button-->
             <!--                        (click)="fileUpload.click()">-->

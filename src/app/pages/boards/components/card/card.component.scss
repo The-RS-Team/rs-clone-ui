@@ -45,3 +45,13 @@ mat-icon {
     transition-duration: 0.2s;
   }
 }
+
+.comments {
+  display: flex;
+  align-items: center;
+
+  & mat-icon {
+    font-size: x-large;
+    margin-right: 4px;
+  }
+}

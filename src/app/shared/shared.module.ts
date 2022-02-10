@@ -16,6 +16,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatListModule} from "@angular/material/list";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {AngularEditorModule} from "@kolkov/angular-editor";
 
 const commonModules = [
     MatFormFieldModule,
@@ -36,7 +37,8 @@ const commonModules = [
     FormsModule,
     TranslateModule,
     I18nModule,
-    MatTabsModule
+    MatTabsModule,
+    AngularEditorModule
 ]
 
 @NgModule({

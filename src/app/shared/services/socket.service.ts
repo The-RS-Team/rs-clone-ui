@@ -7,6 +7,7 @@ import {Card} from '../../models/card';
 import {ColumnInterface} from '../../interfaces/column.interface';
 import {Column} from "../../models/column";
 import {CardInterface} from "../../interfaces/card.interface";
+import {CardItemInterface} from "../../interfaces/card-item.interface";
 
 @Injectable()
 export class WebsocketService {
@@ -90,4 +91,5 @@ export class WebsocketService {
             this.socket.emit(Messages.deleteColumn, columnId);
         }
     }
+
 }
