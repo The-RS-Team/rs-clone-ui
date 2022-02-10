@@ -1,13 +1,12 @@
-import {Component, ElementRef, Injectable, OnDestroy, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import {Subscription} from "rxjs";
-import {BoardsService} from "../../boards.service";
-import {ActivatedRoute} from "@angular/router";
-import {Board} from "../../../../models/board";
-import {WebsocketService} from "../../../../shared/services/socket.service";
-import {Messages} from "../../../../app.constants";
-import {Column} from "../../../../models/column";
-import {Card} from "../../../../models/card";
-import {FormControl} from "@angular/forms";
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {BoardsService} from '../../boards.service';
+import {ActivatedRoute} from '@angular/router';
+import {Board} from '../../../../models/board';
+import {WebsocketService} from '../../../../shared/services/socket.service';
+import {Messages} from '../../../../app.constants';
+import {Column, ColumnDeleteResult} from '../../../../models/column';
+import {ColumnInterface} from '../../../../interfaces/column.interface';
 
 @Component({
     selector: 'app-board',
@@ -37,24 +36,34 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.board = board;
                 this.bg = JSON.parse(board.background)
                 this.board.columns = this.board.columns || [];
-            });
-        // this.socketService.socket.on(Messages.newColumn, msg => {
-        //     if (msg) {
-        //         if (msg.boardId === this.board.id){
-        //             this.board.columns.push(msg as Column)}
-        //     }
-        // });
+            })
+        this.socketService.on(Messages.newColumn, this.newColumnCallback.bind(this));
+        this.socketService.on(Messages.deleteColumn, this.deleteColumnCallback.bind(this));
+    }
+
+    newColumnCallback(column: Column): void {
+        console.log('newColumnCallback', column)
+        if (column) {
+            this.board.columns.push(column);
+        }
+    }
+
+    deleteColumnCallback(deleteResult: ColumnDeleteResult): void {
+        console.log('deleteColumnCallback', deleteResult)
+        if (deleteResult.affected > 0) {
+            deleteResult.raw.forEach(id => this.board.columns.splice(
+                this.board.columns.indexOf(
+                    <ColumnInterface>this.board.columns.find(column => column.id === id)
+                ), 1)
+            )
+        }
     }
 
     ngAfterViewInit() {
         this.boardWrapper = this.boardWrap?.nativeElement;
     }
 
-    public addNewList(listTitle: any): void {
-
-         // if(!listTitle.value) return;
-
-        // ToDo: create  new list. Change, after implement API
+    public addNewColumn(): void {
         const newColumnModel = {
             title: '',
             cards: [],
@@ -62,15 +71,17 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
             description: '',
             position: this.board.columns.length + 1
         };
-        this.board.columns.push(newColumnModel);
-        this.socketService.newColumn(newColumnModel);
+        // this.board.columns.push(newColumnModel);
+        // this.socketService.newColumn(newColumnModel);
+        this.socketService.emit(Messages.newColumn, newColumnModel);
     }
 
-    public deleteList(columnId: string) {
+    public deleteColumn(columnId: string) {
         const listToDelete = this.board.columns.find(column => column.id === columnId)
         if (listToDelete) {
-            this.board.columns.splice(this.board.columns.indexOf(listToDelete), 1);
-            this.socketService.deleteColumn(columnId);
+            // this.board.columns.splice(this.board.columns.indexOf(listToDelete), 1);
+            // this.socketService.deleteColumn(columnId);
+            this.socketService.emit(Messages.deleteColumn, columnId);
         }
     }
 

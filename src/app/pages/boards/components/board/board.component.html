@@ -1,24 +1,23 @@
 <div class="board-wrapper" #boardWrapper [ngStyle]="this.bg">
-    <app-header></app-header>
-    <app-board-header [boardWrapper]="boardWrapper"></app-board-header>
-    <section class="board__section">
-        <mat-spinner *ngIf="!board" [diameter]="40"></mat-spinner>
-        <div *ngIf="board" class="board__lists-wrapper" cdkDropListGroup>
-            <app-column class="board__list"
-                        (onCreateList)="addNewList($event)"
-                        (OnDeleteList)="deleteList($event)"
+<app-header></app-header>
+<app-board-header [boardWrapper]="boardWrapper"></app-board-header>
+<section class="board__section">
+    <mat-spinner *ngIf="!board" [diameter]="40"></mat-spinner>
+    <div class="board__lists-wrapper" cdkDropListGroup>
+        <app-column class="board__list"
+                        (OnDeleteList)="deleteColumn($event)"
                         *ngFor="let column of this.board?.columns"
                         [column]="column">
-            </app-column>
-            <div class="board__list">
-                <button class="list__new-column-btn"
-                        (click)="addNewList($event)"
-                        mat-stroked-button>
-                    <mat-icon>add</mat-icon>
-                    Add a new column
-                </button>
-            </div>
+        </app-column>
+        <div class="board__list">
+            <button class="list__new-column-btn"
+                    (click)="addNewColumn()"
+                    mat-stroked-button>
+                <mat-icon>add</mat-icon>
+                Add a new column
+            </button>
         </div>
-    </section>
+    </div>
+</section>
 </div>
 

@@ -17,3 +17,13 @@ export class Column implements ColumnInterface {
         this.position = position;
     }
 }
+
+export class ColumnDeleteResult {
+    affected: number;
+    raw: string[];
+
+    constructor(affected: number, raw: string[]) {
+        this.affected = affected
+        this.raw = raw;
+    }
+}

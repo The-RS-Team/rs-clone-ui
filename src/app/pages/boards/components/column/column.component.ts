@@ -5,10 +5,7 @@ import {Card} from '../../../../models/card';
 import {Column} from '../../../../models/column';
 import {WebsocketService} from '../../../../shared/services/socket.service';
 import {Messages} from '../../../../app.constants';
-import {CardInterface} from "../../../../interfaces/card.interface";
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {BoardInterface} from "../../../../interfaces/board.interface";
-
+import {CardInterface} from '../../../../interfaces/card.interface';
 
 @Component({
     selector: 'app-column',
@@ -17,39 +14,23 @@ import {BoardInterface} from "../../../../interfaces/board.interface";
 })
 export class ColumnComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteList = new EventEmitter<string>();
-    @Output() onCreateList = new EventEmitter<FormControl>();
 
     @Input() column: ColumnInterface = new Column('', '', [], '', 0);
     @ViewChild('listTitleInput') listTitleInput: ElementRef | undefined;
-
-    titleInputFormControl = new FormControl();
-
 
     constructor(private readonly socketService: WebsocketService) {
     }
 
     ngOnInit(): void {
-
-        this.onCreateList.emit(this.titleInputFormControl);
-
-        this.socketService.socket.on(Messages.newCard, msg => {
-            if (msg) {
-                if (msg.columnId === this.column.id) {
-                    this.column.cards.push(msg as Card);
-                }
-            }
-        });
-        this.socketService.socket.on(Messages.deleteCard, msg => {
-            if (msg) {
-                console.log(msg, 'msg')
-            }
-        });
-
-        // this.titleInputFormControl.setValidators([Validators.minLength(1), Validators.required])
+        this.socketService.on(Messages.newCard, this.newCardCallback.bind(this));
     }
 
-    // if (msg.columnId === this.column.id){
-    // this.column.cards.slice(msg, 1);}
+    private newCardCallback(card: Card): void {
+        if (card) {
+            this.column.cards.push(card);
+        }
+    }
+
     ngAfterViewInit(): void {
         this.listTitleInput?.nativeElement.focus();
     }
@@ -72,13 +53,16 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         const cardToDelete = this.column.cards.find(card => card.id === cardId)
         if (cardToDelete) {
             this.column.cards.splice(this.column.cards.indexOf(cardToDelete), 1);
-            this.socketService.deleteCard(cardId);
+            // this.socketService.deleteCard(cardId);
+            this.socketService.emit(Messages.deleteCard, cardId);
         }
     }
 
     public addNewCard(): void {
-            this.socketService.newCard(
-            {
+        // this.socketService.newCard(
+            this.socketService.emit(Messages.newCard,
+
+                {
                 title: '',
                 description: '',
                 columnId: this.column.id,
