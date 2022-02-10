@@ -5,8 +5,7 @@ import {Card} from '../../../../models/card';
 import {Column} from '../../../../models/column';
 import {WebsocketService} from '../../../../shared/services/socket.service';
 import {Messages} from '../../../../app.constants';
-import {CardInterface} from "../../../../interfaces/card.interface";
-
+import {CardInterface} from '../../../../interfaces/card.interface';
 
 @Component({
     selector: 'app-column',
@@ -16,20 +15,20 @@ import {CardInterface} from "../../../../interfaces/card.interface";
 export class ColumnComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteList = new EventEmitter<string>();
 
-    @Input() column: ColumnInterface = new Column('', '', [], '', '', 0,'');
+    @Input() column: ColumnInterface = new Column('', '', [], '', '', 0, '');
     @ViewChild('listTitleInput') listTitleInput: ElementRef | undefined;
 
     constructor(private readonly socketService: WebsocketService) {
     }
 
     ngOnInit(): void {
-        this.socketService.socket.on(Messages.newCard, msg => {
-            console.log(Messages.newCard, msg)
-            if (msg) {
-                console.log(Messages.newCard, msg)
-                this.column.cards.push(msg as Card);
-            }
-        });
+        this.socketService.on(Messages.newCard, this.newCardCallback.bind(this));
+    }
+
+    private newCardCallback(card: Card): void {
+        if (card) {
+            this.column.cards.push(card);
+        }
     }
 
     ngAfterViewInit(): void {
@@ -53,12 +52,12 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         const cardToDelete = this.column.cards.find(card => card.id === cardId)
         if (cardToDelete) {
             this.column.cards.splice(this.column.cards.indexOf(cardToDelete), 1);
-            this.socketService.deleteCard(cardId);
+            this.socketService.emit(Messages.deleteCard, cardId);
         }
     }
 
     public addNewCard(): void {
-        this.socketService.newCard(
+        this.socketService.emit(Messages.newCard,
             {
                 title: '',
                 description: '',
