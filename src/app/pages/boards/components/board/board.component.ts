@@ -6,6 +6,8 @@ import {Board} from "../../../../models/board";
 import {WebsocketService} from "../../../../shared/services/socket.service";
 import {Messages} from "../../../../app.constants";
 import {Column} from "../../../../models/column";
+import {Card} from "../../../../models/card";
+import {FormControl} from "@angular/forms";
 
 @Component({
     selector: 'app-board',
@@ -35,28 +37,30 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.board = board;
                 this.bg = JSON.parse(board.background)
                 this.board.columns = this.board.columns || [];
-            })
-        this.socketService.socket.on(Messages.newColumn, msg => {
-            console.log(Messages.newColumn, msg)
-            if (msg) {
-                console.log(Messages.newColumn, msg)
-                this.board.columns.push(msg as Column);
-            }
-        });
+            });
+        // this.socketService.socket.on(Messages.newColumn, msg => {
+        //     if (msg) {
+        //         if (msg.boardId === this.board.id){
+        //             this.board.columns.push(msg as Column)}
+        //     }
+        // });
     }
 
     ngAfterViewInit() {
         this.boardWrapper = this.boardWrap?.nativeElement;
     }
 
-    public addNewList(): void {
+    public addNewList(listTitle: any): void {
+
+         // if(!listTitle.value) return;
+
         // ToDo: create  new list. Change, after implement API
         const newColumnModel = {
             title: '',
             cards: [],
             boardId: this.board.id,
-            board: this.board.id,
-            position: 0
+            description: '',
+            position: this.board.columns.length + 1
         };
         this.board.columns.push(newColumnModel);
         this.socketService.newColumn(newColumnModel);

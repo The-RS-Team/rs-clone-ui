@@ -63,8 +63,8 @@ export class WebsocketService {
         });
     }
 
-    newCard(card: Card): void {
-        console.log(Messages.newColumn, card);
+    newCard(card: Card):any {
+        console.log(Messages.newCard, card);
         if (this.socket.connected) {
             this.socket.emit(Messages.newCard, card);
         }
@@ -81,6 +81,13 @@ export class WebsocketService {
         console.log(Messages.newColumn, column);
         if (this.socket.connected) {
             this.socket.emit(Messages.newColumn, column);
+        }
+    }
+
+    updateColumn(column: ColumnInterface): void {
+        console.log(Messages.updateColumn, column);
+        if (this.socket.connected) {
+            this.socket.emit(Messages.updateColumn, column);
         }
     }
 

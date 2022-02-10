@@ -4,6 +4,5 @@ export interface CardInterface {
     description: string;
     position: number;
     columnId: string;
-    column: string;
 }
 

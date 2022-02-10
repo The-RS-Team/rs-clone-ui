@@ -6,6 +6,8 @@ import {Column} from '../../../../models/column';
 import {WebsocketService} from '../../../../shared/services/socket.service';
 import {Messages} from '../../../../app.constants';
 import {CardInterface} from "../../../../interfaces/card.interface";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {BoardInterface} from "../../../../interfaces/board.interface";
 
 
 @Component({
@@ -15,23 +17,39 @@ import {CardInterface} from "../../../../interfaces/card.interface";
 })
 export class ColumnComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteList = new EventEmitter<string>();
+    @Output() onCreateList = new EventEmitter<FormControl>();
 
-    @Input() column: ColumnInterface = new Column('', '', [], '', '', 0,'');
+    @Input() column: ColumnInterface = new Column('', '', [], '', 0);
     @ViewChild('listTitleInput') listTitleInput: ElementRef | undefined;
+
+    titleInputFormControl = new FormControl();
+
 
     constructor(private readonly socketService: WebsocketService) {
     }
 
     ngOnInit(): void {
+
+        this.onCreateList.emit(this.titleInputFormControl);
+
         this.socketService.socket.on(Messages.newCard, msg => {
-            console.log(Messages.newCard, msg)
             if (msg) {
-                console.log(Messages.newCard, msg)
-                this.column.cards.push(msg as Card);
+                if (msg.columnId === this.column.id) {
+                    this.column.cards.push(msg as Card);
+                }
             }
         });
+        this.socketService.socket.on(Messages.deleteCard, msg => {
+            if (msg) {
+                console.log(msg, 'msg')
+            }
+        });
+
+        // this.titleInputFormControl.setValidators([Validators.minLength(1), Validators.required])
     }
 
+    // if (msg.columnId === this.column.id){
+    // this.column.cards.slice(msg, 1);}
     ngAfterViewInit(): void {
         this.listTitleInput?.nativeElement.focus();
     }
@@ -46,6 +64,7 @@ export class ColumnComponent implements OnInit, AfterViewInit {
                 event.previousIndex,
                 event.currentIndex,
             );
+            // this.socketService.updateColumn(this.column);
         }
     }
 
@@ -58,13 +77,12 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     }
 
     public addNewCard(): void {
-        this.socketService.newCard(
+            this.socketService.newCard(
             {
                 title: '',
                 description: '',
                 columnId: this.column.id,
                 position: this.column.cards.length + 1,
-                column: this.column.id,
             } as Card);
     }
 
