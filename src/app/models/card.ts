@@ -15,5 +15,15 @@ export class Card implements CardInterface {
         this.position = position;
     }
 
-
 }
+
+export class CardDeleteResult {
+    affected: number;
+    raw: string[];
+
+    constructor(affected: number, raw: string[]) {
+        this.affected = affected
+        this.raw = raw;
+    }
+}
+
