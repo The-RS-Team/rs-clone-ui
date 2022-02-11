@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import { Component, Input, OnInit, Output, OnDestroy } from '@angular/core';
 import {AngularEditorConfig} from "@kolkov/angular-editor";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {WebsocketService} from "../../../../../shared/services/socket.service";
@@ -6,8 +6,6 @@ import {Messages} from "../../../../../app.constants";
 import {CardItemInterface} from "../../../../../interfaces/card-item.interface";
 import {AuthService} from "../../../../../auth/auth.service";
 import {Card} from "../../../../../models/card";
-import firebase from "firebase/compat";
-import {BoardsService} from "../../../boards.service";
 
 @Component({
   selector: 'app-add-comment',
@@ -15,7 +13,7 @@ import {BoardsService} from "../../../boards.service";
   styleUrls: ['./add-comment.component.scss']
 })
 
-export class AddCommentComponent implements OnInit {
+export class AddCommentComponent implements OnInit, OnDestroy {
   public formGroup: FormGroup | any;
   public formGroupEdit: FormGroup | any;
   comments: CardItemInterface[] = [];
@@ -33,7 +31,6 @@ export class AddCommentComponent implements OnInit {
     translate: 'yes',
     enableToolbar: true,
     showToolbar: false,
-    placeholder: 'Add a comment...',
     uploadUrl: 'v1/image',
     toolbarHiddenButtons: [
       [
@@ -69,7 +66,6 @@ export class AddCommentComponent implements OnInit {
     translate: 'yes',
     enableToolbar: true,
     showToolbar: false,
-    placeholder: 'Add a comment...',
     uploadUrl: 'v1/image',
     toolbarHiddenButtons: [
       [
@@ -114,8 +110,13 @@ export class AddCommentComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.socketService.socket.removeAllListeners();
+  }
+
   newCommentCallback(msg: CardItemInterface) {
       if (msg) {
+        console.log(msg)
         this.currentCard.cardItems.push(msg);
     }
   }
