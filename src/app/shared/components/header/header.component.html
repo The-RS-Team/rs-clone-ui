@@ -42,11 +42,11 @@
         <img src="/assets/images/avatar.jpg" alt="avatar">
     </div>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            <span (click)="logOutUser()">{{ 'log-out' | translate}}</span>
+        <button mat-menu-item (click)="logOutUser()">
+            <span >{{ 'log-out' | translate}}</span>
         </button>
-        <button mat-menu-item>
-            <span (click)="goToSettings()">{{ 'settings.settings' | translate}}</span>
+        <button mat-menu-item (click)="goToSettings()">
+            <span >{{ 'settings.settings' | translate}}</span>
         </button>
     </mat-menu>
 </header>

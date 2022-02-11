@@ -56,5 +56,12 @@
     "nickname": "Nickname",
     "nick-enter": "Enter nickname",
     "save": "Save"
+  },
+
+  "comments": {
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add-comment": "Add a comment..."
   }
 }

@@ -1,3 +1,5 @@
+import {CardItemInterface} from "./card-item.interface";
+
 export interface CardInterface {
     id?: string;
     title: string;
@@ -5,5 +7,6 @@ export interface CardInterface {
     position: number;
     columnId: string;
     column: string;
+    cardItems: CardItemInterface[];
 }
 
