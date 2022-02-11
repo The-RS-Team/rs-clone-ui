@@ -4,13 +4,13 @@
 <section class="board__section">
     <div class="board__lists-wrapper" cdkDropListGroup>
         <app-column class="board__list"
-                        (OnDeleteList)="deleteList($event)"
+                        (OnDeleteList)="deleteColumn($event)"
                         *ngFor="let column of this.board?.columns"
                         [column]="column">
         </app-column>
         <div class="board__list">
             <button class="list__new-column-btn"
-                    (click)="addNewList()"
+                    (click)="addNewColumn()"
                     mat-stroked-button>
                 <mat-icon>add</mat-icon>
                 Add a new column
