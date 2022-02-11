@@ -6,6 +6,9 @@ import {Messages} from "../../../../../app.constants";
 import {CardItemInterface} from "../../../../../interfaces/card-item.interface";
 import {AuthService} from "../../../../../auth/auth.service";
 import {Card} from "../../../../../models/card";
+import {BoardsService} from "../../../boards.service";
+import {UserInterface} from "../../../../../interfaces/user.interface";
+import {user} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-add-comment',
@@ -19,6 +22,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   comments: CardItemInterface[] = [];
   isEdit = false;
   editedComment: string = '';
+  private users!: UserInterface[];
 
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -93,14 +97,16 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   constructor(private fb: FormBuilder,
               private socketService: WebsocketService,
-              public authService: AuthService) { }
+              public authService: AuthService,
+              private boardService: BoardsService) { }
 
   @Input() public currentCard!: Card;
 
   ngOnInit(): void {
-    this.socketService.socket.on(Messages.newCarditem, (msg) => this.newCommentCallback(msg));
-    this.socketService.socket.on(Messages.deleteCarditem, msg => this.deleteCommentCallback(msg));
-    this.socketService.socket.on(Messages.updateCarditem, msg => this.updateCommentCallback(msg));
+    this.socketService.on(Messages.newCarditem, this.newCommentCallback.bind(this));
+    this.socketService.on(Messages.deleteCarditem, this.deleteCommentCallback.bind(this));
+    this.socketService.on(Messages.updateCarditem, this.updateCommentCallback.bind(this));
+    this.socketService.on(Messages.getCarditems, (msg: any) => console.log(msg));
 
     this.formGroup = this.fb.group({
       comment: ['', []]
@@ -108,10 +114,14 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     this.formGroupEdit = this.fb.group({
       commentEdit: ['', []]
     });
+
+    // this.boardService.getUser().subscribe( users => {
+    //   this.users = users;
+    // })
   }
 
   ngOnDestroy() {
-    this.socketService.socket.removeAllListeners();
+    this.socketService.removeAllListeners();
   }
 
   newCommentCallback(msg: CardItemInterface) {
@@ -142,7 +152,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     this.editorConfig.showToolbar = false;
 
     if (this.currentCard?.id && this.authService.currentUser?.user_id) {
-      this.socketService.socket.emit(Messages.newCarditem, {
+      this.socketService.emit(Messages.newCarditem, {
             info: this.formGroup.value.comment,
             cardId: this.currentCard?.id,
             userId: this.authService.currentUser?.user_id
@@ -152,7 +162,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   }
 
   deleteComment(comment: CardItemInterface) {
-    this.socketService.socket.emit(Messages.deleteCarditem, comment.id);
+    this.socketService.emit(Messages.deleteCarditem, comment.id);
     this.comments = this.comments?.filter( el => {
       return el.id != comment.id;
     })
@@ -171,7 +181,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   saveEditedComment() {
     this.isEdit = false;
-    this.socketService.socket.emit(Messages.updateCarditem, {
+    this.socketService.emit(Messages.updateCarditem, {
       info: this.formGroupEdit.value.commentEdit,
       id: this.editedComment,
     })
@@ -179,13 +189,14 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   }
 
-  // getUserById(id: string) {
-  //   let commentUser: UserInterface | undefined;
-  //   this.boardService.getUserById(id)
-  //       .subscribe( user => {
-  //         commentUser = user;
-  //   })
-  //   console.log(commentUser)
-  //   return commentUser;
+  getItems() {
+    if (this.currentCard.id) {
+      this.socketService.emit(Messages.getCarditems, this.currentCard.id)
+    }
+  }
+
+  // getUserByID(id: string) {
+  //   let commentUser = this.users.find( user => user.user_id === id);
+  //     return commentUser;
   // }
 }

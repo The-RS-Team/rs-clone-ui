@@ -16,8 +16,8 @@
 <div *ngIf="comments">
 <div class="comments">
     <div class="comment"  *ngFor="let comment of currentCard.cardItems">
-        <div class="comment__item">
-            <div class="comment__item__avatar">
+        <div class="comment__item" >
+            <div class="comment__item__avatar" (click)="getItems()">
                 <img src="" alt="">
             </div>
             <div class="comment__item__content">

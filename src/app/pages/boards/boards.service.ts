@@ -152,13 +152,13 @@ export class BoardsService {
             );
     }
 
-    getUserById(id: string): Observable<any> {
-        const url = `${this.userUrl}/id/${id}`;
-        return this.http
-            .get<UserInterface>(url, this.httpOptions)
-            .pipe(
-                tap(_ => this.log(`get user id=${id}`)),
-                catchError(this.handleError<UserInterface>('getUserById'))
-            );
-    }
+    // getUser(): Observable<any> {
+    //     const url = `${this.userUrl}/all`;
+    //     return this.http
+    //         .get<UserInterface>(url, this.httpOptions)
+    //         .pipe(
+    //             tap(_ => this.log(`get user`)),
+    //             catchError(this.handleError<UserInterface>('getUsers'))
+    //         );
+    // }
 }
