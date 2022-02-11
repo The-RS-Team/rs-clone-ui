@@ -24,77 +24,82 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     ngOnInit(): void {
         this.socketService.on(Messages.newCard, this.newCardCallback.bind(this));
         this.socketService.on(Messages.deleteCard, this.deleteCardCallback.bind(this));
+        this.socketService.on(Messages.updateCard, this.updateCardCallback.bind(this));
     }
 
     private newCardCallback(card: Card): void {
         if (card) {
             console.log(card, 'card')
-            if(card.columnId === this.column.id)
-            this.column.cards.push(card);
+            if (card.columnId === this.column.id)
+                this.column.cards.push(card);
         }
     }
 
     deleteCardCallback(deleteResult: CardDeleteResult): void {
         console.log('deleteCardCallback', deleteResult)
         if (deleteResult.affected > 0) {
-            deleteResult.raw.forEach((id:any) => this.column.cards.splice(
+            deleteResult.raw.forEach((id: any) => {
+                this.column.cards.splice(
                 this.column.cards.indexOf(
                     <CardInterface>this.column.cards.find(card => card.id === id)
-                ), 1)
+                ), 1)}
             )
         }
+}
+
+    updateCardCallback(update: any): void {
+        console.log('newCardCallback', update)
     }
 
 
-    ngAfterViewInit(): void {
-        this.listTitleInput?.nativeElement.focus();
-    }
+ngAfterViewInit(): void {
+    this.listTitleInput?.nativeElement.focus();
+}
 
-    drop(event: CdkDragDrop<CardInterface[]>) {
-        if (event.previousContainer === event.container) {
-            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-        } else {
-            transferArrayItem(
-                event.previousContainer.data,
-                event.container.data,
-                event.previousIndex,
-                event.currentIndex,
-            );
-            // this.socketService.updateColumn(this.column);
-        }
+drop(event: CdkDragDrop<CardInterface[]>) {
+        console.log(event, 'event')
+    if (event.previousContainer === event.container) {
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+        transferArrayItem(
+            event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex,
+        );
     }
+    // console.log(event.container.data)
+    // console.log(this.column.id)
 
-    public deleteCard(cardId: string) {
-        const cardToDelete = this.column.cards.find(card => card.id === cardId)
-        if (cardToDelete) {
-            // this.column.cards.splice(this.column.cards.indexOf(cardToDelete), 1);
-            // this.socketService.deleteCard(cardId);
-            this.socketService.emit(Messages.deleteCard, cardId);
-        }
+    const card = event.container.data[event.currentIndex];
+    card.position = event.currentIndex;
+
+    if (this.column.id != null) {
+        card.columnId = this.column.id;
     }
-    // public deleteColumn(columnId: string) {
-    //     const listToDelete = this.board.columns.find(column => column.id === columnId)
-    //     if (listToDelete) {
-    //         // this.board.columns.splice(this.board.columns.indexOf(listToDelete), 1);
-    //         // this.socketService.deleteColumn(columnId);
-    //         this.socketService.emit(Messages.deleteColumn, columnId);
-    //     }
-    // }
-    public addNewCard(): void {
-        // this.socketService.newCard(
-            this.socketService.emit(Messages.newCard,
+    console.log(card);
+    this.socketService.emit(Messages.updateCard, card);
+}
 
-                {
-                title: '',
-                description: '',
-                columnId: this.column.id,
-                position: this.column.cards.length + 1,
-                column: this.column.id,
-                cardItems: []
-            } as Card);
+public deleteCard(cardId: string) {
+    const cardToDelete = this.column.cards.find(card => card.id === cardId)
+    if (cardToDelete) {
+        this.socketService.emit(Messages.deleteCard, cardId);
     }
+}
 
-    public deleteList(columnId?: string): void {
+public addNewCard(): void {
+    this.socketService.emit(Messages.newCard, {
+            title: '',
+            description: '',
+            columnId: this.column.id,
+            position: this.column.cards.length + 1,
+            column: this.column.id,
+            cardItems: []
+        } as Card);
+}
+
+    public deleteList(columnId ?: string): void {
         this.OnDeleteList.emit(columnId);
     }
 }

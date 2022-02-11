@@ -59,6 +59,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
+
     ngAfterViewInit() {
         this.boardWrapper = this.boardWrap?.nativeElement;
     }
@@ -71,16 +72,12 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
             description: '',
             position: this.board.columns.length + 1
         };
-        // this.board.columns.push(newColumnModel);
-        // this.socketService.newColumn(newColumnModel);
         this.socketService.emit(Messages.newColumn, newColumnModel);
     }
 
     public deleteColumn(columnId: string) {
         const listToDelete = this.board.columns.find(column => column.id === columnId)
         if (listToDelete) {
-            // this.board.columns.splice(this.board.columns.indexOf(listToDelete), 1);
-            // this.socketService.deleteColumn(columnId);
             this.socketService.emit(Messages.deleteColumn, columnId);
         }
     }

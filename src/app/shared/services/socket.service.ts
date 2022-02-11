@@ -8,7 +8,7 @@ import {EventsMap} from 'socket.io/dist/typed-events';
 
 @Injectable()
 export class WebsocketService {
-    private readonly socket: Socket;
+    readonly socket: Socket;
 
     constructor() {
         this.socket = io(environment.serverAPI, {
