@@ -14,7 +14,7 @@ export class CardComponent implements OnInit, AfterViewInit {
 
     @Output() OnDeleteCard = new EventEmitter<string>();
 
-    @Input() card: CardInterface | undefined;
+    @Input() card!: CardInterface;
     @Input() list: ColumnInterface = new Column('', '', [], '', 0);
 
     @ViewChild('cardTitleInput') cardTitleInput: ElementRef | undefined;

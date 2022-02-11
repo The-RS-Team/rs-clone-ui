@@ -89,6 +89,8 @@ export class ColumnComponent implements OnInit, AfterViewInit {
                 description: '',
                 columnId: this.column.id,
                 position: this.column.cards.length + 1,
+                column: this.column.id,
+                cardItems: []
             } as Card);
     }
 

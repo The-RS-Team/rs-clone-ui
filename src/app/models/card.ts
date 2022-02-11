@@ -1,4 +1,5 @@
 import {CardInterface} from '../interfaces/card.interface';
+import {CardItemInterface} from "../interfaces/card-item.interface";
 
 export class Card implements CardInterface {
     id?: string;
@@ -6,6 +7,7 @@ export class Card implements CardInterface {
     description: string;
     columnId: string;
     position: number;
+    cardItems: CardItemInterface[];
 
     constructor(id: string, title: string, description: string, columnId: string, position: number) {
         this.id = id;
@@ -13,6 +15,7 @@ export class Card implements CardInterface {
         this.description = description;
         this.columnId = columnId;
         this.position = position;
+        this.cardItems = [];
     }
 
 }

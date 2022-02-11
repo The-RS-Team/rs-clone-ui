@@ -33,4 +33,5 @@ export enum Messages {
     newMessage = 'new_message',
     updateCard = 'update_card',
     updateColumn = 'update_column',
+    updateCarditem = 'update_carditem',
 }

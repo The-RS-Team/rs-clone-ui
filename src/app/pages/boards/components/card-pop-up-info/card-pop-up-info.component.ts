@@ -2,7 +2,6 @@ import {
     Component,
     ElementRef,
     Inject,
-    Input,
     OnInit,
     ViewChild,
 } from "@angular/core";
@@ -48,7 +47,6 @@ export class CardPopUpInfoComponent implements OnInit {
 
     ngOnInit(): void {
         this.getFilesByCardId(this.data.id);
-        console.log(this.data.id, 'this.data.id')
     }
 
     public convertFiles(files: any): void {
@@ -67,7 +65,6 @@ export class CardPopUpInfoComponent implements OnInit {
 
             file.src = "data:" + file.mimetype + ";base64," + src;
 
-            console.log(file);
             return file;
         });
     }
@@ -109,15 +106,12 @@ export class CardPopUpInfoComponent implements OnInit {
                 .subscribe((files) => {
                     this.files = files;
                     this.convertFiles(this.files);
-                    console.log(this.files, 'this.files');
-                    console.log(this.data.files, 'this.data.files');
                 }));
 
     }
 
 
     getFile(id: any) {
-        console.log(this.data, "this.data");
         this.boardsService.getFileById(id).subscribe((blob) => {
             // this.convertFiles();
         });
@@ -126,7 +120,6 @@ export class CardPopUpInfoComponent implements OnInit {
     onFileSelected(event: Event) {
         // @ts-ignore
         const file: File = event.target?.files[0];
-        console.log(this.data.id, "data.id");
         this.boardsService.postFile(file, this.data.id).subscribe(
             (value) => {
                 // console.log("is the file upload?: ", value);

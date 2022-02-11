@@ -11,7 +11,8 @@ import { OpenFileComponent } from './components/card-pop-up-info/open-file/open-
     exports: [
     ],
     declarations: [
-    OpenFileComponent
+    OpenFileComponent,
+
   ]
 })
 export class BoardsModule {
