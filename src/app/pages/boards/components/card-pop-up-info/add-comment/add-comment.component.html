@@ -18,7 +18,7 @@
     <div class="comment"  *ngFor="let comment of currentCard.cardItems">
         <div class="comment__item" >
             <div class="comment__item__avatar" (click)="getItems()">
-                <img src="" alt="">
+                <img src="{{ this.authService.currentUser?.picture}}" alt="">
             </div>
             <div class="comment__item__content">
                 <div class="comment__item__author"></div>
