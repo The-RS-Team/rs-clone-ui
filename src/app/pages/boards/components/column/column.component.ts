@@ -36,60 +36,70 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     }
 
     deleteCardCallback(deleteResult: CardDeleteResult): void {
-        console.log('deleteCardCallback', deleteResult)
-        if (deleteResult.affected > 0) {
-            deleteResult.raw.forEach((id: any) => {
+
+        const cardToDelete = this.column.cards.find(card => card.id === deleteResult.raw[0])
+        if (this.column.id === cardToDelete?.columnId) {
+            if (deleteResult.affected > 0) {
                 this.column.cards.splice(
-                this.column.cards.indexOf(
-                    <CardInterface>this.column.cards.find(card => card.id === id)
-                ), 1)}
-            )
+                    this.column.cards.indexOf(
+                        <CardInterface>this.column.cards.find(card => card.id === deleteResult.raw[0])
+                    ), 1)
+            }
         }
-}
+    }
 
     updateCardCallback(update: any): void {
         console.log('newCardCallback', update)
     }
 
 
-ngAfterViewInit(): void {
-    this.listTitleInput?.nativeElement.focus();
-}
+    ngAfterViewInit(): void {
+        this.listTitleInput?.nativeElement.focus();
+    }
 
-drop(event: CdkDragDrop<CardInterface[]>) {
+    drop(event: CdkDragDrop<CardInterface[]>) {
         console.log(event, 'event')
-    if (event.previousContainer === event.container) {
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-        transferArrayItem(
-            event.previousContainer.data,
-            event.container.data,
-            event.previousIndex,
-            event.currentIndex,
-        );
+        if (event.previousContainer === event.container) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        } else {
+            transferArrayItem(
+                event.previousContainer.data,
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex,
+            );
+        }
+        console.log(event.container.data)
+
+        const card = event.container.data[event.currentIndex];
+        card.position = event.currentIndex;
+
+        if (this.column.id != null) {
+            card.columnId = this.column.id;
+        }
+
+        const item = {
+            id: card.id,
+            columnId: card.columnId,
+            title: card.title,
+            position: card.position,
+            description: card.description
+        }
+
+        console.log(card);
+        this.socketService.emit(Messages.updateCard, item);
     }
-    // console.log(event.container.data)
-    // console.log(this.column.id)
 
-    const card = event.container.data[event.currentIndex];
-    card.position = event.currentIndex;
-
-    if (this.column.id != null) {
-        card.columnId = this.column.id;
+    public deleteCard(cardId: string) {
+        console.log(cardId, 'cardId')
+        const cardToDelete = this.column.cards.find(card => card.id === cardId)
+        if (cardToDelete) {
+            this.socketService.emit(Messages.deleteCard, cardId);
+        }
     }
-    console.log(card);
-    this.socketService.emit(Messages.updateCard, card);
-}
 
-public deleteCard(cardId: string) {
-    const cardToDelete = this.column.cards.find(card => card.id === cardId)
-    if (cardToDelete) {
-        this.socketService.emit(Messages.deleteCard, cardId);
-    }
-}
-
-public addNewCard(): void {
-    this.socketService.emit(Messages.newCard, {
+    public addNewCard(): void {
+        this.socketService.emit(Messages.newCard, {
             title: '',
             description: '',
             columnId: this.column.id,
@@ -97,9 +107,9 @@ public addNewCard(): void {
             column: this.column.id,
             cardItems: []
         } as Card);
-}
+    }
 
-    public deleteList(columnId ?: string): void {
+    public deleteList(columnId?: string): void {
         this.OnDeleteList.emit(columnId);
     }
 }
