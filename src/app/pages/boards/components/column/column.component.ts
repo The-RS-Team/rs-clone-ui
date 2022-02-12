@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild,} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ColumnInterface} from '../../../../interfaces/column.interface';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Card, CardDeleteResult} from '../../../../models/card';
@@ -14,9 +14,8 @@ import {CardInterface} from '../../../../interfaces/card.interface';
 })
 export class ColumnComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteList = new EventEmitter<string>();
-
     @Input() column: ColumnInterface = new Column('', '', [], '', 0);
-    @ViewChild('listTitleInput') listTitleInput: ElementRef | undefined;
+    @ViewChild('columnTitleInput') columnTitleInput: ElementRef | undefined;
 
     constructor(private readonly socketService: WebsocketService) {
     }
@@ -25,17 +24,17 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         this.socketService.on(Messages.newCard, this.newCardCallback.bind(this));
         this.socketService.on(Messages.deleteCard, this.deleteCardCallback.bind(this));
         this.socketService.on(Messages.updateCard, this.updateCardCallback.bind(this));
+        this.socketService.on(Messages.updateColumn, this.updateColumnCallback.bind(this));
     }
 
     private newCardCallback(card: Card): void {
         if (card) {
-            console.log(card, 'card')
             if (card.columnId === this.column.id)
                 this.column.cards.push(card);
         }
     }
 
-    deleteCardCallback(deleteResult: CardDeleteResult): void {
+    private deleteCardCallback(deleteResult: CardDeleteResult): void {
 
         const cardToDelete = this.column.cards.find(card => card.id === deleteResult.raw[0])
         if (this.column.id === cardToDelete?.columnId) {
@@ -52,13 +51,15 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         console.log('newCardCallback', update)
     }
 
+    updateColumnCallback(column: any) {
+        console.log('newCardCallback', column)
+    }
 
     ngAfterViewInit(): void {
-        this.listTitleInput?.nativeElement.focus();
+        this.columnTitleInput?.nativeElement.focus();
     }
 
     drop(event: CdkDragDrop<CardInterface[]>) {
-        console.log(event, 'event')
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
@@ -69,8 +70,6 @@ export class ColumnComponent implements OnInit, AfterViewInit {
                 event.currentIndex,
             );
         }
-        console.log(event.container.data)
-
         const card = event.container.data[event.currentIndex];
         card.position = event.currentIndex;
 
@@ -86,12 +85,10 @@ export class ColumnComponent implements OnInit, AfterViewInit {
             description: card.description
         }
 
-        console.log(card);
         this.socketService.emit(Messages.updateCard, item);
     }
 
     public deleteCard(cardId: string) {
-        console.log(cardId, 'cardId')
         const cardToDelete = this.column.cards.find(card => card.id === cardId)
         if (cardToDelete) {
             this.socketService.emit(Messages.deleteCard, cardId);
@@ -100,7 +97,7 @@ export class ColumnComponent implements OnInit, AfterViewInit {
 
     public addNewCard(): void {
         this.socketService.emit(Messages.newCard, {
-            title: '',
+            title: this.column.title,
             description: '',
             columnId: this.column.id,
             position: this.column.cards.length + 1,
@@ -109,7 +106,18 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         } as Card);
     }
 
-    public deleteList(columnId?: string): void {
+    public changeColumnTitle(value: string) {
+        const item = {
+            id: this.column.id,
+            title: value,
+            boardId: this.column.boardId,
+            position: this.column.position,
+            description: '',
+        }
+        this.socketService.emit(Messages.updateColumn, item);
+    }
+
+    public deleteColumn(columnId?: string): void {
         this.OnDeleteList.emit(columnId);
     }
 }
