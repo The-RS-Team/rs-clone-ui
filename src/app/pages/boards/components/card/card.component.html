@@ -1,9 +1,9 @@
 <mat-card (click)="openDialog($event);$event.stopPropagation()">
     <mat-card-content>
         <p>{{card?.title}}</p>
-        <div class="comments" *ngIf="card.cardItems.length != 0">
+        <div class="comments" *ngIf="card.cardItems?.length != 0">
             <mat-icon>comment</mat-icon>
-            {{ card.cardItems.length }}
+            {{ card.cardItems?.length }}
         </div>
     </mat-card-content>
 <!--    <mat-card-content>-->

@@ -1,9 +1,13 @@
 <div class="list__title-container">
-    <input #listTitleInput
+    <input
+        #columnTitleInput
+           (change)="changeColumnTitle(columnTitleInput.value)"
            class="list__title"
            matInput type="text"
            placeholder="Enter a title for this list"
-           autocomplete="off">
+           autocomplete="off"
+           required
+    [value]="column.title">
     <button mat-icon-button
             [matMenuTriggerFor]="menu">
         <img class="list__menu-icon"
@@ -12,7 +16,7 @@
     </button>
     <mat-menu #menu="matMenu">
         <button mat-menu-item
-                (click)="deleteList(column?.id)">
+                (click)="deleteColumn(column?.id)">
             <mat-icon>delete</mat-icon>
             <span>Delete list</span>
         </button>
@@ -23,10 +27,10 @@
      [cdkDropListData]="column.cards"
      (cdkDropListDropped)="drop($event)">
     <app-card class="list__card"
-                    *ngFor="let card of this.column?.cards"
-                    [card]="card"
-                    (OnDeleteCard)="deleteCard($event)"
-                    cdkDrag></app-card>
+              *ngFor="let card of this.column?.cards"
+              [card]="card"
+              (OnDeleteCard)="deleteCard($event)"
+              cdkDrag></app-card>
 </div>
 <button class="list__new-card-btn"
         mat-stroked-button

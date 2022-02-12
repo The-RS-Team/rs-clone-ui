@@ -86,6 +86,7 @@
 
   &.opened {
     right: 0px;
+    z-index: 1;
   }
 
   &__header {

@@ -6,19 +6,27 @@ export class Card implements CardInterface {
     title: string;
     description: string;
     columnId: string;
-    column: string;
     position: number;
     cardItems: CardItemInterface[];
 
-    constructor(id: string, title: string, description: string, columnId: string, position: number, column: string) {
+    constructor(id: string, title: string, description: string, columnId: string, position: number) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.columnId = columnId;
-        this.column = column;
         this.position = position;
         this.cardItems = [];
     }
 
-
 }
+
+export class CardDeleteResult {
+    affected: number;
+    raw: string[];
+
+    constructor(affected: number, raw: string[]) {
+        this.affected = affected
+        this.raw = raw;
+    }
+}
+

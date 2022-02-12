@@ -29,6 +29,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('boardWrapper')
     boardWrap: ElementRef | undefined;
 
+
     ngOnInit(): void {
         this.boardsService.getBoardById(this.activatedRoute.snapshot.queryParams['id'])
             .subscribe((board) => {
@@ -58,6 +59,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
+
     ngAfterViewInit() {
         this.boardWrapper = this.boardWrap?.nativeElement;
     }
@@ -67,8 +69,8 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
             title: '',
             cards: [],
             boardId: this.board.id,
-            board: this.board.id,
-            position: 0
+            description: '',
+            position: this.board.columns.length + 1
         };
         this.socketService.emit(Messages.newColumn, newColumnModel);
     }
