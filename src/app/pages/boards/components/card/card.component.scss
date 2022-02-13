@@ -1,14 +1,14 @@
 mat-card {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  //justify-content: center;
   box-sizing: border-box;
   cursor: pointer;
   font-size: 14px;
   padding: 5px;
-  //scroll-snap-align: start;
+  scroll-snap-align: start;
 
   &:hover {
 
@@ -22,6 +22,11 @@ mat-card {
 
 .mat-card-content {
   margin-bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 mat-icon {
@@ -35,6 +40,10 @@ mat-icon {
 }
 
 .card {
+  &__title {
+    overflow-wrap: anywhere;
+  }
+
   &__input-title {
     outline: none;
     border: none;
@@ -43,6 +52,14 @@ mat-icon {
   &__edit-btn {
     opacity: 0;
     transition-duration: 0.2s;
+  }
+
+  &__icons-panel {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
   }
 }
 

@@ -10,7 +10,7 @@ import {CardPopUpInfoComponent} from '../card-pop-up-info/card-pop-up-info.compo
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit, AfterViewInit {
+export class CardComponent implements OnInit {
 
     @Output() OnDeleteCard = new EventEmitter<string>();
 
@@ -27,8 +27,9 @@ export class CardComponent implements OnInit, AfterViewInit {
 
     }
 
-    ngAfterViewInit(): void {
+    editButtonClick(){
         this.cardTitleInput?.nativeElement.focus();
+        this.cardTitleInput?.nativeElement.select();
     }
 
     openDialog(event: Event) {
@@ -36,9 +37,10 @@ export class CardComponent implements OnInit, AfterViewInit {
         const classList = event.target?.classList;
         if (classList.contains('card__edit-icon') || classList.contains('card__edit-icon')) return;
 
-        const dialogRef = this.dialog.open(CardPopUpInfoComponent, {data: this.card});
+        let dialogRef = this.dialog.open(CardPopUpInfoComponent, {data: this.card});
 
         dialogRef.afterClosed().subscribe(result => {
+            console.log(result, 'result')
         });
     }
 

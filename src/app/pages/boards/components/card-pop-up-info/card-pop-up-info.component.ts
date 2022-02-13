@@ -2,10 +2,10 @@ import {
     Component,
     ElementRef,
     Inject,
-    OnInit,
+    OnInit, Optional, Output,
     ViewChild,
 } from "@angular/core";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {HttpClient} from "@angular/common/http";
 import {BoardsService} from "../../boards.service";
@@ -13,8 +13,10 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {DomSanitizer} from "@angular/platform-browser";
 import {OpenFileComponent} from "./open-file/open-file.component";
 import {Subscription} from "rxjs";
-import {BoardInterface} from "../../../../interfaces/board.interface";
 import {FileInterface} from "../../../../interfaces/file.interface";
+import {Messages} from "../../../../app.constants";
+import {WebsocketService} from '../../../../shared/services/socket.service';
+import {EventEmitter} from "@angular/core";
 
 @Component({
     selector: "app-card-pop-up-info",
@@ -35,19 +37,38 @@ export class CardPopUpInfoComponent implements OnInit {
 
     private sub$ = new Subscription();
 
-    constructor(
-        @Inject(MAT_DIALOG_DATA) public data: any,
-        public dialog: MatDialog,
-        private _snackBar: MatSnackBar,
-        private sanitization: DomSanitizer,
-        private http: HttpClient,
-        private boardsService: BoardsService
-    ) {
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+                public dialog: MatDialog,
+                private _snackBar: MatSnackBar,
+                private sanitization: DomSanitizer,
+                private http: HttpClient,
+                private boardsService: BoardsService,
+                private readonly socketService: WebsocketService) {
     }
 
     ngOnInit(): void {
         this.getFilesByCardId(this.data.id);
+        this.socketService.on(Messages.updateCard, this.updateCardCallback.bind(this));
     }
+
+    updateCardCallback(card: any) {
+        console.log('newCardCallback', card)
+    }
+
+    public changeCardParam(title: string, description: string) {
+        this.data.title = title;
+        this.data.description = description;
+
+        const item = {
+            id: this.data.id,
+            title: this.data.title,
+            columnId: this.data.columnId,
+            position: this.data.position,
+            description: this.data.description,
+        }
+        this.socketService.emit(Messages.updateCard, item);
+    }
+
 
     public convertFiles(files: any): void {
 
@@ -78,13 +99,10 @@ export class CardPopUpInfoComponent implements OnInit {
             let downloadLink = document.createElement("a");
             var binaryData = [];
             binaryData.push(file);
-            // console.log(binaryData, 'binary')
             downloadLink.href = window.URL.createObjectURL(
                 // @ts-ignore
                 new Blob(binaryData, {type: file.mimetype})
             );
-            // console.log(new Blob(binaryData, {type: file.mimetype}), 'blob')
-            // console.log(downloadLink, 'downlink')
             downloadLink.setAttribute("download", file.originalname);
             downloadLink.click();
             return;
@@ -113,7 +131,6 @@ export class CardPopUpInfoComponent implements OnInit {
 
     getFile(id: any) {
         this.boardsService.getFileById(id).subscribe((blob) => {
-            // this.convertFiles();
         });
     }
 
@@ -122,7 +139,6 @@ export class CardPopUpInfoComponent implements OnInit {
         const file: File = event.target?.files[0];
         this.boardsService.postFile(file, this.data.id).subscribe(
             (value) => {
-                // console.log("is the file upload?: ", value);
                 this.fileValue = value;
                 this.getFilesByCardId(this.data.id);
             },

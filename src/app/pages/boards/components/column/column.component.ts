@@ -62,6 +62,7 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     drop(event: CdkDragDrop<CardInterface[]>) {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
         } else {
             transferArrayItem(
                 event.previousContainer.data,
@@ -97,11 +98,10 @@ export class ColumnComponent implements OnInit, AfterViewInit {
 
     public addNewCard(): void {
         this.socketService.emit(Messages.newCard, {
-            title: this.column.title,
+            title: '',
             description: '',
             columnId: this.column.id,
             position: this.column.cards.length + 1,
-            column: this.column.id,
             cardItems: []
         } as Card);
     }
