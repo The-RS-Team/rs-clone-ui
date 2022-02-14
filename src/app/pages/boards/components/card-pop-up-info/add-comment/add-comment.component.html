@@ -17,11 +17,14 @@
 <div class="comments">
     <div class="comment"  *ngFor="let comment of currentCard.cardItems">
         <div class="comment__item" >
-            <div class="comment__item__avatar" (click)="getItems()">
-                <img src="{{ this.authService.currentUser?.picture}}" alt="">
+            <div class="comment__item__avatar">
+                <img src="{{ comment.picture }}" alt="">
             </div>
             <div class="comment__item__content">
-                <div class="comment__item__author"></div>
+                <div class="comment__item__header">
+                    <div class="comment__item__author">{{ comment.name}}</div>
+                    <div class="comment__item__updated" *ngIf="isUpdated">updated {{ comment.updated | date:'dd.MM.y, H:mm:ss'}}</div>
+                </div>
                 <div class="comment__item__text" *ngIf="editedComment != comment.id" [innerHTML]="comment.info"></div>
                 <div class="comment__item__date" *ngIf="editedComment != comment.id">{{ comment.created | date:'dd.MM.y, H:mm:ss' }}</div>
                 <div class="edit-comment" *ngIf="editedComment == comment.id">

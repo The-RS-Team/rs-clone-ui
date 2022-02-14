@@ -6,4 +6,5 @@ export interface CardItemInterface {
     created?: string;
     picture?: string;
     name?: string;
+    updated?: string;
 }
