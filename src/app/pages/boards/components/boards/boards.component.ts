@@ -108,7 +108,9 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
         this.sub$.add (
             dialogRef.afterClosed().subscribe(board => {
-                this.boards.push(board);
+                if (board) {
+                    this.boards.push(board);
+                }
             })
         )
     }

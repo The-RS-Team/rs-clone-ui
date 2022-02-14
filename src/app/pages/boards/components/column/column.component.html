@@ -4,8 +4,9 @@
            (change)="changeColumnTitle(columnTitleInput.value)"
            class="list__title"
            matInput type="text"
-           placeholder="Enter a title for this list"
-           autocomplete="off">
+           placeholder="{{ 'column.enter-list-title' | translate}}"
+           autocomplete="off"
+           required>
     <button mat-icon-button
             [matMenuTriggerFor]="menu">
         <img class="list__menu-icon"
@@ -16,7 +17,7 @@
         <button mat-menu-item
                 (click)="deleteColumn(column?.id)">
             <mat-icon>delete</mat-icon>
-            <span>Delete list</span>
+            <span>{{"column.delete-list" | translate}}</span>
         </button>
     </mat-menu>
 </div>
@@ -30,9 +31,22 @@
               (OnDeleteCard)="deleteCard($event)"
               cdkDrag></app-card>
 </div>
+<div *ngIf="isNewCard">
+    <mat-dialog-content [formGroup]="formGroup">
+        <mat-form-field class="new__card" appearance="outline">
+          <input matInput placeholder="{{'column.eneter-card-title' | translate}}" formControlName="title" class="list__card__input">
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button type="button" mat-stroked-button (click)="addNewCard()" class="new-button">{{ 'column.add-new-card' | translate }}</button>
+        <button type="button" mat-stroked-button (click)="cancelNewCard()">X</button>
+    </mat-dialog-actions>
+</div>
 <button class="list__new-card-btn"
         mat-stroked-button
-        (click)="addNewCard()">
+        (click)="openAddNewCardForm()"
+        *ngIf="!isNewCard">
     <mat-icon>add</mat-icon>
-    Add a new card
+    {{ 'column.add-new-card' | translate }}
 </button>
+

@@ -35,7 +35,9 @@ export class HeaderComponent implements OnInit {
         const dialogRef = this.dialog.open(NewBoardComponent, dialogConfig);
 
         dialogRef.afterClosed().subscribe((data) => {
-            this.boardsArray.boards.push(data as BoardInterface)
+            if (data) {
+                this.boardsArray.boards.push(data as BoardInterface)
+            }
         });
     }
 
