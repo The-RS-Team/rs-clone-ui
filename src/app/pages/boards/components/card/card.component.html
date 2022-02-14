@@ -22,7 +22,7 @@
 <!--               autofocus>-->
 <!--    </mat-card-content>-->
     <div class="card__icons-panel">
-        <div class="comments" *ngIf="card.cardItems?.length != 0">
+        <div class="comments" *ngIf="card.cardItems.length">
             <mat-icon>comment</mat-icon>
             {{ card.cardItems?.length }}
         </div>

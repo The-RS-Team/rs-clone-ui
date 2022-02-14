@@ -18,6 +18,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   public formGroupEdit: FormGroup | any;
   comments: CardItemInterface[] = [];
   isEdit = false;
+  isUpdated = false;
   editedComment: string = '';
 
   editorConfig: AngularEditorConfig = {
@@ -98,9 +99,10 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   @Input() public currentCard!: Card;
 
   ngOnInit(): void {
-    this.socketService.socket.on(Messages.newCarditem, (msg) => this.newCommentCallback(msg));
-    this.socketService.socket.on(Messages.deleteCarditem, msg => this.deleteCommentCallback(msg));
-    this.socketService.socket.on(Messages.updateCarditem, msg => this.updateCommentCallback(msg));
+    this.socketService.on(Messages.newCarditem, this.newCommentCallback.bind(this));
+    this.socketService.on(Messages.deleteCarditem, this.deleteCommentCallback.bind(this));
+    this.socketService.on(Messages.updateCarditem, this.updateCommentCallback.bind(this));
+    // this.socketService.on(Messages.getCarditems, (msg: any) => console.log(msg));
 
     this.formGroup = this.fb.group({
       comment: ['', []]
@@ -111,12 +113,11 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.socketService.socket.removeAllListeners();
+    this.socketService.removeAllListeners();
   }
 
   newCommentCallback(msg: CardItemInterface) {
       if (msg) {
-        console.log(msg)
         this.currentCard.cardItems.push(msg);
     }
   }
@@ -127,7 +128,6 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   }
   updateCommentCallback(msg: CardItemInterface) {
       if (msg) {
-        console.log(msg)
         let index = this.currentCard.cardItems.findIndex( (el: CardItemInterface) => el.id === msg.id);
           this.currentCard.cardItems[index].info = msg.info;
        }
@@ -142,17 +142,17 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     this.editorConfig.showToolbar = false;
 
     if (this.currentCard?.id && this.authService.currentUser?.user_id) {
-      this.socketService.socket.emit(Messages.newCarditem, {
+      this.socketService.emit(Messages.newCarditem, {
             info: this.formGroup.value.comment,
             cardId: this.currentCard?.id,
-            userId: this.authService.currentUser?.user_id
+            userId: this.authService.currentUser?.user_id,
           })
     }
     this.formGroup.reset({'comment': ''});
   }
 
   deleteComment(comment: CardItemInterface) {
-    this.socketService.socket.emit(Messages.deleteCarditem, comment.id);
+    this.socketService.emit(Messages.deleteCarditem, comment.id);
     this.comments = this.comments?.filter( el => {
       return el.id != comment.id;
     })
@@ -171,21 +171,10 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   saveEditedComment() {
     this.isEdit = false;
-    this.socketService.socket.emit(Messages.updateCarditem, {
+    this.socketService.emit(Messages.updateCarditem, {
       info: this.formGroupEdit.value.commentEdit,
       id: this.editedComment,
     })
     this.editedComment = '';
-
   }
-
-  // getUserById(id: string) {
-  //   let commentUser: UserInterface | undefined;
-  //   this.boardService.getUserById(id)
-  //       .subscribe( user => {
-  //         commentUser = user;
-  //   })
-  //   console.log(commentUser)
-  //   return commentUser;
-  // }
 }

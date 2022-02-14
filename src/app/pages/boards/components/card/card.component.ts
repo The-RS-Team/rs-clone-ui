@@ -12,10 +12,11 @@ import {CardPopUpInfoComponent} from '../card-pop-up-info/card-pop-up-info.compo
 })
 export class CardComponent implements OnInit {
 
+
     @Output() OnDeleteCard = new EventEmitter<string>();
 
     @Input() card!: CardInterface;
-    @Input() list: ColumnInterface = new Column('', '', [], '', 0);
+    @Input() list: ColumnInterface = new Column('', '', [],'', 0);
 
     @ViewChild('cardTitleInput') cardTitleInput: ElementRef | undefined;
 
@@ -24,7 +25,6 @@ export class CardComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
     }
 
     editButtonClick(){

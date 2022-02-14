@@ -9,7 +9,7 @@ export class Card implements CardInterface {
     position: number;
     cardItems: CardItemInterface[];
 
-    constructor(id: string, title: string, description: string, columnId: string, position: number) {
+    constructor(id: string, title: string, description: string, columnId: string, position: number, cardItems: CardItemInterface[]) {
         this.id = id;
         this.title = title;
         this.description = description;

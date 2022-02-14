@@ -14,8 +14,9 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {OpenFileComponent} from "./open-file/open-file.component";
 import {Subscription} from "rxjs";
 import {FileInterface} from "../../../../interfaces/file.interface";
+import {Card} from "../../../../models/card";
+import {WebsocketService} from "../../../../shared/services/socket.service";
 import {Messages} from "../../../../app.constants";
-import {WebsocketService} from '../../../../shared/services/socket.service';
 import {EventEmitter} from "@angular/core";
 
 @Component({
@@ -38,16 +39,22 @@ export class CardPopUpInfoComponent implements OnInit {
     private sub$ = new Subscription();
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-                public dialog: MatDialog,
-                private _snackBar: MatSnackBar,
-                private sanitization: DomSanitizer,
-                private http: HttpClient,
-                private boardsService: BoardsService,
-                private readonly socketService: WebsocketService) {
-    }
+        public dialog: MatDialog,
+        private _snackBar: MatSnackBar,
+        private sanitization: DomSanitizer,
+        private http: HttpClient,
+        private boardsService: BoardsService,
+        private socketService: WebsocketService
+    ) {}
 
     ngOnInit(): void {
         this.getFilesByCardId(this.data.id);
+
+        this.getCardItems();
+        this.socketService.on(Messages.getCarditems, (info: any) => {
+            this.data.cardItems = info;
+        })
+
         this.socketService.on(Messages.updateCard, this.updateCardCallback.bind(this));
     }
 
@@ -103,6 +110,7 @@ export class CardPopUpInfoComponent implements OnInit {
                 // @ts-ignore
                 new Blob(binaryData, {type: file.mimetype})
             );
+
             downloadLink.setAttribute("download", file.originalname);
             downloadLink.click();
             return;
@@ -126,6 +134,10 @@ export class CardPopUpInfoComponent implements OnInit {
                     this.convertFiles(this.files);
                 }));
 
+    }
+
+    getCardItems() {
+        this.socketService.emit(Messages.getCarditems, this.data.id)
     }
 
 

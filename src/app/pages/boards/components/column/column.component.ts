@@ -120,4 +120,5 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     public deleteColumn(columnId?: string): void {
         this.OnDeleteList.emit(columnId);
     }
+
 }
