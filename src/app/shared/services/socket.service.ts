@@ -15,7 +15,7 @@ export class WebsocketService {
             transports: ['websocket']
         });
 
-        this.socket.on(Messages.connect, (callback) => {
+        this.socket.on(Messages.connect, _ => {
             console.log('connect to Websocket', this.socket.id);
         })
 
@@ -44,6 +44,12 @@ export class WebsocketService {
     emit(eventName: string, eventObject: EventsMap | string): void {
         if (this.socket.connected) {
             this.socket.emit(eventName, eventObject);
+        }
+    }
+
+    removeAllListeners(): void {
+        if (this.socket.connected) {
+            this.socket.removeAllListeners();
         }
     }
 

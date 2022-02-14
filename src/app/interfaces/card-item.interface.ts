@@ -1,9 +1,10 @@
 export interface CardItemInterface {
-    id?: string;
+    id: string;
     info: string;
     cardId: string;
     userId: string;
     created?: string;
     picture?: string;
     name?: string;
+    updated?: string;
 }

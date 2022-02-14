@@ -15,6 +15,9 @@ import {OpenFileComponent} from "./open-file/open-file.component";
 import {Subscription} from "rxjs";
 import {BoardInterface} from "../../../../interfaces/board.interface";
 import {FileInterface} from "../../../../interfaces/file.interface";
+import {Card} from "../../../../models/card";
+import {WebsocketService} from "../../../../shared/services/socket.service";
+import {Messages} from "../../../../app.constants";
 
 @Component({
     selector: "app-card-pop-up-info",
@@ -41,12 +44,17 @@ export class CardPopUpInfoComponent implements OnInit {
         private _snackBar: MatSnackBar,
         private sanitization: DomSanitizer,
         private http: HttpClient,
-        private boardsService: BoardsService
+        private boardsService: BoardsService,
+        private socketService: WebsocketService
     ) {
     }
 
     ngOnInit(): void {
         this.getFilesByCardId(this.data.id);
+        this.getCardItems();
+        this.socketService.on(Messages.getCarditems, (info: any) => {
+            this.data.cardItems = info;
+        })
     }
 
     public convertFiles(files: any): void {
@@ -108,6 +116,10 @@ export class CardPopUpInfoComponent implements OnInit {
                     this.convertFiles(this.files);
                 }));
 
+    }
+
+    getCardItems() {
+        this.socketService.emit(Messages.getCarditems, this.data.id)
     }
 
 

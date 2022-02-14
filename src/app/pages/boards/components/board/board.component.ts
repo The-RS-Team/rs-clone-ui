@@ -38,7 +38,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.board.columns = this.board.columns || [];
             })
         this.socketService.on(Messages.newColumn, this.newColumnCallback.bind(this));
-        this.socketService.on(Messages.deleteColumn, this.deleteColumnCallback.bind(this));
+        this.socketService.on(Messages.deleteColumn, this.deleteColumnCallback.bind(this));   
     }
 
     newColumnCallback(column: Column): void {
@@ -58,7 +58,6 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
             )
         }
     }
-
 
     ngAfterViewInit() {
         this.boardWrapper = this.boardWrap?.nativeElement;
