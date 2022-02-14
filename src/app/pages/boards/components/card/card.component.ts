@@ -40,7 +40,6 @@ export class CardComponent implements OnInit {
         let dialogRef = this.dialog.open(CardPopUpInfoComponent, {data: this.card});
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log(result, 'result')
         });
     }
 
