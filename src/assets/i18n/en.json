@@ -63,5 +63,13 @@
     "edit": "Edit",
     "delete": "Delete",
     "add-comment": "Add a comment..."
+  },
+
+  "column": {
+    "add-new-column": "Add a new column",
+    "delete-list": "Delete list",
+    "enter-list-title": "Enter a title for this list",
+    "eneter-card-title": "Enter card title",
+    "add-new-card": "Add a new card"
   }
 }
