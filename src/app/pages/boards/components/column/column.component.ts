@@ -6,6 +6,9 @@ import {Column, ColumnDeleteResult} from '../../../../models/column';
 import {WebsocketService} from '../../../../shared/services/socket.service';
 import {Messages} from '../../../../app.constants';
 import {CardInterface} from '../../../../interfaces/card.interface';
+import { FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-column',
@@ -16,8 +19,12 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteList = new EventEmitter<string>();
     @Input() column: ColumnInterface = new Column('', '', [], '', 0);
     @ViewChild('columnTitleInput') columnTitleInput: ElementRef | undefined;
+    @ViewChild('newCardInput') newCardInput: ElementRef | undefined;
+    public isNewCard = false;
+    public formGroup: FormGroup | any;
 
-    constructor(private readonly socketService: WebsocketService) {
+    constructor(private readonly socketService: WebsocketService,
+                private fb: FormBuilder) {
     }
 
     ngOnInit(): void {
@@ -25,6 +32,10 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         this.socketService.on(Messages.deleteCard, this.deleteCardCallback.bind(this));
         this.socketService.on(Messages.updateCard, this.updateCardCallback.bind(this));
         this.socketService.on(Messages.updateColumn, this.updateColumnCallback.bind(this));
+
+        this.formGroup = this.fb.group({
+            title: ['', [Validators.required]],
+        });
     }
 
     private newCardCallback(card: Card): void {
@@ -62,6 +73,7 @@ export class ColumnComponent implements OnInit, AfterViewInit {
     drop(event: CdkDragDrop<CardInterface[]>) {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+
         } else {
             transferArrayItem(
                 event.previousContainer.data,
@@ -82,7 +94,8 @@ export class ColumnComponent implements OnInit, AfterViewInit {
             columnId: card.columnId,
             title: card.title,
             position: card.position,
-            description: card.description
+            description: card.description,
+            cover: card.cover
         }
 
         this.socketService.emit(Messages.updateCard, item);
@@ -95,16 +108,27 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         }
     }
 
+    public openAddNewCardForm() {
+        this.isNewCard = true;
+    }
+
     public addNewCard(): void {
+        if (this.formGroup.invalid) return;
+
         this.socketService.emit(Messages.newCard, {
-            title: this.column.title,
+            title: this.formGroup.value.title,
             description: '',
             columnId: this.column.id,
             position: this.column.cards.length + 1,
-            column: this.column.id,
-            cardItems: []
+            cardItems: [],
+            files: [],
+            cover: '',
         } as Card);
+        this.isNewCard = false;
+        this.formGroup.reset({'title': ''});
     }
+
+
 
     public changeColumnTitle(value: string) {
         const item = {
@@ -119,6 +143,10 @@ export class ColumnComponent implements OnInit, AfterViewInit {
 
     public deleteColumn(columnId?: string): void {
         this.OnDeleteList.emit(columnId);
+    }
+
+    cancelNewCard() {
+        this.isNewCard = false;
     }
 
 }

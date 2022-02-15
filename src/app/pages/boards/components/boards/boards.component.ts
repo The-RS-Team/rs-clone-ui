@@ -5,7 +5,9 @@ import {BoardsService} from "../../boards.service";
 import {NewBoardComponent} from "../new-board/new-board.component";
 import {BoardInterface} from "../../../../interfaces/board.interface";
 import {Router} from "@angular/router";
+import {UsersService} from "../../users.service";
 import {BackgroundComponent} from "../board-header/background/background.component";
+import {collectionSnapshots} from "@angular/fire/firestore";
 
 @Injectable({
     providedIn: 'root'
@@ -21,10 +23,12 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
     imgBaseUrl = 'http://localhost:4200/assets/images/'
     boards: BoardInterface[] = [];
+    users: any[] = [];
     favorites: BoardInterface[] = [];
 
     constructor(
         private boardsService: BoardsService,
+        private usersService: UsersService,
         private router: Router,
         private dialog: MatDialog
     ) {
@@ -33,6 +37,15 @@ export class BoardsComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.getBoards();
         this.getFavorites();
+        this.getUsers();
+    }
+
+    getUsers(): void {
+        this.sub$.add(
+            this.usersService
+                .getUsers()
+                .subscribe((users) => this.users = users));
+        console.log(this.users, 'users')
     }
 
     getBoards(): void {
@@ -95,7 +108,9 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
         this.sub$.add (
             dialogRef.afterClosed().subscribe(board => {
-                this.boards.push(board);
+                if (board) {
+                    this.boards.push(board);
+                }
             })
         )
     }
