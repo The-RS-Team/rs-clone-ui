@@ -33,33 +33,11 @@ export class AuthService {
                     user.getIdToken().then(idToken => {
                         this.currentUser = new User(user.uid, user.email, user.displayName, user.photoURL);
                         console.log('onAuthStateChanged: sendToken');
-                        this.sendToken(idToken);
+                        this.accessToken = idToken;
                     });
                 }
             }
         )
-    }
-
-    sendToken(idToken: string): void {
-        const url = environment.serverAPI + '/auth/login';
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${idToken}`,
-            })
-        };
-
-        interface AccessToken {
-            access_token: string;
-        }
-
-        this.http
-            .get<AccessToken>(url, httpOptions)
-            .subscribe((value) => {
-                if (value) {
-                    this.accessToken = value.access_token;
-                }
-            })
     }
 
     isLoggedIn() {
