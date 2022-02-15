@@ -94,7 +94,8 @@ export class ColumnComponent implements OnInit, AfterViewInit {
             columnId: card.columnId,
             title: card.title,
             position: card.position,
-            description: card.description
+            description: card.description,
+            cover: card.cover
         }
 
         this.socketService.emit(Messages.updateCard, item);
@@ -119,7 +120,9 @@ export class ColumnComponent implements OnInit, AfterViewInit {
             description: '',
             columnId: this.column.id,
             position: this.column.cards.length + 1,
-            cardItems: []
+            cardItems: [],
+            files: [],
+            cover: '',
         } as Card);
         this.isNewCard = false;
         this.formGroup.reset({'title': ''});

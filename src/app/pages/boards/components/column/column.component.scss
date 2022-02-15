@@ -16,6 +16,11 @@
 .mat-menu-item {
   line-height: 30px;
   height: 30px;
+  min-height: 45px!important;
+}
+
+.mat-menu-panel{
+  min-height: 45px!important;
 }
 
 mat-icon {

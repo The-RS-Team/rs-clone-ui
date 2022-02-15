@@ -11,20 +11,14 @@
             <mat-icon class="card__edit-icon">edit</mat-icon>
         </button>
     </mat-card-content>
-<!--    <mat-card-content>-->
-<!--        <input *ngIf="trigger.menuOpen"-->
-<!--               #cardTitleInput-->
-<!--               [value]="card?.title"-->
-<!--               class="card__input-title"-->
-<!--               matInput type="text"-->
-<!--               placeholder="Enter a title for this card"-->
-<!--               autocomplete="off"-->
-<!--               autofocus>-->
-<!--    </mat-card-content>-->
     <div class="card__icons-panel">
         <div class="comments" *ngIf="card.cardItems.length">
             <mat-icon>comment</mat-icon>
             {{ card.cardItems?.length }}
+        </div>
+        <div class="comments" *ngIf="card.files.length">
+            <mat-icon>attach_file</mat-icon>
+            {{ card.files?.length }}
         </div>
     </div>
 
