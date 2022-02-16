@@ -34,6 +34,9 @@ export class AuthService {
                         this.currentUser = new User(user.uid, user.email, user.displayName, user.photoURL);
                         console.log('onAuthStateChanged: sendToken');
                         this.accessToken = idToken;
+                        if (this.currentUser && window.location.pathname == '/') {
+                            this.router.navigate(this.successRoute)
+                        }
                     });
                 }
             }

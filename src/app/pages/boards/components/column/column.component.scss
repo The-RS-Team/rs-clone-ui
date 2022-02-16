@@ -92,9 +92,9 @@ mat-icon {
   0px 1px 3px 0px rgb(0 0 0 / 12%);
 }
 
-::ng-deep .mat-form-field-wrapper {
+.new__card .mat-form-field-wrapper {
   padding: 0;
-  margin: 0 !important;
+  margin-bottom: 0;
 }
 
 .cdk-drag-preview {
@@ -145,4 +145,9 @@ img {
   border-radius: 3px;
   color: #fff;
   margin: 5px 4px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
 }

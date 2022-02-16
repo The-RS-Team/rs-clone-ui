@@ -24,7 +24,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
     imgBaseUrl = 'http://localhost:4200/assets/images/'
     boards: BoardInterface[] = [];
     users: any[] = [];
-    favorites: BoardInterface[] = [];
+    public favorites: BoardInterface[] = [];
 
     constructor(
         private boardsService: BoardsService,

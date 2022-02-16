@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ColumnInterface} from '../../../../interfaces/column.interface';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {Card, CardDeleteResult} from '../../../../models/card';
@@ -13,7 +13,8 @@ import { Validators } from '@angular/forms';
 @Component({
     selector: 'app-column',
     templateUrl: './column.component.html',
-    styleUrls: ['./column.component.scss']
+    styleUrls: ['./column.component.scss'],
+    encapsulation : ViewEncapsulation.None
 })
 export class ColumnComponent implements OnInit, AfterViewInit {
     @Output() OnDeleteList = new EventEmitter<string>();
