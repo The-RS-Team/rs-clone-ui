@@ -29,7 +29,6 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
                 private fb: FormBuilder) {
     }
 
-
     ngOnInit(): void {
         this.sub$.add(
             this.boardTitleInput?.valueChanges.subscribe((changes) => {
@@ -44,7 +43,6 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
     addToFavorites() {
         if (!this.board) return;
         this.board.isFavorite = !this.board?.isFavorite;
-        console.log(this.board)
 
         this.boardsService.updateBoard({
             id: this.board.id,
@@ -76,6 +74,15 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
         switch (key) {
             case 'bg':
                 this.settings = 'bg';
+                break;
+            case 'about':
+                this.settings = 'about';
+                break;
+            case 'participants':
+                this.settings = 'participants';
+                break;
+            case 'actions':
+                this.settings = 'actions';
                 break;
         }
     }

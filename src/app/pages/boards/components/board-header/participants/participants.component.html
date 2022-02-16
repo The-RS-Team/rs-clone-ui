@@ -1,0 +1,15 @@
+<div class="participants">
+    <h3 class="participants__section-title">
+        <mat-icon>people</mat-icon>
+        Participants
+    </h3>
+    <div class="participants__item" *ngFor="let user of users">
+        <img class="participants__avatar"
+             [src]="user.picture"
+             alt="avatar">
+        <div class="participants__info">
+            <p class="participants__name">{{user.name}}</p>
+            <p class="participants__email">{{user.email}}</p>
+        </div>
+    </div>
+</div>

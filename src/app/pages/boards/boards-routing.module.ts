@@ -20,6 +20,10 @@ import {AddCommentComponent} from "./components/card-pop-up-info/add-comment/add
 import {SettingsComponent} from "../settings/settings.component";
 import {TabSettingsComponent} from "../settings/tab-settings/tab-settings.component";
 import {TabAccauntComponent} from "../settings/tab-accaunt/tab-accaunt.component";
+import {AboutComponent} from "./components/board-header/about/about.component";
+import {ParticipantsComponent} from "./components/board-header/participants/participants.component";
+import {OpenFileComponent} from "./components/card-pop-up-info/open-file/open-file.component";
+import {ActionsComponent} from "./components/board-header/actions/actions.component";
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
@@ -43,7 +47,11 @@ export const ROUTES: Routes = [
         LangSwitcherComponent,
         SettingsComponent,
         SafePipe,
-        AddCommentComponent
+        AddCommentComponent,
+        OpenFileComponent,
+        AboutComponent,
+        ParticipantsComponent,
+        ActionsComponent
     ],
     exports: [
         BoardsComponent,
@@ -60,13 +68,18 @@ export const ROUTES: Routes = [
         LangSwitcherComponent,
         SettingsComponent,
         SafePipe,
-        AddCommentComponent
+        AddCommentComponent,
+        OpenFileComponent,
+        AboutComponent,
+        ParticipantsComponent,
+        ActionsComponent
     ],
     imports: [
         CommonModule,
         SharedModule,
         RouterModule.forChild(ROUTES),
-        DragDropModule,]
+        DragDropModule,
+    ]
 })
 export class BoardsRoutingModule {
 }

@@ -1,0 +1,17 @@
+<div class="about">
+    <h3 class="about__section-title">
+        <mat-icon>person</mat-icon>
+        Administrator
+    </h3>
+    <h3 class="about__section-title">
+        <mat-icon>view_headline</mat-icon>
+        Description
+    </h3>
+    <textarea #boardDescription
+              autosize
+              [formControl]="boardDescriptionInput"
+              [value]="board?.description"
+              class="about__description-input"
+              placeholder="Add a description for board..."
+              autocomplete="off"></textarea>
+</div>
