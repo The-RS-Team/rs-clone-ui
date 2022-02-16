@@ -91,4 +91,14 @@ export class BoardHeaderComponent implements OnInit {
     this.settings = path;
   }
 
+  public changeBoardTitle(value: string) {
+    if (this.board) {
+        const item = {
+            id: this.board.id,
+            title: value,
+        }
+        this.boardsService.updateBoard(item as BoardInterface).subscribe(item => console.log('ddd'))
+    }
+}
+
 }
