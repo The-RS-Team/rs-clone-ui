@@ -46,7 +46,11 @@ export class HeaderComponent implements OnInit {
     }
 
     goToWelcome() {
-        this.router.navigate([AppRoutes.home]);
+        if (this.authService.currentUser) {
+            this.router.navigate([AppRoutes.boards])
+        } else {
+            this.router.navigate([AppRoutes.home]);
+        }
     }
 
     goToSettings() {

@@ -64,10 +64,20 @@
           filter: invert(78%) sepia(45%) saturate(2687%) hue-rotate(9deg) brightness(210%) contrast(106%);
         }
       }
+
+      &_active {
+
+        .icon {
+          background: url("../../../../../assets/images/svg/star-solid.svg") center no-repeat;
+        }
+      }
     }
   }
 
   &__settings {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
     &__btn {
       background-color: var(--light-button);
@@ -149,3 +159,39 @@
 }
 
 
+.btn-light {
+  background-color: #FFFFFF;
+}
+
+.invitation {
+  width: 300px;
+  height: 400px;
+  position: absolute;
+  top: 90px;
+  right: 5px;
+  background-color: #FFFFFF;
+  padding: 5px;
+  border-radius: 3px;
+  z-index: 9;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--light-button-hover);
+    padding: 10px 0px;
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  &__input {
+    width: 100%;
+  } 
+}
+
+.btn {
+  margin-top: 15px;
+}

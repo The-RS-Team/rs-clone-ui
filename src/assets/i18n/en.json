@@ -71,5 +71,13 @@
     "enter-list-title": "Enter a title for this list",
     "eneter-card-title": "Enter card title",
     "add-new-card": "Add a new card"
+  },
+
+  "invite": {
+    "invite": "Invite",
+    "invite-to-board": "Invite to board",
+    "ckeck-mail": "Check the email address",
+    "email-hint": "Enter an Email address for invitation",
+    "send": "Send invitation"
   }
 }

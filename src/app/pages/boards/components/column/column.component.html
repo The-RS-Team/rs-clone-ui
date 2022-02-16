@@ -37,9 +37,9 @@
           <input matInput placeholder="{{'column.eneter-card-title' | translate}}" formControlName="title" class="list__card__input">
         </mat-form-field>
     </mat-dialog-content>
-    <mat-dialog-actions>
+    <mat-dialog-actions class="actions">
         <button type="button" mat-stroked-button (click)="addNewCard()" class="new-button">{{ 'column.add-new-card' | translate }}</button>
-        <button type="button" mat-stroked-button (click)="cancelNewCard()">X</button>
+        <div (click)="cancelNewCard()"><mat-icon>close</mat-icon></div>
     </mat-dialog-actions>
 </div>
 <button class="list__new-card-btn"
