@@ -12,14 +12,17 @@ export class AuthInterceptor implements HttpInterceptor {
         request: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        const host = new URL(request.url);
-        if (host.hostname == window.location.hostname && this.authService.accessToken) {
-            request = request.clone({
-                headers: request.headers
-                    .set('Authorization', `Bearer ${this.authService.accessToken}`)
-                    .set('Content-Type', 'application/json')
-            });
+        try {
+            const host = new URL(request.url);
+            if (host.hostname == window.location.hostname && this.authService.accessToken) {
+                request = request.clone({
+                    headers: request.headers
+                        .set('Authorization', `Bearer ${this.authService.accessToken}`)
+                        .set('Content-Type', 'application/json')
+                });
+            }
+        } finally {
+            return next.handle(request);
         }
-        return next.handle(request);
     }
 }
