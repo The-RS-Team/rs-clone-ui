@@ -1,7 +1,6 @@
 <div class="board-wrapper" #boardWrapper [ngStyle]="this.bg">
-    <app-header></app-header>
-    <app-board-header [board]="board"
-                      [boardWrapper]="boardWrapper"></app-board-header>
+    <app-header ></app-header>
+    <app-board-header [boardWrapper]="boardWrapper" [board]="this.board"></app-board-header>
     <section class="board__section">
         <mat-spinner *ngIf="!board" [diameter]="40"></mat-spinner>
         <div *ngIf="board" class="board__lists-wrapper" cdkDropListGroup>
