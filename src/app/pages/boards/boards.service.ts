@@ -5,6 +5,8 @@ import {MessageService} from '../../shared/message.service';
 import {environment} from '../../../environments/environment';
 import {BoardInterface} from '../../interfaces/board.interface';
 import {UserInterface} from "../../interfaces/user.interface";
+import {Messages} from "../../app.constants";
+import {WebsocketService} from "../../shared/services/socket.service";
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +26,7 @@ export class BoardsService {
 
     constructor(private readonly http: HttpClient,
                 private readonly messageService: MessageService,
+                private readonly socketService: WebsocketService
                 ) {
     }
 
@@ -139,16 +142,17 @@ export class BoardsService {
             );
     }
 
-    postFile(fileToUpload: File, cardId: string): Observable<File> {
-
-        const formData: FormData = new FormData();
-        formData.append('file', fileToUpload);
-        const httpHeaders = new HttpHeaders();
-        return this.http
-            .post<any>(`${this.filesUrl}/upload/${cardId}`, formData, {headers: httpHeaders})
-            .pipe(
-                tap((newFile: any) => this.log(`added file w/ id=${newFile}`)),
-                catchError(this.handleError<File>('addFile'))
-            );
+    postFile(fileToUpload: File, cardId: string):void {
+        console.log(fileToUpload, 'fileToUpload')
+        this.socketService.emit(Messages.newFile, fileToUpload);
+        // const formData: FormData = new FormData();
+        // formData.append('file', fileToUpload);
+        // const httpHeaders = new HttpHeaders();
+        // return this.http
+        //     .post<any>(`${this.filesUrl}/upload/${cardId}`, formData, {headers: httpHeaders})
+        //     .pipe(
+        //         tap((newFile: any) => this.log(`added file w/ id=${newFile}`)),
+        //         catchError(this.handleError<File>('addFile'))
+        //     );
     }
 }

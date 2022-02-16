@@ -56,8 +56,12 @@ export class CardPopUpInfoComponent implements OnInit {
         })
 
         this.socketService.on(Messages.updateCard, this.updateCardCallback.bind(this));
-    }
+        this.socketService.on(Messages.newFile, this.newFileCallback.bind(this));
 
+    }
+    newFileCallback(card: any) {
+        console.log('newCardCallback', card)
+    }
     updateCardCallback(card: any) {
         console.log('newCardCallback', card)
     }
@@ -78,7 +82,6 @@ export class CardPopUpInfoComponent implements OnInit {
 
 
     public convertFiles(files: any): void {
-
         files = files.map((file: any) => {
             if (!file) {
                 return;
@@ -133,7 +136,6 @@ export class CardPopUpInfoComponent implements OnInit {
                     this.files = files;
                     this.convertFiles(this.files);
                 }));
-
     }
 
     getCardItems() {
@@ -149,13 +151,30 @@ export class CardPopUpInfoComponent implements OnInit {
     onFileSelected(event: Event) {
         // @ts-ignore
         const file: File = event.target?.files[0];
-        this.boardsService.postFile(file, this.data.id).subscribe(
-            (value) => {
-                this.fileValue = value;
-                this.getFilesByCardId(this.data.id);
-            },
-            (error) => console.log(error)
-        );
+
+
+
+        console.log(file, 'fileToUpload')
+        const fileToUpload = {
+            originalname: file.name,
+            size: file.size,
+            mimetype: file.type,
+            encoding: '',
+            buffer: file,
+            cardId: this.data.id,
+        }
+
+        this.socketService.emit(Messages.newFile, fileToUpload);
+         this.getFilesByCardId(this.data.id);
+
+
+        // this.boardsService.postFile(file, this.data.id).subscribe(
+        //     (value) => {
+        //         this.fileValue = value;
+        //         this.getFilesByCardId(this.data.id);
+        //     },
+        //     (error) => console.log(error)
+        // );
     }
 
     onDeleteFile(fileId: string): void {
