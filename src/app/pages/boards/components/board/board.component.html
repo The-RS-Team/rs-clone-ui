@@ -12,7 +12,7 @@
             </app-column>
             <div class="board__list">
                 <button class="list__new-column-btn"
-                        (click)="addNewColumn()"
+                        (click)="addNewColumn($event)"
                         mat-stroked-button>
                     <mat-icon>add</mat-icon>
                     {{ 'column.add-new-column' | translate}}
