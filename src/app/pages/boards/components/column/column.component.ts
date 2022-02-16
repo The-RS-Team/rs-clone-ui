@@ -15,7 +15,7 @@ import { Validators } from '@angular/forms';
     templateUrl: './column.component.html',
     styleUrls: ['./column.component.scss']
 })
-export class ColumnComponent implements OnInit, AfterViewInit {
+export class ColumnComponent implements OnInit {
     @Output() OnDeleteList = new EventEmitter<string>();
     @Input() column: ColumnInterface = new Column('', '', [], '', 0);
     @ViewChild('columnTitleInput') columnTitleInput: ElementRef | undefined;
@@ -64,10 +64,6 @@ export class ColumnComponent implements OnInit, AfterViewInit {
 
     updateColumnCallback(column: any) {
         console.log('newCardCallback', column)
-    }
-
-    ngAfterViewInit(): void {
-        this.columnTitleInput?.nativeElement.focus();
     }
 
     drop(event: CdkDragDrop<CardInterface[]>) {
@@ -128,8 +124,6 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         this.formGroup.reset({'title': ''});
     }
 
-
-
     public changeColumnTitle(value: string) {
         const item = {
             id: this.column.id,
@@ -145,7 +139,7 @@ export class ColumnComponent implements OnInit, AfterViewInit {
         this.OnDeleteList.emit(columnId);
     }
 
-    cancelNewCard() {
+    public cancelNewCard() {
         this.isNewCard = false;
     }
 

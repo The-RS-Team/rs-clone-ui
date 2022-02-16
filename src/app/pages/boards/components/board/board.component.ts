@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {BoardsService} from '../../boards.service';
 import {ActivatedRoute} from '@angular/router';
@@ -23,9 +23,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(private boardsService: BoardsService,
                 private socketService: WebsocketService,
                 private activatedRoute: ActivatedRoute,
-    ) {
-    }
-
+    ) {}
     @ViewChild('boardWrapper')
     boardWrap: ElementRef | undefined;
 
@@ -63,7 +61,8 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         this.boardWrapper = this.boardWrap?.nativeElement;
     }
 
-    public addNewColumn(): void {
+    public addNewColumn(event: Event): void {
+
         const newColumnModel = {
             title: '',
             cards: [],
