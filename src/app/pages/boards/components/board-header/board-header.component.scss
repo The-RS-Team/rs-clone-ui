@@ -10,6 +10,16 @@
   box-sizing: border-box;
   background-color: transparent;
 
+  &__board-name {
+    max-width: 200px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 32px;
+    font-family: "BeVietnam", "arial", sans-serif;
+    color: var(--col-title);
+    margin: 0 10px;
+  }
+
   &__menu {
     display: flex;
     align-items: center;
@@ -114,6 +124,7 @@
       background: url('../../../../../assets/images/svg/chevron-left.svg') center no-repeat;
     }
   }
+
   &__close {
     width: 32px;
     height: 32px;

@@ -4,6 +4,13 @@
         <div class="header__menu__star">
             <div class="icon"></div>
         </div>
+        <input #boardNameInput
+               [value]="board?.title"
+               (change)="changeBoardTitle(boardNameInput.value)"
+               class="header__board-name"
+               matInput
+               type="text"
+               autocomplete="off">
     </div>
     <div class="header__settings">
         <button class="header__settings__btn"
