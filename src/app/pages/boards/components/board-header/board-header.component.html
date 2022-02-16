@@ -5,8 +5,8 @@
             <div class="icon"></div>
         </div>
         <input #boardNameInput
-               [value]="board?.title"
-               (change)="changeBoardTitle(boardNameInput.value)"
+               [formControl]="boardTitleInput"
+               [value] = "board?.title"
                class="header__board-name"
                matInput
                type="text"

@@ -143,8 +143,8 @@ export class BoardsService {
     }
 
     postFile(fileToUpload: File, cardId: string):void {
-        console.log(fileToUpload, 'fileToUpload')
-        this.socketService.emit(Messages.newFile, fileToUpload);
+        // console.log(fileToUpload, 'fileToUpload')
+        // this.socketService.emit(Messages.newFile, fileToUpload);
         // const formData: FormData = new FormData();
         // formData.append('file', fileToUpload);
         // const httpHeaders = new HttpHeaders();

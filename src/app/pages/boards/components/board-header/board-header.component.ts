@@ -3,6 +3,7 @@ import {BoardInterface} from "../../../../interfaces/board.interface";
 import {Messages} from "../../../../app.constants";
 import {BoardsService} from "../../boards.service";
 import {Subscription} from "rxjs";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-board-header',
@@ -10,23 +11,28 @@ import {Subscription} from "rxjs";
     styleUrls: ['./board-header.component.scss']
 })
 export class BoardHeaderComponent implements OnInit, OnDestroy {
-    menu: HTMLElement | undefined;
-    isMenuOpen = false;
-    isSubMenu = false;
-    settings = '';
+    @ViewChild('menuWrapper') menuWrapper: ElementRef | undefined;
+    @Input() boardWrapper: HTMLElement | undefined;
+    @Input() board: BoardInterface | undefined;
+
+    public menu: HTMLElement | undefined;
+    public isMenuOpen = false;
+    public isSubMenu = false;
+    public settings = '';
+    boardTitleInput = new FormControl();
+
+    private sub$ = new Subscription();
 
     constructor(private boardsService: BoardsService) {
     }
 
-    @ViewChild('menuWrapper') menuWrapper: ElementRef | undefined;
-
-    @Input() boardWrapper: HTMLElement | undefined;
-    @Input() board: BoardInterface | undefined;
-
-    private sub$ = new Subscription();
-
 
     ngOnInit(): void {
+        this.sub$.add(
+            this.boardTitleInput?.valueChanges.subscribe((changes) => {
+                    this.changeBoardTitle(changes);
+            })
+        )
     }
 
     ngAfterViewInit(): void {
@@ -58,15 +64,15 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
 
     public changeBoardTitle(value: string) {
         if (this.board) {
-            const item = {
+            const board = {
                 id: this.board.id,
                 title: value,
                 description: this.board.description,
                 isFavorite: this.board.isFavorite,
                 background: this.board.background,
-                columns: this.board.columns,
             }
-            this.boardsService.updateBoard(item).subscribe(item => console.log('ddd'))
+
+            this.boardsService.updateBoard(board).subscribe(item => this.board = board)
         }
     }
 
