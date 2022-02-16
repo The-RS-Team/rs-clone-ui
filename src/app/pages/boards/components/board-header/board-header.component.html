@@ -1,12 +1,12 @@
 <div class="header">
     <div class="header__menu">
         <div class="header__menu__title">TrelloClone</div>
-        <div [ngClass]="{'header__menu__star': true, 'header__menu__star_active': this.board.isFavorite}" (click)="addToFavorites()">
+        <div [ngClass]="{'header__menu__star': true, 'header__menu__star_active': this.board?.isFavorite}" (click)="addToFavorites()">
             <div class="icon"></div>
         </div>
         <input #boardNameInput
-               [value]="board?.title"
-               (change)="changeBoardTitle(boardNameInput.value)"
+               [formControl]="boardTitleInput"
+               [value] = "board?.title"
                class="header__board-name"
                matInput
                type="text"

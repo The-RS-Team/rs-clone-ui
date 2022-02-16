@@ -12,12 +12,20 @@
 
   &__board-name {
     max-width: 200px;
+    min-width: 60px;
+    height: 30px;
     font-size: 18px;
     font-weight: 700;
-    line-height: 32px;
     font-family: "BeVietnam", "arial", sans-serif;
     color: var(--col-title);
     margin: 0 10px;
+    background-color: var(--light-button);
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__menu {
@@ -106,7 +114,7 @@
 
   &.opened {
     right: 0px;
-    z-index: 1;
+    z-index: 10;
   }
 
   &__header {
@@ -186,4 +194,10 @@
 
 .btn {
   margin-top: 15px;
+}
+
+mat-icon{
+  font-size: 16px;
+  height: 19px;
+  width: 25px;
 }
