@@ -1,10 +1,11 @@
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {BoardInterface} from "../../../../interfaces/board.interface";
-import {Messages} from "../../../../app.constants";
-import {BoardsService} from "../../boards.service";
-import {Subscription} from "rxjs";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {FormBuilder} from '@angular/forms';
+import {BoardInterface} from '../../../../interfaces/board.interface';
+import {BoardsService} from '../../boards.service';
+import {Subscription} from 'rxjs';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {WebsocketService} from '../../../../shared/services/socket.service';
+import {Messages} from '../../../../app.constants';
+import {Invite} from '../../../../models/invite';
 
 @Component({
     selector: 'app-board-header',
@@ -25,8 +26,9 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
     public boardTitleInput = new FormControl();
     public formGroup: FormGroup | any;
 
-    constructor(private boardsService: BoardsService,
-                private fb: FormBuilder) {
+    constructor(private readonly boardsService: BoardsService,
+                private readonly socketService: WebsocketService,
+                private readonly fb: FormBuilder) {
     }
 
 
@@ -39,6 +41,7 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
         this.formGroup = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
         });
+        this.socketService.on(Messages.newInvite, this.newInviteCallback.bind(this));
     }
 
     addToFavorites() {
@@ -88,8 +91,17 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
         this.isInvite = false;
     }
 
-    sendInvite() {
+    newInviteCallback(invite: Invite): void {
+        console.log('newInviteCallback', invite)
+
+    }
+
+    sendInvite(email: string) {
         if (this.formGroup.invalid) return;
+        if (this.board) {
+            const invite = new Invite(email, this.board.id);
+            this.socketService.emit(Messages.newInvite, invite);
+        }
     }
 
     goBack(path: string) {

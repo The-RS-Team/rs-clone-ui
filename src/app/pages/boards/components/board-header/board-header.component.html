@@ -5,7 +5,6 @@
             <div class="icon"></div>
         </div>
         <input #boardNameInput
-               [formControl]="boardTitleInput"
                [value] = "board?.title"
                class="header__board-name"
                matInput
@@ -24,7 +23,7 @@
             </div>
             <mat-dialog-content [formGroup]="formGroup" >
                 <mat-form-field appearance="outline" class="invitation__input">
-                    <input matInput placeholder="E-mail" formControlName="email">
+                    <input #inviteEmail matInput placeholder="E-mail" formControlName="email" type="email">
                     <mat-error *ngIf="formGroup.controls['email'].invalid" >
                         {{ 'invite.ckeck-mail' | translate }}
                     </mat-error>
@@ -32,7 +31,7 @@
                 </mat-form-field>
             </mat-dialog-content>
             <mat-dialog-actions>
-                <button type="button" mat-stroked-button (click)="sendInvite()" class="btn">{{ 'invite.send' | translate }}</button>
+                <button type="button" mat-stroked-button (click)="sendInvite(inviteEmail.value)" class="btn">{{ 'invite.send' | translate }}</button>
             </mat-dialog-actions>
         </div>
         <button type="button" class="header__settings__btn"
