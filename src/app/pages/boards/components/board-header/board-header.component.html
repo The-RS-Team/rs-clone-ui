@@ -4,8 +4,7 @@
         <div [ngClass]="{'header__menu__star': true, 'header__menu__star_active': this.board?.isFavorite}" (click)="addToFavorites()">
             <div class="icon"></div>
         </div>
-        <input #boardNameInput
-               [formControl]="boardTitleInput"
+        <input [formControl]="boardTitleInput"
                [value] = "board?.title"
                class="header__board-name"
                matInput
@@ -58,10 +57,11 @@
             <div class="menu__close__icon"></div>
         </div>
     </div>
-    <mat-nav-list>
+    <mat-nav-list *ngIf="settings == ''">
         <a mat-list-item (click)="openSettings('bg')">
             <mat-icon matListIcon>image</mat-icon>
             {{'bg-change' | translate}}</a>
+
         <a mat-list-item (click)="openSettings('about')">
             <mat-icon matListIcon>list</mat-icon>
             {{"About board"}}

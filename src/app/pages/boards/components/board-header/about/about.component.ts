@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
 import {BoardInterface} from "../../../../../interfaces/board.interface";
 import {BoardsService} from "../../../boards.service";
 import {UserInterface} from "../../../../../interfaces/user.interface";
@@ -19,14 +19,26 @@ export class AboutComponent implements OnInit {
 
 
     constructor(private boardService: BoardsService) {
+
     }
 
     ngOnInit(): void {
+        console.log(this.board)
+        this.getBoard();
         this.sub$.add(
             this.boardDescriptionInput?.valueChanges.subscribe((changes) => {
                 this.changeBoardDescription(changes);
             })
         )
+    }
+
+    public getBoard() {
+        if (this.board) {
+            this.boardService.getBoardById(this.board.id).subscribe(board => {
+                this.board = board
+                this.boardDescriptionInput.setValue(board?.description)
+            });
+        }
     }
 
     public changeBoardDescription(value: string) {
@@ -35,7 +47,8 @@ export class AboutComponent implements OnInit {
                 id: this.board.id,
                 description: value,
             }
-            this.boardService.updateBoard(item as BoardInterface).subscribe(item => {})
+            this.boardService.updateBoard(item as BoardInterface).subscribe(item => {
+            })
         }
     }
 }

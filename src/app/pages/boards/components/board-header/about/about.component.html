@@ -7,11 +7,9 @@
         <mat-icon>view_headline</mat-icon>
         Description
     </h3>
-    <textarea #boardDescription
-              autosize
+    <textarea autosize
               [formControl]="boardDescriptionInput"
-              [value]="board?.description"
               class="about__description-input"
-              placeholder="Add a description for board..."
-              autocomplete="off"></textarea>
+              rows="4"
+              placeholder="Add a description for board...">{{board?.description}}</textarea>
 </div>

@@ -8,6 +8,7 @@ export interface CardInterface {
     position: number;
     columnId: string;
     files: FileInterface[];
+    filesCount?: number;
     cardItems: CardItemInterface[];
     cover: string;
 }
