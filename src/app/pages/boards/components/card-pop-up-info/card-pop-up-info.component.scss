@@ -24,6 +24,27 @@
     grid-gap: 10px;
   }
 
+  &__cover-img-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__cover {
+    max-width: 150px;
+  }
+
+  &__button {
+    width: fit-content;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0;
+
+    &:hover {
+      color: #0d3780;
+    }
+  }
+
   &__main-content {
     display: flex;
     justify-content: start;
@@ -33,6 +54,8 @@
 
   &__input-title {
     width: 100%;
+    min-height: 40px!important;
+    font-weight: bold;
     margin-bottom: 15px;
     background-color: #FFFFFF;
     outline: none;
@@ -42,8 +65,6 @@
     resize: none;
 
     &:focus {
-      font-weight: normal;
-      width: 100%;
       border: 2px solid #839bff;
       background-color: rgba(255, 255, 255, 0.92);
     }
@@ -145,6 +166,9 @@
     height: 18px;
   }
 
+  .mat-button {
+  }
+
   .mat-menu-item {
     width: 250px !important;
   }
@@ -154,13 +178,6 @@
     cursor: pointer;
   }
 
-  .delete-image-btn {
-    width: fit-content;
-  }
-
-  //.my-class .mat-dialog-container{
-  //  width: 1000px!important;
-  //}
 
   app-open-file {
     width: 100% !important;

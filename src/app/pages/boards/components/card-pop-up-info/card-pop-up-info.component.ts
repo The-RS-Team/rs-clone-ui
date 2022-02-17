@@ -39,13 +39,14 @@ export class CardPopUpInfoComponent implements OnInit {
     private sub$ = new Subscription();
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-        public dialog: MatDialog,
-        private _snackBar: MatSnackBar,
-        private sanitization: DomSanitizer,
-        private http: HttpClient,
-        private boardsService: BoardsService,
-        private socketService: WebsocketService
-    ) {}
+                public dialog: MatDialog,
+                private _snackBar: MatSnackBar,
+                private sanitization: DomSanitizer,
+                private http: HttpClient,
+                private boardsService: BoardsService,
+                private socketService: WebsocketService
+    ) {
+    }
 
     ngOnInit(): void {
         this.getFilesByCardId(this.data.id);
@@ -59,16 +60,19 @@ export class CardPopUpInfoComponent implements OnInit {
         this.socketService.on(Messages.newFile, this.newFileCallback.bind(this));
 
     }
+
     newFileCallback(card: any) {
         console.log('newCardCallback', card)
     }
+
     updateCardCallback(card: any) {
         console.log('newCardCallback', card)
     }
 
-    public changeCardParam(title: string, description: string) {
+    public changeCardParam(title: string, description: string, src?: string | null) {
         this.data.title = title;
         this.data.description = description;
+        this.data.cover = src;
 
         const item = {
             id: this.data.id,
@@ -76,6 +80,7 @@ export class CardPopUpInfoComponent implements OnInit {
             columnId: this.data.columnId,
             position: this.data.position,
             description: this.data.description,
+            cover: this.data.cover
         }
         this.socketService.emit(Messages.updateCard, item);
     }
@@ -128,7 +133,7 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
 
-    getFilesByCardId(id: string) {
+    getFilesByCardId(id: string): void {
         this.sub$.add(
             this.boardsService
                 .getAllFiles(id)
@@ -153,7 +158,6 @@ export class CardPopUpInfoComponent implements OnInit {
         const file: File = event.target?.files[0];
 
 
-
         console.log(file, 'fileToUpload')
         const fileToUpload = {
             originalname: file.name,
@@ -163,10 +167,13 @@ export class CardPopUpInfoComponent implements OnInit {
             buffer: file,
             cardId: this.data.id,
         }
-
-        this.socketService.emit(Messages.newFile, fileToUpload);
-         this.getFilesByCardId(this.data.id);
-
+        this.socketService.emit(Messages.newFile, fileToUpload)
+        this.socketService.on(Messages.newFile, (res: string) => {
+            if (res) {
+                this.getFilesByCardId(this.data.id);
+            }
+        })
+        // console.log(this.socketService.emit(Messages.newFile, fileToUpload))
 
         // this.boardsService.postFile(file, this.data.id).subscribe(
         //     (value) => {
@@ -181,14 +188,13 @@ export class CardPopUpInfoComponent implements OnInit {
         this.boardsService.deleteFile(fileId)
             .subscribe(
                 (response) => {
-                    this.getFilesByCardId(this.data.id)
+                    this.getFilesByCardId(this.data.id);
                 }
             )
     }
 
     public ngOnDestroy() {
         this.sub$.unsubscribe();
-
         this.socketService.socket.removeAllListeners();
     }
 }
