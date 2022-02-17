@@ -30,8 +30,12 @@ export enum Messages {
     newCarditem = 'new_carditem',
     newColumn = 'new_column',
     newFile = 'new_file',
-    newMessage = 'new_message',
     updateCard = 'update_card',
     updateColumn = 'update_column',
     updateCarditem = 'update_carditem',
+    getAtivityByUser = 'get_ativitybyuser',
+    getAtivityByBoard = 'get_ativitybyboard',
+    newInvite = 'new_invite',
+    getInvite = 'get_invite',
+    deleteInvite = 'delete_invite',
 }

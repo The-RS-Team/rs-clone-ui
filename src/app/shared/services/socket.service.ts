@@ -2,16 +2,14 @@ import {Injectable} from '@angular/core';
 import {io, Socket} from 'socket.io-client';
 import {Messages} from '../../app.constants';
 import {environment} from '../../../environments/environment';
-import {Card} from '../../models/card';
-import {ColumnInterface} from '../../interfaces/column.interface';
 import {EventsMap} from 'socket.io/dist/typed-events';
-import {Observable} from "rxjs";
+import {AuthService} from '../../auth/auth.service';
 
 @Injectable()
 export class WebsocketService {
     readonly socket: Socket;
 
-    constructor() {
+    constructor(private readonly authService: AuthService) {
         this.socket = io(environment.serverAPI, {
             transports: ['websocket']
         });
@@ -44,7 +42,20 @@ export class WebsocketService {
 
     emit(eventName: string, eventObject: EventsMap | string): void {
         if (this.socket.connected) {
-                this.socket.emit(eventName, eventObject)
+            const obj: { [k: string]: any } = {};
+            Object.defineProperty(obj,
+                'userId', {
+                    value: this.authService.currentUser?.user_id,
+                    writable: true,
+                    enumerable: true
+                });
+            if (typeof eventObject === 'object' && eventObject !== null) {
+                Object.assign(obj, eventObject);
+            } else {
+                obj['id'] = eventObject;
+            }
+            console.log('socket emit:', eventName, obj)
+            this.socket.emit(eventName, obj);
         }
     }
 
@@ -58,57 +69,4 @@ export class WebsocketService {
         console.log(Messages.createRoom)
         this.socket.emit(Messages.createRoom);
     }
-
 }
-
-// createRoom(): void {
-//     console.log(Messages.createRoom)
-//     if (this.socket.connected) {
-//     this.socket.emit(Messages.createRoom);
-//     console.log('After emit', Messages.createRoom)
-// }
-// }
-//
-// onNewColumn(): Observable<ColumnInterface> {
-//     return new Observable(observer => {
-//         this.socket.on(Messages.newColumn, msg => {
-//             observer.next(msg);
-//         });
-//     });
-// }
-//
-// newCard(card: Card):any {
-//     console.log(Messages.newCard, card);
-//     if (this.socket.connected) {
-//         this.socket.emit(Messages.newCard, card);
-//     }
-// }
-//
-// deleteCard(cardId: string): void {
-//     console.log(Messages.deleteCard, cardId);
-//     if (this.socket.connected) {
-//     this.socket.emit(Messages.deleteCard, cardId);
-// }
-// }
-//
-// newColumn(column: ColumnInterface): void {
-//     console.log(Messages.newColumn, column);
-//     if (this.socket.connected) {
-//     this.socket.emit(Messages.newColumn, column);
-// }
-// }
-//
-// updateColumn(column: ColumnInterface): void {
-//     console.log(Messages.updateColumn, column);
-//     if (this.socket.connected) {
-//     this.socket.emit(Messages.updateColumn, column);
-// }
-// }
-//
-// deleteColumn(columnId: string): void {
-//     console.log(Messages.deleteColumn, columnId);
-//     if (this.socket.connected) {
-//     this.socket.emit(Messages.deleteColumn, columnId);
-// }
-// }
-// }

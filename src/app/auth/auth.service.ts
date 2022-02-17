@@ -5,9 +5,6 @@ import {first, Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {MessageService} from '../shared/message.service';
 import {AppRoutes} from '../app.constants';
-import {environment} from '../../environments/environment';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {LocalStorageService} from '../shared/services/local-storage.service';
 import {User} from '../models/user';
 
 @Injectable({
@@ -23,9 +20,7 @@ export class AuthService {
 
     constructor(private readonly firebaseAuth: AngularFireAuth,
                 private readonly router: Router,
-                private readonly messageService: MessageService,
-                private readonly storageService: LocalStorageService,
-                private readonly http: HttpClient,) {
+                private readonly messageService: MessageService,) {
         this.firebaseUser = this.firebaseAuth.authState;
 
         this.firebaseAuth.onAuthStateChanged(user => {
