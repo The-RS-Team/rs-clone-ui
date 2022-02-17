@@ -1,5 +1,9 @@
 <mat-card (click)="openDialog($event);$event.stopPropagation()">
 <!--<mat-card>-->
+    <img *ngIf="card.cover"
+         [src]="card.cover"
+         class="card__cover"
+         alt="Card cover">
     <mat-card-content>
         <p class="card__title">{{card?.title}}</p>
         <button #cardEditBtn

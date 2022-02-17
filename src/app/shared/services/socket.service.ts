@@ -5,6 +5,7 @@ import {environment} from '../../../environments/environment';
 import {Card} from '../../models/card';
 import {ColumnInterface} from '../../interfaces/column.interface';
 import {EventsMap} from 'socket.io/dist/typed-events';
+import {Observable} from "rxjs";
 
 @Injectable()
 export class WebsocketService {
@@ -43,7 +44,7 @@ export class WebsocketService {
 
     emit(eventName: string, eventObject: EventsMap | string): void {
         if (this.socket.connected) {
-            this.socket.emit(eventName, eventObject);
+                this.socket.emit(eventName, eventObject)
         }
     }
 
@@ -59,6 +60,7 @@ export class WebsocketService {
     }
 
 }
+
 // createRoom(): void {
 //     console.log(Messages.createRoom)
 //     if (this.socket.connected) {

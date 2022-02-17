@@ -45,6 +45,10 @@ mat-icon {
     overflow-wrap: anywhere;
   }
 
+  &__cover {
+    max-width: 250px;
+  }
+
   &__input-title {
     outline: none;
     border: none;
