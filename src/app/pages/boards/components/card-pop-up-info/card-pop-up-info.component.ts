@@ -62,11 +62,13 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     newFileCallback(card: any) {
-        console.log('newCardCallback', card)
+        console.log('newCardCallback', card);
+        this.getFilesByCardId(this.data.id);
     }
 
     updateCardCallback(card: any) {
-        console.log('newCardCallback', card)
+        console.log('newCardCallback', card);
+        this.data = card;
     }
 
     public changeCardParam(title: string, description: string, src?: string | null) {
@@ -147,7 +149,6 @@ export class CardPopUpInfoComponent implements OnInit {
         this.socketService.emit(Messages.getCarditems, this.data.id)
     }
 
-
     getFile(id: any) {
         this.boardsService.getFileById(id).subscribe((blob) => {
         });
@@ -156,7 +157,6 @@ export class CardPopUpInfoComponent implements OnInit {
     onFileSelected(event: Event) {
         // @ts-ignore
         const file: File = event.target?.files[0];
-
 
         console.log(file, 'fileToUpload')
         const fileToUpload = {
@@ -167,21 +167,8 @@ export class CardPopUpInfoComponent implements OnInit {
             buffer: file,
             cardId: this.data.id,
         }
-        this.socketService.emit(Messages.newFile, fileToUpload)
-        this.socketService.on(Messages.newFile, (res: string) => {
-            if (res) {
-                this.getFilesByCardId(this.data.id);
-            }
-        })
-        // console.log(this.socketService.emit(Messages.newFile, fileToUpload))
-
-        // this.boardsService.postFile(file, this.data.id).subscribe(
-        //     (value) => {
-        //         this.fileValue = value;
-        //         this.getFilesByCardId(this.data.id);
-        //     },
-        //     (error) => console.log(error)
-        // );
+        this.socketService.emit(Messages.newFile, fileToUpload);
+        // this.changeCardParam(this.data.title, this.data.description);
     }
 
     onDeleteFile(fileId: string): void {

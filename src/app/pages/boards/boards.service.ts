@@ -48,7 +48,7 @@ export class BoardsService {
             );
     }
 
-    getBoardById(id: number): Observable<BoardInterface> {
+    getBoardById(id: string): Observable<BoardInterface> {
         const url = `${this.boardsUrl}/id/${id}`;
 
         return this.http

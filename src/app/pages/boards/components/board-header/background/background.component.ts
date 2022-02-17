@@ -13,8 +13,8 @@ import {BoardComponent} from "../../board/board.component";
 })
 
 export class BackgroundComponent implements OnInit {
-  bgType = '';
-  bgColors = ['#0079bf87', '#d2903487', '#51983987', '#b0463287', '#89609e87', '#cd5a9187', '#4bbf6b87', '#00aecc87', '#838c9187'];
+  public bgType = '';
+  public bgColors = ['#0079bf87', '#d2903487', '#51983987', '#b0463287', '#89609e87', '#cd5a9187', '#4bbf6b87', '#00aecc87', '#838c9187'];
   public unsplashImages: UnsplashImg[] = [];
 
   constructor(private boardService: BoardsService,
@@ -26,8 +26,7 @@ export class BackgroundComponent implements OnInit {
 
   @ViewChild(BoardComponent) boardComp: BoardComponent | undefined;
 
-  @Input()
-  boardWrapper: HTMLElement | undefined;
+  @Input() boardWrapper: HTMLElement | undefined;
 
   ngOnInit(): void {
     this.getUnsplashImage();

@@ -37,15 +37,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.getBoards();
         this.getFavorites();
-        this.getUsers();
-    }
-
-    getUsers(): void {
-        this.sub$.add(
-            this.usersService
-                .getUsers()
-                .subscribe((users) => this.users = users));
-        console.log(this.users, 'users')
     }
 
     getBoards(): void {
