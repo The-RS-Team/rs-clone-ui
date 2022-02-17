@@ -2,6 +2,12 @@ iframe{
   position: absolute;
   width: 100%;
   height: 100%;
+
+}
+iframe #document html body{
+  display: flex!important;
+  align-items: center!important;
+  justify-content: center!important;
 }
 
 iframe img{

@@ -27,10 +27,12 @@
   &__avatar {
     width: 40px;
     height: 40px;
-    border: 1px solid black;
+    border: none;
+    //border: 1px solid black;
     margin-right: 10px;
 
     img {
+      border-radius: 50px;
       width: 100%;
       object-fit: contain;
     }
