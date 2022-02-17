@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {io, Socket} from 'socket.io-client';
 import {Messages} from '../../app.constants';
 import {environment} from '../../../environments/environment';
+import {EventsMap} from 'socket.io/dist/typed-events';
 import {AuthService} from '../../auth/auth.service';
 
 @Injectable()
@@ -39,7 +40,7 @@ export class WebsocketService {
         this.socket.on(eventName, listener)
     };
 
-    emit(eventName: string, eventObject: any): void {
+    emit(eventName: string, eventObject: EventsMap | string): void {
         if (this.socket.connected) {
             const obj: { [k: string]: any } = {};
             Object.defineProperty(obj,

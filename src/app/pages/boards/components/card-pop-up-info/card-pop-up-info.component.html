@@ -1,15 +1,29 @@
 <mat-dialog-content class="popup">
-    <textarea autosize
-              #cardTitleInput
-              [value]="data?.title"
-              (change)="changeCardParam(cardTitleInput.value, descriptionTextarea.value)"
-              class="popup__input-title"
-              matInput
-              type="text"
-              placeholder="Enter a title for this card"
-              autocomplete="off"
-              required></textarea>
-
+    <div class="popup__cover-img-wrapper">
+        <img *ngIf="data.cover"
+             [src]="data.cover"
+             class="popup__cover"
+             alt="Card cover">
+    </div>
+    <p class="popup__button"
+       *ngIf="data.cover"
+       (click)="changeCardParam(cardTitleInput.value, descriptionTextarea.value, null)">Delete cover</p>
+    <div>
+        <h3 class="popup__section-title">
+            <mat-icon>view_headline</mat-icon>
+            Title
+        </h3>
+        <textarea autosize
+                  #cardTitleInput
+                  [value]="data?.title"
+                  (change)="changeCardParam(cardTitleInput.value, descriptionTextarea.value)"
+                  class="popup__input-title"
+                  matInput
+                  type="text"
+                  placeholder="Enter a title for this card"
+                  autocomplete="off"
+                  required></textarea>
+    </div>
     <div class="popup__content">
         <div class="popup__main-content">
             <div class="popup__description">
@@ -29,13 +43,11 @@
 
             <!--                        <button (click)="getFile(file.id)">Get file</button>-->
             <div class="popup__file-upload">
-
-                {{"Upload file"}}
-
-                <button mat-mini-fab color="primary" class="upload-btn"
-                        (click)="fileUpload.click()">
-                    <mat-icon>attach_file</mat-icon>
-                </button>
+                <h3 class="popup__section-title">
+                    <mat-icon>view_headline</mat-icon>
+                    Attachments
+                </h3>
+                <p *ngIf="!files.length">No files.</p>
                 <div class="popup__files-container">
                     <!--                    <mat-spinner *ngIf="files"></mat-spinner>-->
                     <div class="popup__file-wrapper"
@@ -52,10 +64,18 @@
                              src="../../../../../assets/images/jpg/file-image.jpg"
                              alt="image"/>
 
-                        <div class="file-info">
+                        <div class="popup__file-info">
                             <p><b>{{file?.originalname}}</b></p>
-                            <button mat-button class="delete-image-btn" (click)="onDeleteFile(file?.id)">Delete file
-                            </button>
+                            <p class="popup__button"
+                               (click)="onDeleteFile(file.id);
+                                        changeCardParam(cardTitleInput.value, descriptionTextarea.value, null)">
+                                Delete file
+                            </p>
+                            <p class="popup__button"
+                               *ngIf="file?.mimetype.split('/')[0] === 'image'"
+                               (click)="changeCardParam(cardTitleInput.value, descriptionTextarea.value, file.src)">
+                                Make a card cover
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -97,18 +117,6 @@
                     <mat-icon>person</mat-icon>
                     Participants
                 </button>
-                <!--                <button mat-button>-->
-                <!--                    <mat-icon>local_offer</mat-icon>-->
-                <!--                    Tags-->
-                <!--                </button>-->
-                <!--                <button mat-button>-->
-                <!--                    <mat-icon>playlist_add_check</mat-icon>-->
-                <!--                    Checklist-->
-                <!--                </button>-->
-                <!--                <button mat-button>-->
-                <!--                    <mat-icon>access_time</mat-icon>-->
-                <!--                    Dates-->
-                <!--                </button>-->
                 <button mat-button [matMenuTriggerFor]="attachmentMenu">
                     <mat-icon>attach_file</mat-icon>
                     Attachments
@@ -117,9 +125,9 @@
         </div>
         <mat-menu #attachmentMenu="matMenu">
             <button class="mat-menu-item"
-                    mat-menu-item>
-                <input multiple
-                       class="popup__file-input"
+                    mat-menu-item
+                    (click)="fileUpload.click()">
+                <input class="popup__file-input"
                        type="file"
                        name="file"
                        placeholder="From a computer"
