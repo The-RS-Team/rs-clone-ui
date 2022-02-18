@@ -1,6 +1,17 @@
 <div class="actions">
-    <h3 class="sctions__section-title">
+    <h3 class="actions__section-title">
         <mat-icon>edit</mat-icon>
         Actions
     </h3>
+    <mat-list class="actions__list-of-actions">
+        <mat-list-item class="actions__list-item"
+                       *ngFor="let activity of boardActivity">
+            {{activity.name}}
+            {{activity.action}}
+            {{activity.table}}
+            "{{activity.title}}"
+            {{activity.created}}
+
+        </mat-list-item>
+    </mat-list>
 </div>
