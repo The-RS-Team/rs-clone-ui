@@ -29,6 +29,7 @@ export class ActionsComponent implements OnInit {
     }
 
     public getActivityByBoardCallback(activity?: any) {
+        console.log(activity)
         this.boardActivity = activity;
     }
 
