@@ -103,27 +103,16 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
         this.settings = path;
     }
 
-    // public changeBoardTitle(value: string) {
-    //     if (this.board) {
-    //         const board = {
-    //             id: this.board.id,
-    //             title: value,
-    //             description: this.board.description,
-    //             isFavorite: this.board.isFavorite,
-    //             background: this.board.background,
-    //         }
-    //         this.boardsService.updateBoard(board ).subscribe(item => this.board = board)
-    //     }
-    // }
-
     public changeBoardTitle(value: string) {
         if (this.board) {
             const item = {
                 id: this.board.id,
                 title: value,
             }
+
             this.boardsService.updateBoard(item as BoardInterface).subscribe(item => {
             })
+            console.log(this.boardTitleInput);
         }
     }
 

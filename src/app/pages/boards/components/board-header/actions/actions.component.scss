@@ -1,5 +1,7 @@
 .actions {
   margin: 10px 15px;
+  display: flex;
+  flex-direction: column;
 
   &__section-title {
     display: flex;
@@ -8,5 +10,23 @@
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 10px;
+  }
+
+  &__list-of-actions {
+    list-style-type: none;
+    height: calc(80vh);
+    overflow-y: scroll;
+    padding-right: 15px;
+    margin-right: 5px;
+  }
+
+  &__list-item {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    min-height: 70px;
+    background: rgba(122, 122, 122, 0.2);
+    border-radius: 5px;
   }
 }
