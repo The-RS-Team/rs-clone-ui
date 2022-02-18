@@ -34,7 +34,7 @@ export enum Messages {
     updateColumn = 'update_column',
     updateCarditem = 'update_carditem',
     getAtivityByUser = 'get_AtivityByUser',
-    getAtivityByBoard = 'get_AtivityByUser',
+    getAtivityByBoard = 'get_AtivityByBoard',
     newInvite = 'new_invite',
     getInvite = 'get_invite',
     deleteInvite = 'delete_invite',
