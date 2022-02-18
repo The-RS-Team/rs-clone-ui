@@ -4,6 +4,7 @@ import {WebsocketService} from "../../../../../shared/services/socket.service";
 import {Messages} from "../../../../../app.constants";
 import {AuthService} from "../../../../../auth/auth.service";
 import {User} from "../../../../../models/user";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-actions',
@@ -14,6 +15,8 @@ export class ActionsComponent implements OnInit {
     @Input() board: BoardInterface | undefined;
     public boardActivity: any;
     private currentUser = new User('', null, null, null);
+    public date: DatePipe | undefined;
+
 
     constructor(private socketService: WebsocketService,
                 private authService: AuthService) {
