@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {MessageService} from '../shared/message.service';
 import {AppRoutes} from '../app.constants';
 import {User} from '../models/user';
+import { LocalStorageService } from './../shared/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,8 @@ export class AuthService {
 
     constructor(private readonly firebaseAuth: AngularFireAuth,
                 private readonly router: Router,
-                private readonly messageService: MessageService,) {
+                private readonly messageService: MessageService,
+                private storage: LocalStorageService) {
         this.firebaseUser = this.firebaseAuth.authState;
 
         this.firebaseAuth.onAuthStateChanged(user => {
@@ -31,9 +33,11 @@ export class AuthService {
                         this.currentUserSubject.next(this.currentUser)
                         console.log('onAuthStateChanged: sendToken');
                         this.accessToken = idToken;
+                        this.storage.setItem('user', this.currentUser);
                         if (this.currentUser && window.location.pathname == '/') {
                             this.router.navigate(this.successRoute)
                         }
+                        
                     });
                 }
             }

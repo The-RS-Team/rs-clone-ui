@@ -24,6 +24,7 @@ import {AboutComponent} from "./components/board-header/about/about.component";
 import {ParticipantsComponent} from "./components/board-header/participants/participants.component";
 import {OpenFileComponent} from "./components/card-pop-up-info/open-file/open-file.component";
 import {ActionsComponent} from "./components/board-header/actions/actions.component";
+import { TabActionsComponent } from '../settings/tab-actions/tab-actions.component';
 
 export const ROUTES: Routes = [
     {path: '', component: BoardsComponent},
@@ -44,6 +45,7 @@ export const ROUTES: Routes = [
         BackgroundComponent,
         TabSettingsComponent,
         TabAccauntComponent,
+        TabActionsComponent,
         LangSwitcherComponent,
         SettingsComponent,
         SafePipe,
@@ -65,6 +67,7 @@ export const ROUTES: Routes = [
         BackgroundComponent,
         TabSettingsComponent,
         TabAccauntComponent,
+        TabActionsComponent,
         LangSwitcherComponent,
         SettingsComponent,
         SafePipe,
@@ -75,7 +78,7 @@ export const ROUTES: Routes = [
         ActionsComponent
     ],
     imports: [
-        CommonModule,
+    CommonModule,
         SharedModule,
         RouterModule.forChild(ROUTES),
         DragDropModule,

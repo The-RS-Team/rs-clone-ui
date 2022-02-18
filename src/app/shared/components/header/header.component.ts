@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {BoardsComponent} from '../../../pages/boards/components/boards/boards.component';
 import {BoardInterface} from '../../../interfaces/board.interface';
 import {AppRoutes} from '../../../app.constants';
+import { LocalStorageService } from './../../services/local-storage.service';
 
 @Component({
     selector: 'app-header',
@@ -20,7 +21,8 @@ export class HeaderComponent implements OnInit {
                 private boardsService: BoardsService,
                 public authService: AuthService,
                 private router: Router,
-                private boardsArray: BoardsComponent) {
+                private boardsArray: BoardsComponent,
+                private storage: LocalStorageService) {
     }
 
     ngOnInit(): void {
@@ -43,14 +45,16 @@ export class HeaderComponent implements OnInit {
 
     logOutUser() {
         this.authService.logout();
+        this.storage.clear();
     }
 
     goToWelcome() {
-        if (this.authService.currentUser) {
-            this.router.navigate([AppRoutes.boards])
-        } else {
-            this.router.navigate([AppRoutes.home]);
-        }
+        window.location.href = '/boards'
+        // if (this.authService.currentUser) {
+        //     this.router.navigate([AppRoutes.boards])
+        // } else {
+            // this.router.navigate([AppRoutes.home]);
+        // }
     }
 
     goToSettings() {

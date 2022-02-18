@@ -7,6 +7,7 @@ import {BoardInterface} from '../../interfaces/board.interface';
 import {UserInterface} from "../../interfaces/user.interface";
 import {Messages} from "../../app.constants";
 import {WebsocketService} from "../../shared/services/socket.service";
+import { User } from './../../models/user';
 
 @Injectable({
     providedIn: 'root'
@@ -141,6 +142,27 @@ export class BoardsService {
                 catchError(this.handleError<any>('getFileById'))
             );
     }
+
+    updateUser(user: User): Observable<any> {
+        return this.http
+        .put(this.userUrl, user, this.httpOptions)
+        .pipe(
+            tap(_ => this.log(`updated user id=${user.user_id}`)),
+            catchError(this.handleError<any>('updateUser'))
+        );
+    }
+
+    getUserById(id: string): Observable<UserInterface> {
+        const url = `${this.userUrl}/id/${id}`;
+
+        return this.http
+            .get<UserInterface>(url, this.httpOptions)
+            .pipe(
+                tap(_ => this.log(`get board id=${id}`)),
+                catchError(this.handleError<UserInterface>('getUserdById'))
+            );
+    }
+
 
     postFile(fileToUpload: File, cardId: string):void {
         // console.log(fileToUpload, 'fileToUpload')
