@@ -1,13 +1,15 @@
 import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Subscription} from 'rxjs';
-import {BoardsService} from "../../boards.service";
-import {NewBoardComponent} from "../new-board/new-board.component";
-import {BoardInterface} from "../../../../interfaces/board.interface";
-import {Router} from "@angular/router";
-import {UsersService} from "../../users.service";
-import {BackgroundComponent} from "../board-header/background/background.component";
-import {collectionSnapshots} from "@angular/fire/firestore";
+import {BoardsService} from '../../boards.service';
+import {NewBoardComponent} from '../new-board/new-board.component';
+import {BoardInterface} from '../../../../interfaces/board.interface';
+import {Router} from '@angular/router';
+import {UsersService} from '../../users.service';
+import {AuthService} from '../../../../auth/auth.service';
+import {WebsocketService} from '../../../../shared/services/socket.service';
+import {Messages} from '../../../../app.constants';
+import {Invite} from '../../../../models/invite';
 
 @Injectable({
     providedIn: 'root'
@@ -27,14 +29,23 @@ export class BoardsComponent implements OnInit, OnDestroy {
     public favorites: BoardInterface[] = [];
 
     constructor(
-        private boardsService: BoardsService,
-        private usersService: UsersService,
-        private router: Router,
-        private dialog: MatDialog
+        private readonly boardsService: BoardsService,
+        private readonly usersService: UsersService,
+        private readonly router: Router,
+        private readonly authService: AuthService,
+        private readonly dialog: MatDialog,
+        private readonly socketService: WebsocketService,
     ) {
     }
 
     ngOnInit(): void {
+        this.socketService.on(Messages.checkInvitesByEmail, this.checkInvitesByEmail.bind(this));
+        this.socketService.on(Messages.connect, () => {
+            if (this.authService.currentUser?.email) {
+                this.socketService.emit(Messages.checkInvitesByEmail, this.authService.currentUser.email);
+            }
+        });
+
         this.getBoards();
         this.getFavorites();
         this.getUsers();
@@ -45,7 +56,12 @@ export class BoardsComponent implements OnInit, OnDestroy {
             this.usersService
                 .getUsers()
                 .subscribe((users) => this.users = users));
-        console.log(this.users, 'users')
+    }
+
+    checkInvitesByEmail(invites: Invite[]): void {
+        console.log('checkInvitesByEmail', invites);
+        if (invites.length > 0)
+            this.getBoards();
     }
 
     getBoards(): void {
@@ -56,7 +72,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
     }
 
     getBg(board: BoardInterface) {
-            return JSON.parse(board.background)
+        return JSON.parse(board.background)
     }
 
     getStar(isFav: boolean) {
@@ -70,7 +86,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
         this.sub$.add(
             this.boardsService
                 .getFavorites()
-                .subscribe( fav => this.favorites = fav)
+                .subscribe(fav => this.favorites = fav)
         )
     }
 
@@ -82,7 +98,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
                     if (board.isFavorite) {
                         this.favorites.push(board)
                     } else {
-                        this.favorites = this.favorites.filter( el => el.isFavorite)
+                        this.favorites = this.favorites.filter(el => el.isFavorite)
                     }
                 }
             )
@@ -92,8 +108,8 @@ export class BoardsComponent implements OnInit, OnDestroy {
         this.boardsService.deleteBoard(board.id!)
             .subscribe(
                 _ => {
-                    this.boards = this.boards.filter( el => board.id != el.id)
-                    this.favorites = this.favorites.filter( el => board.id != el.id)
+                    this.boards = this.boards.filter(el => board.id != el.id)
+                    this.favorites = this.favorites.filter(el => board.id != el.id)
                 }
             )
     }
@@ -106,7 +122,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
         const dialogRef = this.dialog.open(NewBoardComponent, dialogConfig);
 
-        this.sub$.add (
+        this.sub$.add(
             dialogRef.afterClosed().subscribe(board => {
                 if (board) {
                     this.boards.push(board);

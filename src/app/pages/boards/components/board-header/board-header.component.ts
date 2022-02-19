@@ -99,7 +99,7 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
     sendInvite(email: string) {
         if (this.formGroup.invalid) return;
         if (this.board) {
-            const invite = new Invite(email, this.board.id);
+            const invite = new Invite(email, this.board.id, document.location.origin);
             this.socketService.emit(Messages.newInvite, invite);
         }
     }

@@ -3,4 +3,5 @@ export interface InviteInterface {
     email: string;
     boardId: string;
     expireDate?: Date;
+    hostname: string;
 }

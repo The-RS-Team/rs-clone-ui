@@ -36,6 +36,5 @@ export enum Messages {
     getAtivityByUser = 'get_ativitybyuser',
     getAtivityByBoard = 'get_ativitybyboard',
     newInvite = 'new_invite',
-    getInvite = 'get_invite',
-    deleteInvite = 'delete_invite',
+    checkInvitesByEmail = 'check_invitesbyemail',
 }
