@@ -1,14 +1,11 @@
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {BoardInterface} from "../../../../interfaces/board.interface";
-import {Messages} from "../../../../app.constants";
-import {BoardsService} from "../../boards.service";
-import {debounceTime, distinctUntilChanged, Subscription} from "rxjs";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {FormBuilder} from '@angular/forms';
-import {HttpHeaders, HttpClient} from '@angular/common/http';
-import '../../../../../assets/smtp.js';
-
-declare let Email: any;
+import {BoardInterface} from '../../../../interfaces/board.interface';
+import {Messages} from '../../../../app.constants';
+import {BoardsService} from '../../boards.service';
+import {Subscription} from 'rxjs';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Invite} from '../../../../models/invite';
+import {WebsocketService} from '../../../../shared/services/socket.service';
 
 @Component({
     selector: 'app-board-header',
@@ -29,10 +26,11 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
     public boardTitleInput = new FormControl('', {updateOn: 'blur'});
     public formGroup: FormGroup | any;
 
-    constructor(private boardsService: BoardsService,
-                private fb: FormBuilder,
-                private http: HttpClient) {
+    constructor(private readonly boardsService: BoardsService,
+                private readonly socketService: WebsocketService,
+                private readonly fb: FormBuilder,) {
     }
+
 
     ngOnInit(): void {
         this.sub$.add(
@@ -43,9 +41,10 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
         this.formGroup = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
         });
+        this.socketService.on(Messages.newInvite, this.newInviteCallback.bind(this));
     }
 
-    public addToFavorites() {
+    addToFavorites() {
         if (!this.board) return;
         this.board.isFavorite = !this.board?.isFavorite;
 
@@ -100,23 +99,17 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
         this.isInvite = false;
     }
 
-    public sendInvite() {
-        if (this.formGroup.invalid) return;
-        // console.log(this.formGroup.value.email.trim())
-        Email.send({
-            Host: 'smtp25.elasticemail.com',
-            Username: 'ira.pechenitsya@gmail.com',
-            Password: '6AEA00F3F9227D006049F4B5599ED5E27C99',
-            To: this.formGroup.value.email.trim(),
-            From: 'Trello Clone',
-            Subject: 'Invitation to board',
-            Body: `
-            Follow the link <b>to board</b>`
-        }).then((message: any) => {
-            console.log(message);
-            this.formGroup.reset()
-        });
+    newInviteCallback(invite: Invite): void {
+        console.log('newInviteCallback', invite)
 
+    }
+
+    public sendInvite(email: string) {
+        if (this.formGroup.invalid) return;
+        if (this.board) {
+            const invite = new Invite(email, this.board.id, document.location.origin);
+            this.socketService.emit(Messages.newInvite, invite);
+        }
     }
 
     public goBack(path: string) {
