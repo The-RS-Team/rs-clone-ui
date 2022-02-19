@@ -114,5 +114,4 @@ export class BoardsComponent implements OnInit, OnDestroy {
         this.sub$.unsubscribe();
     }
 
-
 }

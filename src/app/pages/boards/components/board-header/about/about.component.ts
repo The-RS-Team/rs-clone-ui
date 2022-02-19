@@ -23,7 +23,6 @@ export class AboutComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log(this.board)
         this.getBoard();
         this.sub$.add(
             this.boardDescriptionInput?.valueChanges.subscribe((changes) => {

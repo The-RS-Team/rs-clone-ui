@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {BoardInterface} from "../../../../../interfaces/board.interface";
 import {WebsocketService} from "../../../../../shared/services/socket.service";
 import {Messages} from "../../../../../app.constants";
@@ -11,7 +11,7 @@ import {DatePipe} from "@angular/common";
     templateUrl: './actions.component.html',
     styleUrls: ['./actions.component.scss']
 })
-export class ActionsComponent implements OnInit {
+export class ActionsComponent implements OnInit, OnDestroy {
     @Input() board: BoardInterface | undefined;
     public boardActivity: any;
     private currentUser = new User('', null, null, null);
@@ -29,7 +29,7 @@ export class ActionsComponent implements OnInit {
     }
 
     public getActivityByBoardCallback(activity?: any) {
-        console.log(activity)
+        console.log(activity);
         this.boardActivity = activity;
     }
 
@@ -38,5 +38,9 @@ export class ActionsComponent implements OnInit {
         if (this.board) {
             this.socketService.emit(Messages.getAtivityByBoard, this.board.id);
         }
+    }
+
+    public ngOnDestroy() {
+        this.socketService.socket.removeAllListeners();
     }
 }

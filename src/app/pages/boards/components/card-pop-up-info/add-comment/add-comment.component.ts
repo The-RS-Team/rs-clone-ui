@@ -177,4 +177,5 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     })
     this.editedComment = '';
   }
+
 }
