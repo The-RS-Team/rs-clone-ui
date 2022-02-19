@@ -9,10 +9,7 @@
 
         <mat-list-item class="actions__list-item"
                        *ngFor="let activity of boardActivity">
-<!--            {{activity.name}}-->
-<!--            {{activity.action}} {{activity.table}}-->
-<!--            {{activity.info}}-->
-<!--            {{activity.info}}-->
+
 
             <img class="item__avatar"
                  [src]="activity.picture"
@@ -21,7 +18,7 @@
                 <p class="item__text">{{activity.name}} </p>
                 <p class="item__text">{{activity.action}} {{activity.table}}</p>
                 <p class="item__text"> {{activity.info}}</p>
-                <p class="item__text"> {{activity.info}}</p>
+                <p class="item__text"> {{activity.created | date: "hh:mm dd/MM/yyyy"}}</p>
             </div>
 
         </mat-list-item>
