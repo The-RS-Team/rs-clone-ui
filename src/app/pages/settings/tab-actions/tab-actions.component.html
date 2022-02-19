@@ -1,0 +1,6 @@
+<div class="activities">
+  <div class="activities__item" *ngFor="let action of userActivity">
+    <img src={{action.picture}} alt="">
+    <span><b>{{ action.name }}</b> {{ action.action | uppercase }} {{ action.table }} {{ action.info }} at {{action.created | date:'short'}}</span>
+  </div>
+</div>

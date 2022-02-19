@@ -143,5 +143,7 @@ export class ColumnComponent implements OnInit {
     public cancelNewCard() {
         this.isNewCard = false;
     }
-
+    public ngOnDestroy() {
+        this.socketService.socket.removeAllListeners();
+    }
 }
