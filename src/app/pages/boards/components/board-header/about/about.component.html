@@ -1,15 +1,15 @@
 <div class="about">
     <h3 class="about__section-title">
         <mat-icon>person</mat-icon>
-        Administrator
+        {{'administrator' | translate}}
     </h3>
     <h3 class="about__section-title">
         <mat-icon>view_headline</mat-icon>
-        Description
+        {{ 'description' | translate}}
     </h3>
     <textarea autosize
               [formControl]="boardDescriptionInput"
               class="about__description-input"
               rows="4"
-              placeholder="Add a description for board...">{{board?.description}}</textarea>
+              placeholder="{{'add-description' | translate }}">{{board?.description}}</textarea>
 </div>

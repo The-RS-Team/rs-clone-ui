@@ -29,7 +29,6 @@ export class ActionsComponent implements OnInit, OnDestroy {
     }
 
     public getActivityByBoardCallback(activity?: any) {
-        console.log(activity);
         this.boardActivity = activity;
     }
 
@@ -43,4 +42,10 @@ export class ActionsComponent implements OnInit, OnDestroy {
     public ngOnDestroy() {
         this.socketService.socket.removeAllListeners();
     }
+
+    htmlToText(val: string) {
+        const tmp = document.createElement('DIV');
+          tmp.innerHTML = val;
+          return tmp.textContent || tmp.innerText || '';
+      }
 }

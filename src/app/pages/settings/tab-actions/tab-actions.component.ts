@@ -16,7 +16,7 @@ export class TabActionsComponent implements OnInit, OnDestroy {
 
   constructor(private socketService: WebsocketService,
               private authService: AuthService) {
-                this.socketService.on(Messages.getAtivityByUser, (res: any) => this.getActivityByUserCallback.bind(this));
+                this.socketService.on(Messages.getAtivityByUser, this.getActivityByUserCallback.bind(this));
                }
 
   ngOnInit() {
@@ -26,7 +26,6 @@ export class TabActionsComponent implements OnInit, OnDestroy {
 
   public getActivityByUserCallback(activity?: any) {
     this.userActivity = activity;
-    console.log(this.userActivity)
   }
 
 public getActivity(id: string) {
@@ -35,5 +34,11 @@ public getActivity(id: string) {
 
 ngOnDestroy(): void {
     this.socketService.removeAllListeners()
+}
+
+htmlToText(val: string) {
+  const tmp = document.createElement('DIV');
+    tmp.innerHTML = val;
+    return tmp.textContent || tmp.innerText || '';
 }
 }
