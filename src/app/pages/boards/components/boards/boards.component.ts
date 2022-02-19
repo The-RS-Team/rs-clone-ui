@@ -138,6 +138,4 @@ export class BoardsComponent implements OnInit, OnDestroy {
     public ngOnDestroy() {
         this.sub$.unsubscribe();
     }
-
-
 }

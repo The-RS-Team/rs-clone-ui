@@ -1,11 +1,12 @@
 import firebase from 'firebase/compat/app';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {Injectable} from '@angular/core';
-import {first, Observable, of} from 'rxjs';
+import {BehaviorSubject, first, Observable, of, Subject} from 'rxjs';
 import {Router} from '@angular/router';
 import {MessageService} from '../shared/message.service';
 import {AppRoutes} from '../app.constants';
 import {User} from '../models/user';
+import { LocalStorageService } from './../shared/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,24 +15,29 @@ import {User} from '../models/user';
 export class AuthService {
     public firebaseUser: Observable<firebase.User | null>;
     public currentUser: User | undefined;
+    public currentUserSubject = new BehaviorSubject(new User('', null, null, null));
     public accessToken: string = '';
     private successRoute: Array<string> = ['/', AppRoutes.boards];
     private logoutRoute: Array<string> = ['/'];
 
     constructor(private readonly firebaseAuth: AngularFireAuth,
                 private readonly router: Router,
-                private readonly messageService: MessageService,) {
+                private readonly messageService: MessageService,
+                private storage: LocalStorageService) {
         this.firebaseUser = this.firebaseAuth.authState;
 
         this.firebaseAuth.onAuthStateChanged(user => {
                 if (user) {
                     user.getIdToken().then(idToken => {
                         this.currentUser = new User(user.uid, user.email, user.displayName, user.photoURL);
+                        this.currentUserSubject.next(this.currentUser)
                         console.log('onAuthStateChanged: sendToken');
                         this.accessToken = idToken;
+                        this.storage.setItem('user', this.currentUser);
                         if (this.currentUser && window.location.pathname == '/') {
                             this.router.navigate(this.successRoute)
                         }
+                        
                     });
                 }
             }

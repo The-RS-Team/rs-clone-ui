@@ -27,7 +27,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     height: 'auto',
     minHeight: '0',
     maxHeight: 'auto',
-    width: 'auto',
+    width: '300px',
     minWidth: '0',
     translate: 'yes',
     enableToolbar: true,
@@ -62,7 +62,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     height: 'auto',
     minHeight: '0',
     maxHeight: 'auto',
-    width: 'auto',
+    width: '300px',
     minWidth: '0',
     translate: 'yes',
     enableToolbar: true,
@@ -177,4 +177,5 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     })
     this.editedComment = '';
   }
+
 }

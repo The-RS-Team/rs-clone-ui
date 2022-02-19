@@ -132,9 +132,9 @@ button {
   border: none;
 }
 
-img {
-  height: 100%;
-}
+// img {
+//   height: 100%;
+// }
 
 .new-button {
   font-size: 14px;
@@ -151,4 +151,8 @@ img {
 .actions {
   display: flex;
   align-items: center;
+}
+
+.new-form {
+  min-height: 115px;
 }

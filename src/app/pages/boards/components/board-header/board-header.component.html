@@ -4,7 +4,7 @@
         <div [ngClass]="{'header__menu__star': true, 'header__menu__star_active': this.board?.isFavorite}" (click)="addToFavorites()">
             <div class="icon"></div>
         </div>
-        <input #boardNameInput
+        <input [formControl]="boardTitleInput"
                [value] = "board?.title"
                class="header__board-name"
                matInput

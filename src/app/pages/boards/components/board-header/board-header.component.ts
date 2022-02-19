@@ -1,11 +1,11 @@
 import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {BoardInterface} from '../../../../interfaces/board.interface';
+import {Messages} from '../../../../app.constants';
 import {BoardsService} from '../../boards.service';
 import {Subscription} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {WebsocketService} from '../../../../shared/services/socket.service';
-import {Messages} from '../../../../app.constants';
 import {Invite} from '../../../../models/invite';
+import {WebsocketService} from '../../../../shared/services/socket.service';
 
 @Component({
     selector: 'app-board-header',
@@ -23,12 +23,12 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
     public isSubMenu = false;
     public isInvite = false;
     public settings = '';
-    public boardTitleInput = new FormControl();
+    public boardTitleInput = new FormControl('', {updateOn: 'blur'});
     public formGroup: FormGroup | any;
 
     constructor(private readonly boardsService: BoardsService,
                 private readonly socketService: WebsocketService,
-                private readonly fb: FormBuilder) {
+                private readonly fb: FormBuilder,) {
     }
 
 
@@ -47,7 +47,6 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
     addToFavorites() {
         if (!this.board) return;
         this.board.isFavorite = !this.board?.isFavorite;
-        console.log(this.board)
 
         this.boardsService.updateBoard({
             id: this.board.id,
@@ -60,34 +59,43 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
             )
     }
 
-    ngAfterViewInit(): void {
+    public ngAfterViewInit(): void {
         this.menu = this.menuWrapper?.nativeElement;
     }
 
-    openMenu() {
+    public openMenu() {
         this.menu!.className = 'menu opened';
         this.isMenuOpen = true;
     }
 
-    closeMenu() {
+    public closeMenu() {
         this.menu!.className = 'menu';
         this.isMenuOpen = false;
     }
 
-    openSettings(key: string) {
+    public openSettings(key: string) {
         this.isSubMenu = true;
         switch (key) {
             case 'bg':
                 this.settings = 'bg';
                 break;
+            case 'about':
+                this.settings = 'about';
+                break;
+            case 'participants':
+                this.settings = 'participants';
+                break;
+            case 'actions':
+                this.settings = 'actions';
+                break;
         }
     }
 
-    openInvite() {
+    public openInvite() {
         this.isInvite = true;
     }
 
-    closeInvite() {
+    public closeInvite() {
         this.isInvite = false;
     }
 
@@ -96,7 +104,7 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
 
     }
 
-    sendInvite(email: string) {
+    public sendInvite(email: string) {
         if (this.formGroup.invalid) return;
         if (this.board) {
             const invite = new Invite(email, this.board.id, document.location.origin);
@@ -104,22 +112,9 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
         }
     }
 
-    goBack(path: string) {
+    public goBack(path: string) {
         this.settings = path;
     }
-
-    // public changeBoardTitle(value: string) {
-    //     if (this.board) {
-    //         const board = {
-    //             id: this.board.id,
-    //             title: value,
-    //             description: this.board.description,
-    //             isFavorite: this.board.isFavorite,
-    //             background: this.board.background,
-    //         }
-    //         this.boardsService.updateBoard(board ).subscribe(item => this.board = board)
-    //     }
-    // }
 
     public changeBoardTitle(value: string) {
         if (this.board) {
@@ -127,8 +122,10 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
                 id: this.board.id,
                 title: value,
             }
+
             this.boardsService.updateBoard(item as BoardInterface).subscribe(item => {
             })
+            console.log(this.boardTitleInput);
         }
     }
 
