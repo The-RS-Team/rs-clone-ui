@@ -23,7 +23,7 @@
             </div>
             <mat-dialog-content [formGroup]="formGroup" >
                 <mat-form-field appearance="outline" class="invitation__input">
-                    <input matInput placeholder="E-mail" formControlName="email">
+                    <input #inviteEmail matInput placeholder="E-mail" formControlName="email" type="email">
                     <mat-error *ngIf="formGroup.controls['email'].invalid" >
                         {{ 'invite.ckeck-mail' | translate }}
                     </mat-error>
@@ -31,7 +31,7 @@
                 </mat-form-field>
             </mat-dialog-content>
             <mat-dialog-actions>
-                <button type="button" mat-stroked-button (click)="sendInvite()" class="btn">{{ 'invite.send' | translate }}</button>
+                <button type="button" mat-stroked-button (click)="sendInvite(inviteEmail.value)" class="btn">{{ 'invite.send' | translate }}</button>
             </mat-dialog-actions>
         </div>
         <button type="button" class="header__settings__btn"
@@ -57,27 +57,13 @@
             <div class="menu__close__icon"></div>
         </div>
     </div>
-    <mat-nav-list *ngIf="settings == ''">
+    <mat-nav-list>
         <a mat-list-item (click)="openSettings('bg')">
             <mat-icon matListIcon>image</mat-icon>
             {{'bg-change' | translate}}</a>
-
-        <a mat-list-item (click)="openSettings('about')">
-            <mat-icon matListIcon>list</mat-icon>
-            {{"About board"}}
-        </a>
-        <a mat-list-item (click)="openSettings('participants')">
-            <mat-icon matListIcon>people</mat-icon>
-            {{"Participants"}}
-        </a>
-        <a mat-list-item (click)="openSettings('actions')">
-            <mat-icon matListIcon>edit</mat-icon>
-            {{"Actions"}}
-        </a>
     </mat-nav-list>
     <app-background *ngIf="settings == 'bg'" [boardWrapper]="boardWrapper"></app-background>
-    <app-about *ngIf="settings == 'about'" [board]="board"></app-about>
-    <app-participants *ngIf="settings == 'participants'"></app-participants>
-    <app-actions *ngIf="settings == 'actions'" [board]="board"></app-actions>
+
+
 </div>
 
