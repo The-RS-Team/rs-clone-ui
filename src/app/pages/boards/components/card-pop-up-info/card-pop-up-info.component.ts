@@ -75,16 +75,12 @@ export class CardPopUpInfoComponent implements OnInit {
         this.data.description = description;
         this.data.cover = src;
 
-        console.log(this.data.filesCount, 'count');
-        console.log(this.files.length, 'len')
-
         const item = {
             id: this.data.id,
             title: this.data.title,
             columnId: this.data.columnId,
             position: this.data.position,
             description: this.data.description,
-            // filesCount: this.files.length,
             cover: this.data.cover
         }
         this.socketService.emit(Messages.updateCard, item);
@@ -184,6 +180,7 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     public ngOnDestroy() {
-        this.sub$.unsubscribe();this.socketService.socket.removeAllListeners();
+        this.sub$.unsubscribe();
+        this.socketService.socket.removeAllListeners();
     }
 }

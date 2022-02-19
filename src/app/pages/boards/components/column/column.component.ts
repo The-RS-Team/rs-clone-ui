@@ -79,7 +79,6 @@ export class ColumnComponent implements OnInit {
     }
 
     drop(event: CdkDragDrop<CardInterface[]>) {
-        console.log(event)
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 
