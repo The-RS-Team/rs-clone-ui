@@ -7,6 +7,7 @@ export class User implements UserInterface {
     email: string | null;
     picture: string | null;
     nickname: string | null;
+    lang: string | null;
 
     constructor(user_id: string, email: string | null, name: string | null, picture: string | null) {
         this.user_id = user_id;
@@ -14,5 +15,6 @@ export class User implements UserInterface {
         this.email = email;
         this.picture = picture;
         this.nickname = name;
+        this.lang = 'en';
     }
 }

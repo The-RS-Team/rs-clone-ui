@@ -33,7 +33,9 @@ export class AuthService {
                         this.currentUserSubject.next(this.currentUser)
                         console.log('onAuthStateChanged: sendToken');
                         this.accessToken = idToken;
-                        this.storage.setItem('user', this.currentUser);
+                        if (!this.storage.getItem('user')) {
+                            this.storage.setItem('user', this.currentUser);
+                        }
                         if (this.currentUser && window.location.pathname == '/') {
                             this.router.navigate(this.successRoute)
                         }

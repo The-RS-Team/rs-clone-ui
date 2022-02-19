@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user';
 import { BoardsService } from '../../boards/boards.service';
 import { WebsocketService } from './../../../shared/services/socket.service';
 import { UserInterface } from './../../../interfaces/user.interface';
+import { LocalStorageService } from './../../../shared/services/local-storage.service';
 
 
 @Component({
@@ -16,12 +17,13 @@ import { UserInterface } from './../../../interfaces/user.interface';
 
 export class TabAccauntComponent implements OnInit {
   public formGroup: FormGroup | any;
-  @Input() user!: UserInterface | undefined;
+  @Input() user!: User | undefined;
   
   constructor(private fb: FormBuilder,
               private socketService: WebsocketService,
               private boardService: BoardsService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private storage: LocalStorageService) {
 
                }
 
@@ -29,21 +31,25 @@ export class TabAccauntComponent implements OnInit {
     this.formGroup = this.fb.group({
       nickname: ['', []],
     });
+    // this.user = this.authService.currentUser;
   }
   
 
   setNick() {
     if (this.authService.currentUser) {
-      this.boardService.updateUser({
+      const user: User = {
         user_id: this.authService.currentUser?.user_id,
         nickname: this.formGroup.value.nickname,
         name: this.authService.currentUser.name,
         email: this.authService.currentUser.email,
-        picture: this.authService.currentUser.picture
-      } as User).subscribe(
+        picture: this.authService.currentUser.picture,
+        lang: this.authService.currentUser.lang
+      }
+      this.boardService.updateUser(user).subscribe(
         // res => console.log(res)
         )
         this.user!.nickname = this.formGroup.value.nickname;
+        this.storage.setItem('user', user);
     }
   }
 }
