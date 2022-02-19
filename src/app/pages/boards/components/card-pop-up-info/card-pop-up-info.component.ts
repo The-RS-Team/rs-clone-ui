@@ -62,13 +62,12 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     newFileCallback(card: any) {
-        console.log('newCardCallback', card);
+        console.log('newFileCallback', card);
         this.getFilesByCardId(this.data.id);
     }
 
     updateCardCallback(card: any) {
-        console.log('newCardCallback', card);
-        this.data = card;
+        console.log('updateCardCallback', card);
     }
 
     public changeCardParam(title: string, description: string, src?: string | null) {
@@ -168,7 +167,7 @@ export class CardPopUpInfoComponent implements OnInit {
             cardId: this.data.id,
         }
         this.socketService.emit(Messages.newFile, fileToUpload);
-        // this.changeCardParam(this.data.title, this.data.description);
+        this.changeCardParam(this.data.title, this.data.description);
     }
 
     onDeleteFile(fileId: string): void {

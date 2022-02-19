@@ -1,17 +1,15 @@
-<mat-card (click)="openDialog($event);$event.stopPropagation()">
-<!--<mat-card>-->
+<!--<mat-card (click)="openDialog($event);$event.stopPropagation()">-->
+<mat-card>
     <img *ngIf="card.cover"
          [src]="card.cover"
          class="card__cover"
          alt="Card cover">
     <mat-card-content>
         <p class="card__title">{{card?.title}}</p>
-        <button #cardEditBtn
-                mat-icon-button
+        <button mat-icon-button
                 (click)="editButtonClick();$event.stopPropagation()"
                 class="card__edit-btn"
-                [matMenuTriggerFor]="cardMenu"
-                #trigger="matMenuTrigger">
+                [matMenuTriggerFor]="cardMenu">
             <mat-icon class="card__edit-icon">edit</mat-icon>
         </button>
     </mat-card-content>
@@ -20,9 +18,9 @@
             <mat-icon>comment</mat-icon>
             {{ card.cardItems?.length }}
         </div>
-        <div class="comments" *ngIf="card.files.length">
+        <div class="comments" *ngIf="card.filesCount">
             <mat-icon>attach_file</mat-icon>
-            {{ card.files?.length }}
+            {{ card.filesCount }}
         </div>
     </div>
 

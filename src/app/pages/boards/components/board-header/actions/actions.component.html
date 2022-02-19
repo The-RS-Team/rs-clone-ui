@@ -15,10 +15,10 @@
                  [src]="activity.picture"
                  alt="avatar">
             <div class="item__info">
-                <p class="item__text">{{activity.name}} </p>
-                <p class="item__text">{{activity.action}} {{activity.table}}</p>
-                <p class="item__text"> {{activity.info}}</p>
-                <p class="item__text"> {{activity.created | date: "hh:mm dd/MM/yyyy"}}</p>
+                <p class="item__text name"> {{ activity.name}} <label class="item__text nickname">{{ '@' + activity.nickname}}</label></p><br>
+                <p class="item__text"> {{ activity.action }} {{ activity.table }} <label
+                        class="item__text info"> {{ activity.info }}</label></p>
+                <p class="item__text"> {{ activity.created | date: "short" }}</p>
             </div>
 
         </mat-list-item>
