@@ -62,13 +62,12 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     newFileCallback(card: any) {
-        console.log('newCardCallback', card);
+        console.log('newFileCallback', card);
         this.getFilesByCardId(this.data.id);
     }
 
     updateCardCallback(card: any) {
-        console.log('newCardCallback', card);
-        this.data = card;
+        console.log('updateCardCallback', card);
     }
 
     public changeCardParam(title: string, description: string, src?: string | null) {
@@ -76,12 +75,16 @@ export class CardPopUpInfoComponent implements OnInit {
         this.data.description = description;
         this.data.cover = src;
 
+        console.log(this.data.filesCount, 'count');
+        console.log(this.files.length, 'len')
+
         const item = {
             id: this.data.id,
             title: this.data.title,
             columnId: this.data.columnId,
             position: this.data.position,
             description: this.data.description,
+            // filesCount: this.files.length,
             cover: this.data.cover
         }
         this.socketService.emit(Messages.updateCard, item);
@@ -168,7 +171,7 @@ export class CardPopUpInfoComponent implements OnInit {
             cardId: this.data.id,
         }
         this.socketService.emit(Messages.newFile, fileToUpload);
-        // this.changeCardParam(this.data.title, this.data.description);
+        this.changeCardParam(this.data.title, this.data.description);
     }
 
     onDeleteFile(fileId: string): void {
@@ -181,7 +184,6 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     public ngOnDestroy() {
-        this.sub$.unsubscribe();
-        this.socketService.socket.removeAllListeners();
+        this.sub$.unsubscribe();this.socketService.socket.removeAllListeners();
     }
 }
