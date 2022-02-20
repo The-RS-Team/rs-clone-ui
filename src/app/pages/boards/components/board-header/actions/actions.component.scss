@@ -2,8 +2,6 @@
   margin: 10px 15px;
   display: flex;
   flex-direction: column;
-  //justify-content: center;
-  //align-items: center;
 
   &__section-title {
     display: flex;
@@ -49,14 +47,38 @@
     &__avatar{
       border-radius: 50px;
       width: 30px;
+      display: block;
     }
     &__text{
       display: inline-block;
       font-size: 16px;
-     }
+      text-wrap: normal;
+      line-break: anywhere;
+      margin-bottom: 2px;
+    }
 
+    &__info{
+      margin-left: 10px;
+    }
   }
 }
+
+.name{
+  font-weight: bold;
+}
+
+.info{
+  text-decoration: underline;
+}
+.nickname{
+  font-weight: lighter;
+  color: #7a7a7a;
+  font-size: 8px;
+}
+.mat-list-base .mat-list-item .mat-list-item-content, .mat-list-base .mat-list-option .mat-list-item-content{
+  gap: 10px!important;
+}
+
 circle {
   stroke-width: 7% !important;
 }
