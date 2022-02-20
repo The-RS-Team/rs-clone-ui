@@ -19,6 +19,8 @@ import {CardInterface} from '../../../../interfaces/card.interface';
 import {FormGroup} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Validators} from '@angular/forms';
+import {BoardInterface} from "../../../../interfaces/board.interface";
+import { Board } from 'src/app/models/board';
 
 @Component({
     selector: 'app-column',
@@ -28,6 +30,7 @@ import {Validators} from '@angular/forms';
 })
 export class ColumnComponent implements OnInit {
     @Output() OnDeleteList = new EventEmitter<string>();
+    @Input() board: BoardInterface = new Board('', '', '', false, '', []);
     @Input() column: ColumnInterface = new Column('', '', [], '', 0, '');
     @ViewChild('columnTitleInput') columnTitleInput: ElementRef | undefined;
     @ViewChild('newCardInput') newCardInput: ElementRef | undefined;
@@ -124,6 +127,10 @@ export class ColumnComponent implements OnInit {
             }
                 this.socketService.emit(Messages.updateCard, item);
         })
+    }
+
+    public columnsId(){
+        return this.board.columns.map(column => column.id);
     }
 
     public deleteCard(cardId: string) {

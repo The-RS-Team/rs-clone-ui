@@ -10,6 +10,7 @@
              [cdkDropListData]="board.columns"
              (cdkDropListDropped)="drop($event)">
             <app-column cdkDrag
+                        [board]="board"
                         class="board__list"
                         (OnDeleteList)="deleteColumn($event)"
                         *ngFor="let column of this.board?.columns"

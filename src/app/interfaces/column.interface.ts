@@ -1,7 +1,7 @@
 import {CardInterface} from './card.interface';
 
 export interface ColumnInterface {
-    id?: string;
+    id: string;
     title: string;
     cards: CardInterface[];
     position: number;

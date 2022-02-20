@@ -3,7 +3,7 @@ import {Card} from './card';
 import {CardInterface} from '../interfaces/card.interface';
 
 export class Column implements ColumnInterface {
-    id?: string;
+    id: string;
     title: string;
     cards: CardInterface[];
     boardId: string;

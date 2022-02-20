@@ -23,6 +23,8 @@
 </div>
 <div class="list__cards-container"
      cdkDropList
+     [id] = "column.id"
+     [cdkDropListConnectedTo]="columnsId()"
      [cdkDropListData]="column.cards"
      (cdkDropListDropped)="drop($event)">
     <app-card class="list__card"
