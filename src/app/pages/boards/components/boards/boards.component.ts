@@ -7,9 +7,6 @@ import {BoardInterface} from '../../../../interfaces/board.interface';
 import {Router} from '@angular/router';
 import {UsersService} from '../../users.service';
 import {AuthService} from '../../../../auth/auth.service';
-import {WebsocketService} from '../../../../shared/services/socket.service';
-import {Messages} from '../../../../app.constants';
-import {Invite} from '../../../../models/invite';
 
 @Injectable({
     providedIn: 'root'
@@ -34,18 +31,11 @@ export class BoardsComponent implements OnInit, OnDestroy {
         private readonly router: Router,
         private readonly authService: AuthService,
         private readonly dialog: MatDialog,
-        private readonly socketService: WebsocketService,
     ) {
     }
 
     ngOnInit(): void {
-        this.socketService.on(Messages.checkInvitesByEmail, this.checkInvitesByEmail.bind(this));
-        this.socketService.on(Messages.connect, () => {
-            if (this.authService.currentUser?.email) {
-                this.socketService.emit(Messages.checkInvitesByEmail, this.authService.currentUser.email);
-            }
-        });
-
+        this.checkInvites();
         this.getBoards();
         this.getFavorites();
         this.getUsers();
@@ -58,10 +48,14 @@ export class BoardsComponent implements OnInit, OnDestroy {
                 .subscribe((users) => this.users = users));
     }
 
-    checkInvitesByEmail(invites: Invite[]): void {
-        console.log('checkInvitesByEmail', invites);
-        if (invites.length > 0)
-            this.getBoards();
+    checkInvites(): void {
+        this.boardsService
+            .checkInvites()
+            .subscribe((invites) => {
+                console.log('BoardsComponent checkInvites - ', invites)
+                if (invites.length > 0)
+                    setTimeout(this.getBoards.bind(this), 1000);
+            });
     }
 
     getBoards(): void {

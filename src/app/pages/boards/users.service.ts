@@ -3,8 +3,7 @@ import {catchError, Observable, of, tap} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MessageService} from '../../shared/message.service';
 import {environment} from '../../../environments/environment';
-import {BoardInterface} from '../../interfaces/board.interface';
-import {UserInterface} from "../../interfaces/user.interface";
+import {UserInterface} from '../../interfaces/user.interface';
 
 @Injectable({
     providedIn: 'root'
