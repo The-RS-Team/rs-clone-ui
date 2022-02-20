@@ -6,5 +6,5 @@ export interface BoardInterface {
     description: string;
     isFavorite: boolean;
     background: string;
-    columns?: ColumnInterface[];
+    columns: ColumnInterface[];
 }

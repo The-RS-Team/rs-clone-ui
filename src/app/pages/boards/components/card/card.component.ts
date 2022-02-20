@@ -21,11 +21,11 @@ import {BoardsService} from "../../boards.service";
     templateUrl: './card.component.html',
     styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit, OnChanges {
+export class CardComponent implements OnInit {
 
     @Output() OnDeleteCard = new EventEmitter<string>();
     @Input() card!: CardInterface;
-    @Input() list: ColumnInterface = new Column('', '', [], '', 0);
+    @Input() list: ColumnInterface = new Column('', '', [], '', 0, '');
     @ViewChild('cardTitleInput') cardTitleInput: ElementRef | undefined;
 
     constructor(public dialog: MatDialog,
@@ -33,9 +33,6 @@ export class CardComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-    }
-
-    ngOnChanges() {
     }
 
     editButtonClick() {
@@ -51,7 +48,7 @@ export class CardComponent implements OnInit, OnChanges {
         let dialogRef = this.dialog.open(CardPopUpInfoComponent, {data: this.card});
 
         dialogRef.afterClosed().subscribe(result => {
-
+            this.card.filesCount = result;
         });
     }
 

@@ -1,7 +1,7 @@
 <mat-dialog-content class="popup">
     <div class="popup__cover-img-wrapper">
         <img *ngIf="data.cover"
-             [src]="data.cover"
+             [src]="data.cover | safe: 'resourceUrl'"
              class="popup__cover"
              alt="Card cover">
     </div>

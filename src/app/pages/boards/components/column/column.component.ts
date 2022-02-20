@@ -28,7 +28,7 @@ import {Validators} from '@angular/forms';
 })
 export class ColumnComponent implements OnInit {
     @Output() OnDeleteList = new EventEmitter<string>();
-    @Input() column: ColumnInterface = new Column('', '', [], '', 0);
+    @Input() column: ColumnInterface = new Column('', '', [], '', 0, '');
     @ViewChild('columnTitleInput') columnTitleInput: ElementRef | undefined;
     @ViewChild('newCardInput') newCardInput: ElementRef | undefined;
     public isNewCard = false;
@@ -124,8 +124,6 @@ export class ColumnComponent implements OnInit {
             }
                 this.socketService.emit(Messages.updateCard, item);
         })
-
-        console.log(this.column, 'this.column')
     }
 
     public deleteCard(cardId: string) {

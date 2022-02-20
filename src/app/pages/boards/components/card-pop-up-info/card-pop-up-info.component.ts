@@ -40,6 +40,7 @@ export class CardPopUpInfoComponent implements OnInit {
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
                 public dialog: MatDialog,
+                public dialogRef: MatDialogRef<CardPopUpInfoComponent>,
                 private _snackBar: MatSnackBar,
                 private sanitization: DomSanitizer,
                 private http: HttpClient,
@@ -60,6 +61,11 @@ export class CardPopUpInfoComponent implements OnInit {
         this.socketService.on(Messages.newFile, this.newFileCallback.bind(this));
 
     }
+
+    onClose(): void {
+        this.dialogRef.close(this.files.length);
+    }
+
 
     newFileCallback(card: any) {
         console.log('newFileCallback', card);
@@ -107,19 +113,19 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     openDialog(file: FileInterface) {
-        if (
-            file.mimetype.split("/")[0] !== "image" &&
+        if (file.mimetype.split("/")[0] !== "image" &&
             file.mimetype.split("/")[1] !== "pdf" &&
-            file.mimetype.split("/")[0] !== "gif"
-        ) {
+            file.mimetype.split("/")[0] !== "gif") {
             let downloadLink = document.createElement("a");
-            var binaryData = [];
-            binaryData.push(file);
-            downloadLink.href = window.URL.createObjectURL(
-                // @ts-ignore
-                new Blob(binaryData, {type: file.mimetype})
-            );
-
+            let binary = "";
+            let bytes = new Uint8Array(file.buffer.data);
+            let len = bytes.byteLength;
+            for (let i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            let src = window.btoa(binary);
+            file.src = "data:" + file.mimetype + ";base64," + src;
+            downloadLink.href  = file.src;
             downloadLink.setAttribute("download", file.originalname);
             downloadLink.click();
             return;
@@ -128,11 +134,9 @@ export class CardPopUpInfoComponent implements OnInit {
             panelClass: "my-class",
             data: file,
         });
-
         dialogRef.afterClosed().subscribe((result) => {
         });
     }
-
 
     getFilesByCardId(id: string): void {
         this.sub$.add(
@@ -157,7 +161,6 @@ export class CardPopUpInfoComponent implements OnInit {
         // @ts-ignore
         const file: File = event.target?.files[0];
 
-        console.log(file, 'fileToUpload')
         const fileToUpload = {
             originalname: file.name,
             size: file.size,
@@ -180,6 +183,7 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     public ngOnDestroy() {
+        this.onClose();
         this.sub$.unsubscribe();
         this.socketService.socket.removeAllListeners();
     }

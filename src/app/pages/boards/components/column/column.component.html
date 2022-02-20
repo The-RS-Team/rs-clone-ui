@@ -1,4 +1,4 @@
-<div class="list__title-container">
+<div class="list__title-container" >
     <input #columnTitleInput
            [value]="column.title"
            (change)="changeColumnTitle(columnTitleInput.value)"
@@ -15,7 +15,7 @@
     </button>
     <mat-menu #menu="matMenu">
         <button mat-menu-item
-                (click)="deleteColumn(column?.id)">
+                (click)="deleteColumn(column?.id);$event.stopPropagation()">
             <mat-icon>delete</mat-icon>
             <span>{{"column.delete-list" | translate}}</span>
         </button>
@@ -34,12 +34,16 @@
 <div *ngIf="isNewCard" class="new-form">
     <mat-dialog-content [formGroup]="formGroup">
         <mat-form-field class="new__card" appearance="outline">
-          <input matInput placeholder="{{'column.eneter-card-title' | translate}}" formControlName="title" class="list__card__input" (keydown.enter)="addNewCard()">
+            <input matInput placeholder="{{'column.eneter-card-title' | translate}}" formControlName="title"
+                   class="list__card__input" (keydown.enter)="addNewCard()">
         </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions class="actions">
-        <button type="button" mat-stroked-button (click)="addNewCard()" class="new-button">{{ 'column.add-new-card' | translate }}</button>
-        <div (click)="cancelNewCard()"><mat-icon>close</mat-icon></div>
+        <button type="button" mat-stroked-button (click)="addNewCard()"
+                class="new-button">{{ 'column.add-new-card' | translate }}</button>
+        <div (click)="cancelNewCard()">
+            <mat-icon>close</mat-icon>
+        </div>
     </mat-dialog-actions>
 </div>
 <button class="list__new-card-btn"

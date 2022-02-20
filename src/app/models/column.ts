@@ -8,13 +8,15 @@ export class Column implements ColumnInterface {
     cards: CardInterface[];
     boardId: string;
     position: number;
+    description: string;
 
-    constructor(id: string, title: string, cards: Card[], boardId: string, position: number) {
+    constructor(id: string, title: string, cards: Card[], boardId: string, position: number, description: string) {
         this.id = id;
         this.title = title;
         this.cards = cards;
         this.boardId = boardId;
         this.position = position;
+        this.description = description;
     }
 }
 
