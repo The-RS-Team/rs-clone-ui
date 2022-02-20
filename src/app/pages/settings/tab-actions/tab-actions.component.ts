@@ -35,6 +35,6 @@ export class TabActionsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.socketService.removeAllListeners()
+        // this.socketService.removeAllListeners()
     }
 }

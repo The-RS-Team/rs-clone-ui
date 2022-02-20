@@ -41,6 +41,6 @@ export class ActionsComponent implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy() {
-        this.socketService.socket.removeAllListeners();
+        // this.socketService.socket.removeAllListeners();
     }
 }

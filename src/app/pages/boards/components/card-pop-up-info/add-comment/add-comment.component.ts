@@ -113,7 +113,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.socketService.removeAllListeners();
+    // this.socketService.removeAllListeners();
   }
 
   newCommentCallback(msg: CardItemInterface) {

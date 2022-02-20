@@ -41,18 +41,23 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
             });
         this.socketService.on(Messages.newColumn, this.newColumnCallback.bind(this));
         this.socketService.on(Messages.updateColumn, this.updateColumnCallback.bind(this));
-        this.socketService.on(Messages.deleteColumn, this.deleteColumnCallback.bind(this));
+        this.socketService.on(Messages.deleteColumn, (response: ColumnDeleteResult) => this.deleteColumnCallback(response));
     }
 
     public newColumnCallback(column: ColumnInterface): void {
-        console.log('newColumnCallback', column)
         if (column) {
             this.board.columns?.push(column);
         }
     }
 
     public updateColumnCallback(column: ColumnInterface): void {
-        console.log('newColumnCallback', column)
+        // if (column) {
+        //     if (column.boardId === this.board.id)
+        //         this.board.columns = this.board.columns.map(el => {
+        //             if (el.id === column.id) return column;
+        //             else return el;
+        //         })
+        // }
     }
 
     deleteColumnCallback(deleteResult: ColumnDeleteResult): void {
@@ -100,21 +105,20 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
                 event.currentIndex,
             );
         }
-        const column = event.container.data[event.currentIndex];
-
-        if (this.board.id != null) {
-            column.boardId = this.board.id;
-        }
-
-        const item = {
-            id: column.id,
-            boardId: column.boardId,
-            title: column.title,
-            position: column.position,
-            description: column.description,
-        }
-
-        this.socketService.emit(Messages.updateColumn, item);
+        // const column = event.container.data[event.currentIndex];
+        //
+        // if (this.board.id != null) {
+        //     column.boardId = this.board.id;
+        // }
+        //
+        // const item = {
+        //     id: column.id,
+        //     boardId: column.boardId,
+        //     title: column.title,
+        //     position: column.position,
+        //     description: column.description,
+        // }
+        // this.socketService.emit(Messages.updateColumn, item);
 
         this.board.columns = event.container.data.map((el, index) => {
             el.position = index;
@@ -131,15 +135,16 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
             }
             this.socketService.emit(Messages.updateColumn, item);
         })
+        // this.board.columns.sort((a, b) => a.position > b.position ? 1 : -1);
 
-        console.log(this.board, 'this.column')
+        // this.boardsService.updateBoard(this.board as BoardInterface)
+        //     .subscribe(board => {
+        //         this.board = board;
+        //     })
     }
 
     public deleteColumn(columnId: string) {
-        console.log(columnId, 'columnID')
-        console.log("DELETECOLUMN")
-        const listToDelete = this.board.columns.find(column => column.id === columnId)
-        console.log(listToDelete, 'listToDelete')
+        const listToDelete = this.board.columns.find(column => column.id === columnId);
         if (listToDelete) {
             this.socketService.emit(Messages.deleteColumn, columnId);
         }
@@ -147,6 +152,6 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public ngOnDestroy() {
         this.sub$.unsubscribe();
-        this.socketService.removeAllListeners();
+        // this.socketService.removeAllListeners();
     }
 }

@@ -20,7 +20,7 @@ import {FormGroup} from '@angular/forms';
 import {FormBuilder} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import {BoardInterface} from "../../../../interfaces/board.interface";
-import { Board } from 'src/app/models/board';
+import {Board} from 'src/app/models/board';
 
 @Component({
     selector: 'app-column',
@@ -73,15 +73,25 @@ export class ColumnComponent implements OnInit {
         }
     }
 
-    updateCardCallback(update: any): void {
-        console.log('newCardCallback', update)
+    updateCardCallback(card: any): void {
+        if (card) {
+            if (card.columnId === this.column.id)
+                this.column.cards = this.column.cards.map(el => {
+                    if (el.id === card.id) return card;
+                    else return el;
+                })
+        }
     }
 
     updateColumnCallback(column: any) {
-        console.log('newCardCallback', column)
+        if (this.column.id === column.id) {
+            this.column = column;
+            this.column.cards.sort((a, b) => a.position > b.position ? 1 : -1);
+        }
     }
 
     drop(event: CdkDragDrop<CardInterface[]>) {
+        console.log(event)
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 
@@ -125,11 +135,30 @@ export class ColumnComponent implements OnInit {
                 description: card.description,
                 cover: card.cover
             }
-                this.socketService.emit(Messages.updateCard, item);
+            this.socketService.emit(Messages.updateCard, item);
         })
+
+        const column = {
+            id: this.column.id,
+            title: this.column.title,
+            boardId: this.column.boardId,
+            position: this.column.position,
+            description: this.column.description,
+        }
+        this.socketService.emit(Messages.updateColumn, column);
+
+        let columnPrev = this.board.columns.find(el => el.id === event.previousContainer.data[0].columnId);
+        const columnPrevious = {
+            id: columnPrev?.id,
+            title: columnPrev?.title,
+            boardId: columnPrev?.boardId,
+            position: columnPrev?.position,
+            description: columnPrev?.description,
+        }
+        this.socketService.emit(Messages.updateColumn, columnPrevious);
     }
 
-    public columnsId(){
+    public columnsId() {
         return this.board.columns.map(column => column.id);
     }
 
@@ -180,6 +209,6 @@ export class ColumnComponent implements OnInit {
     }
 
     public ngOnDestroy() {
-        this.socketService.socket.removeAllListeners();
+        // this.socketService.socket.removeAllListeners();
     }
 }

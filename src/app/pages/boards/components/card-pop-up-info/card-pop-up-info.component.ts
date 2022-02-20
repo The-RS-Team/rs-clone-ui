@@ -185,6 +185,6 @@ export class CardPopUpInfoComponent implements OnInit {
     public ngOnDestroy() {
         this.onClose();
         this.sub$.unsubscribe();
-        this.socketService.socket.removeAllListeners();
+        // this.socketService.socket.removeAllListeners();
     }
 }
