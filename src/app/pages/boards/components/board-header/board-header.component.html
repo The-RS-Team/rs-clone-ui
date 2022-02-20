@@ -63,15 +63,15 @@
             {{'bg-change' | translate}}</a>
         <a mat-list-item (click)="openSettings('about')">
             <mat-icon matListIcon>list</mat-icon>
-            {{"About board"}}
+            {{"about-board" | translate}}
         </a>
         <a mat-list-item (click)="openSettings('participants')">
             <mat-icon matListIcon>people</mat-icon>
-            {{"Participants"}}
+            {{"participants" | translate}}
         </a>
         <a mat-list-item (click)="openSettings('actions')">
             <mat-icon matListIcon>edit</mat-icon>
-            {{"Actions"}}
+            {{"actions" | translate}}
         </a>
     </mat-nav-list>
     <app-background *ngIf="settings === 'bg'" [boardWrapper]="boardWrapper"></app-background>

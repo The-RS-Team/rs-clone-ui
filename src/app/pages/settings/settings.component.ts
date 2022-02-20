@@ -21,7 +21,7 @@ export class SettingsComponent implements OnInit {
   
   ngOnInit(): void {
     this.user = this.storage.getItem('user');
-    this.getUser()
+    // this.getUser()
   }
 
   getUser() {

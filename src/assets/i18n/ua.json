@@ -38,6 +38,12 @@
   "log-out": "Вийти",
   "menu": "Меню",
   "bg-change": "Сменить фон",
+  "about-board": "Про дошку",
+  "participants": "Учасники",
+  "actions": "Історія",
+  "administrator": "Адміністратор",
+  "description": "Опис",
+  "add-description": "Додати опис дошки...",
   "pictures": "Фотографії",
   "colors": "Кольори",
   "boards": "Дошки",
@@ -57,7 +63,16 @@
     "nick-enter": "Введіть псевдонім",
     "save": "Зберегти"
   },
-
+  "history": {
+    "update": "оновив(ла)",
+    "delete": "видалив(ла)",
+    "insert": "додав(ла)",
+    "comment": "прокоментував(ла)",
+    "at": "o",
+    "card": "картку",
+    "board": "дошку",
+    "column": "стовбець"
+  },
   "comments": {
     "save": "Зберегти",
     "edit": "Редагувати",

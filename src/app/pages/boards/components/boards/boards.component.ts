@@ -10,6 +10,8 @@ import {AuthService} from '../../../../auth/auth.service';
 import {WebsocketService} from '../../../../shared/services/socket.service';
 import {Messages} from '../../../../app.constants';
 import {Invite} from '../../../../models/invite';
+import { TranslateService } from '@ngx-translate/core';
+import { LocalStorageService } from './../../../../shared/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root'
@@ -35,6 +37,8 @@ export class BoardsComponent implements OnInit, OnDestroy {
         private readonly authService: AuthService,
         private readonly dialog: MatDialog,
         private readonly socketService: WebsocketService,
+        public readonly translate: TranslateService,
+        private storage: LocalStorageService
     ) {
     }
 
@@ -45,7 +49,8 @@ export class BoardsComponent implements OnInit, OnDestroy {
                 this.socketService.emit(Messages.checkInvitesByEmail, this.authService.currentUser.email);
             }
         });
-
+        let lang = this.storage.getItem('language') ? this.storage.getItem('language') : 'en';
+        this.translate.use(lang);
         this.getBoards();
         this.getFavorites();
         this.getUsers();
