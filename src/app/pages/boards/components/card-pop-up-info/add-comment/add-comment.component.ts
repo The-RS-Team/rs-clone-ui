@@ -114,6 +114,9 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // this.socketService.removeAllListeners();
+    this.socketService.removeListener(Messages.newCarditem);
+    this.socketService.removeListener(Messages.deleteCarditem);
+    this.socketService.removeListener(Messages.updateCarditem);
   }
 
   newCommentCallback(msg: CardItemInterface) {

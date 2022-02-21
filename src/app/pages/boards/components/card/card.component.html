@@ -17,9 +17,9 @@
             <mat-icon>comment</mat-icon>
             {{ card.cardItems?.length }}
         </div>
-        <div class="comments" *ngIf="card.filesCount">
+        <div class="comments" *ngIf="card.files.length">
             <mat-icon>attach_file</mat-icon>
-            {{ card.filesCount }}
+            {{card.files.length}}
         </div>
     </div>
 

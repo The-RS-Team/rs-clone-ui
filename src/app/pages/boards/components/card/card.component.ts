@@ -15,6 +15,9 @@ import {Column} from '../../../../models/column';
 import {MatDialog} from '@angular/material/dialog';
 import {CardPopUpInfoComponent} from '../card-pop-up-info/card-pop-up-info.component';
 import {BoardsService} from "../../boards.service";
+import {Subscription} from "rxjs";
+import {FileInterface} from "../../../../interfaces/file.interface";
+import {Card} from "../../../../models/card";
 
 @Component({
     selector: 'app-card',
@@ -22,6 +25,7 @@ import {BoardsService} from "../../boards.service";
     styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
+    public isDataLoading = true;
 
     @Output() OnDeleteCard = new EventEmitter<string>();
     @Input() card!: CardInterface;
@@ -47,8 +51,9 @@ export class CardComponent implements OnInit {
 
         let dialogRef = this.dialog.open(CardPopUpInfoComponent, {data: this.card});
 
-        dialogRef.afterClosed().subscribe(result => {
-            this.card.filesCount = result;
+        dialogRef.afterClosed().subscribe((newStateFiles: FileInterface[]) => {
+            this.card.files = [];
+            this.card.files = newStateFiles;
         });
     }
 

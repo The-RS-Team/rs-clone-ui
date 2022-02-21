@@ -37,3 +37,17 @@
 .btn-full-width {
   width: 100%;
 }
+
+@media (max-width: 860px) {
+  .popup{
+    &__pic{
+      display: none;
+    }
+    &__wrapper {
+      display: block;
+    }
+    &__form {
+      width: 100%;
+    }
+  }
+}

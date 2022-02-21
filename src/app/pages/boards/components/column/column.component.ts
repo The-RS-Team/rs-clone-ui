@@ -84,13 +84,15 @@ export class ColumnComponent implements OnInit {
     }
 
     updateColumnCallback(column: any) {
-        if (this.column.id === column.id) {
+        if (!column) return;
+         if (this.column.id === column.id) {
             this.column = column;
             this.column.cards.sort((a, b) => a.position > b.position ? 1 : -1);
         }
     }
 
     drop(event: CdkDragDrop<CardInterface[]>) {
+        if (!this.column) return;
         console.log(event)
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -104,7 +106,6 @@ export class ColumnComponent implements OnInit {
             );
         }
         const card = event.container.data[event.currentIndex];
-        // card.position = event.currentIndex;
 
         if (this.column.id != null) {
             card.columnId = this.column.id;
@@ -147,7 +148,7 @@ export class ColumnComponent implements OnInit {
         }
         this.socketService.emit(Messages.updateColumn, column);
 
-        let columnPrev = this.board.columns.find(el => el.id === event.previousContainer.data[0].columnId);
+        let columnPrev = this.board.columns.find(el => el.id === event.previousContainer.element.nativeElement.id);
         const columnPrevious = {
             id: columnPrev?.id,
             title: columnPrev?.title,

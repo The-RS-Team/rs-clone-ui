@@ -36,7 +36,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
             .subscribe((board) => {
                 this.board = board;
                 this.bg = JSON.parse(board.background)
-                this.board.columns = this.board.columns || [];
+                this.board.columns = this.board?.columns || [];
                 this.board.columns.sort((a, b) => a.position > b.position ? 1 : -1);
             });
         this.socketService.on(Messages.newColumn, this.newColumnCallback.bind(this));
@@ -46,13 +46,13 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public newColumnCallback(column: ColumnInterface): void {
         if (column) {
-            this.board.columns?.push(column);
+            this.board?.columns.push(column);
         }
     }
 
     public updateColumnCallback(column: ColumnInterface): void {
         // if (column) {
-        //     if (column.boardId === this.board.id)
+        //     if (column.boardId === this.board!.id)
         //         this.board.columns = this.board.columns.map(el => {
         //             if (el.id === column.id) return column;
         //             else return el;
@@ -61,16 +61,16 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     deleteColumnCallback(deleteResult: ColumnDeleteResult): void {
-        console.log(this.board, 'this.board Callback')
-
-        const columnToDelete = this.board.columns.find(column => column.id === deleteResult.raw[0])
-        if (deleteResult.affected > 0) {
-            if (this.board.id === columnToDelete?.boardId) {
-                if (deleteResult.affected > 0) {
-                    this.board.columns.splice(
-                        this.board.columns.indexOf(
-                            <ColumnInterface>this.board.columns.find(column => column.id === deleteResult.raw[0])
-                        ), 1)
+        if (this.board) {
+            const columnToDelete = this.board.columns.find(column => column.id === deleteResult.raw[0])
+            if (deleteResult.affected > 0) {
+                if (this.board.id === columnToDelete?.boardId) {
+                    if (deleteResult.affected > 0) {
+                        this.board.columns.splice(
+                            this.board.columns.indexOf(
+                                <ColumnInterface>this.board.columns.find(column => column.id === deleteResult.raw[0])
+                            ), 1)
+                    }
                 }
             }
         }
@@ -88,7 +88,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
                 cards: [],
                 boardId: this.board.id,
                 description: '',
-                position: this.board.columns.length + 1
+                position: this.board?.columns.length + 1
             };
             this.socketService.emit(Messages.newColumn, newColumnModel);
         }
@@ -120,7 +120,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         // }
         // this.socketService.emit(Messages.updateColumn, item);
 
-        this.board.columns = event.container.data.map((el, index) => {
+        this.board!.columns = event.container.data.map((el, index) => {
             el.position = index;
             return el;
         });
@@ -152,6 +152,8 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public ngOnDestroy() {
         this.sub$.unsubscribe();
-        // this.socketService.removeAllListeners();
+        this.socketService.removeListener(Messages.newColumn);
+        this.socketService.removeListener(Messages.updateColumn);
+        this.socketService.removeListener(Messages.deleteColumn);
     }
 }

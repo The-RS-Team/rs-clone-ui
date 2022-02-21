@@ -65,6 +65,12 @@ export class WebsocketService {
         }
     }
 
+    removeListener(message:string): void {
+        if (this.socket.connected) {
+            this.socket.removeListener(message);
+        }
+    }
+
     createRoom(roomName: string): void {
         console.log(Messages.createRoom)
         this.socket.emit(Messages.createRoom);

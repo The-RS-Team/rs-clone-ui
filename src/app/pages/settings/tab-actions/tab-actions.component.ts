@@ -33,7 +33,7 @@ public getActivity(id: string) {
 }
 
 ngOnDestroy(): void {
-    this.socketService.removeAllListeners()
+    // this.socketService.removeAllListeners()
 }
 
 htmlToText(val: string) {

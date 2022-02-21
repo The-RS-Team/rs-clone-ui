@@ -18,6 +18,7 @@ import {Card} from "../../../../models/card";
 import {WebsocketService} from "../../../../shared/services/socket.service";
 import {Messages} from "../../../../app.constants";
 import {EventEmitter} from "@angular/core";
+import {CardInterface} from "../../../../interfaces/card.interface";
 
 @Component({
     selector: "app-card-pop-up-info",
@@ -31,6 +32,7 @@ export class CardPopUpInfoComponent implements OnInit {
 
     public imageEl: HTMLImageElement | undefined;
     public files: any[] = [];
+    public filesCount = 0;
 
     public file: File | undefined;
     fileName = "";
@@ -45,8 +47,7 @@ export class CardPopUpInfoComponent implements OnInit {
                 private sanitization: DomSanitizer,
                 private http: HttpClient,
                 private boardsService: BoardsService,
-                private socketService: WebsocketService
-    ) {
+                private socketService: WebsocketService,) {
     }
 
     ngOnInit(): void {
@@ -59,21 +60,26 @@ export class CardPopUpInfoComponent implements OnInit {
 
         this.socketService.on(Messages.updateCard, this.updateCardCallback.bind(this));
         this.socketService.on(Messages.newFile, this.newFileCallback.bind(this));
-
-    }
-
-    onClose(): void {
-        this.dialogRef.close(this.files.length);
+        this.socketService.on(Messages.deleteFile, this.deleteFileCallback.bind(this));
     }
 
 
-    newFileCallback(card: any) {
-        console.log('newFileCallback', card);
+    newFileCallback(file: FileInterface) {
         this.getFilesByCardId(this.data.id);
     }
 
-    updateCardCallback(card: any) {
-        console.log('updateCardCallback', card);
+    deleteFileCallback(file: any) {
+        console.log(file, 'FILE DELETE')
+        console.log(this.files, "DO")
+        // const fileToDelete = this.files.find(el => el.id === file.id);
+        this.files = this.files.filter(el => el.id !== file.id)
+        console.log(this.files, "Aftre")
+        this.getFilesByCardId(this.data.id);
+
+
+    }
+
+    updateCardCallback(card: CardInterface) {
     }
 
     public changeCardParam(title: string, description: string, src?: string | null) {
@@ -113,8 +119,9 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     openDialog(file: FileInterface) {
+        if (!file) return;
+        console.log(file.mimetype, 'FILE MIME')
         if (file.mimetype.split("/")[0] !== "image" &&
-            file.mimetype.split("/")[1] !== "pdf" &&
             file.mimetype.split("/")[0] !== "gif") {
             let downloadLink = document.createElement("a");
             let binary = "";
@@ -125,7 +132,7 @@ export class CardPopUpInfoComponent implements OnInit {
             }
             let src = window.btoa(binary);
             file.src = "data:" + file.mimetype + ";base64," + src;
-            downloadLink.href  = file.src;
+            downloadLink.href = file.src;
             downloadLink.setAttribute("download", file.originalname);
             downloadLink.click();
             return;
@@ -158,9 +165,16 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     onFileSelected(event: Event) {
+
         // @ts-ignore
         const file: File = event.target?.files[0];
-
+        if (!file) return;
+        if (file!.size > 1000000) {
+            this._snackBar.open('The file size should not exceed 1 MB', 'Close', {
+                duration: 5000,
+            });
+            return;
+        }
         const fileToUpload = {
             originalname: file.name,
             size: file.size,
@@ -171,20 +185,25 @@ export class CardPopUpInfoComponent implements OnInit {
         }
         this.socketService.emit(Messages.newFile, fileToUpload);
         this.changeCardParam(this.data.title, this.data.description);
+        this.getFilesByCardId(this.data.id);
     }
 
     onDeleteFile(fileId: string): void {
-        this.boardsService.deleteFile(fileId)
-            .subscribe(
-                (response) => {
-                    this.getFilesByCardId(this.data.id);
-                }
-            )
+        // this.boardsService.deleteFile(fileId)
+        //     .subscribe(
+        //         (response) => {
+        //             this.getFilesByCardId(this.data.id);
+        //         }
+        //     )
+        this.socketService.emit(Messages.deleteFile, fileId);
+        this.getFilesByCardId(this.data.id);
+
     }
 
     public ngOnDestroy() {
-        this.onClose();
+        this.dialogRef.close(this.files);
         this.sub$.unsubscribe();
-        // this.socketService.socket.removeAllListeners();
+        this.socketService.socket.removeListener(Messages.updateCard);
+        this.socketService.socket.removeListener(Messages.newFile);
     }
 }
