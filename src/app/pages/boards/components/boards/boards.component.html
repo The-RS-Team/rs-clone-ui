@@ -10,7 +10,7 @@
             <h4 class="boards__item__title">{{board.title}}</h4>
             <div class="boards__item__settings">
                 <div class="boards__item__star" (click)="addToFavorites(board);$event.stopPropagation()" [ngStyle]=getStar(board.isFavorite)></div>
-                <div class="boards__item__delete" (click)="deleteBoard(board);$event.stopPropagation()"></div>
+                <div class="boards__item__delete" *ngIf="board.usersToBoards![0].isOwner" (click)="deleteBoard(board);$event.stopPropagation()"></div>
             </div>
         </div>
     </div>
@@ -26,8 +26,25 @@
             <h4 class="boards__item__title">{{board.title}}</h4>
             <div class="boards__item__settings">
                 <div class="boards__item__star" (click)="addToFavorites(board);$event.stopPropagation()" [ngStyle]=getStar(board.isFavorite)></div>
-                <div class="boards__item__delete" (click)="deleteBoard(board);$event.stopPropagation()"></div>
+                <div class="boards__item__delete"  (click)="deleteBoard(board);$event.stopPropagation()"></div>
             </div>
         </div>
     </div>
 </div>
+<footer>
+    <p class="footer__element">
+
+        <a class="github-link" href="https://github.com/Iryna-Ivanitska"
+           target="_blank"> Iryna Ivanytska </a>
+        |
+        <a class="github-link" href="https://github.com/KozerenkoRoman"
+           target="_blank"> Roman Kozerenko </a>
+        |
+        <a class="github-link" href="https://github.com/VictoriaIL"
+           target="_blank"> VictoriaIl </a>
+    </p>
+    <p class="footer__element">© 2022</p>
+    <p class="footer__element"><a href="https://rs.school/js/" target="_blank"><img class="rs-logo-img"
+                                                                                    src="https://rs.school/images/rs_school_js.svg"
+                                                                                    alt="RS School Logo"></a></p>
+</footer>

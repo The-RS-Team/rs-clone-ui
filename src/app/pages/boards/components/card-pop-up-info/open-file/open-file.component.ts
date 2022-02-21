@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {FileInterface} from "../../../../../interfaces/file.interface";
 
 @Component({
   selector: 'app-open-file',
@@ -8,10 +9,8 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 })
 export class OpenFileComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public file: any) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public file: FileInterface) { }
 
   ngOnInit(): void {
-    console.log(this.file, 'filefilefile')
   }
-
 }

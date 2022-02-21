@@ -28,7 +28,6 @@
     width: 40px;
     height: 40px;
     border: none;
-    //border: 1px solid black;
     margin-right: 10px;
 
     img {
@@ -43,8 +42,6 @@
   }
 }
 
-
-
 .editing {
 
   &__btn {
@@ -55,6 +52,12 @@
       display: inline-block;
       margin: 0 5px;
     }
+  }
+}
+
+@media (max-width: 740px) {
+  .avatar {
+    display: none;
   }
 }
 

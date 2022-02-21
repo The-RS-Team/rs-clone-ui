@@ -16,25 +16,29 @@ export class TabActionsComponent implements OnInit, OnDestroy {
 
   constructor(private socketService: WebsocketService,
               private authService: AuthService) {
-                this.socketService.on(Messages.getAtivityByUser, (res: any) => this.getActivityByUserCallback(res));
+                this.socketService.on(Messages.getAtivityByUser, this.getActivityByUserCallback.bind(this));
                }
 
   ngOnInit() {
-    this.getActivity();
+    console.log(this.authService.currentUser)
+    this.getActivity(this.authService.currentUser!.user_id);
   }
 
   public getActivityByUserCallback(activity?: any) {
     this.userActivity = activity;
   }
 
-public getActivity() {
-  if (this.authService.currentUser) {
-    this.socketService.emit(Messages.getAtivityByUser, this.authService.currentUser.user_id);
-  }
-
+public getActivity(id: string) {
+    this.socketService.emit(Messages.getAtivityByUser, id);
 }
 
 ngOnDestroy(): void {
-    this.socketService.removeAllListeners()
+    // this.socketService.removeAllListeners()
+}
+
+htmlToText(val: string) {
+  const tmp = document.createElement('DIV');
+    tmp.innerHTML = val;
+    return tmp.textContent || tmp.innerText || '';
 }
 }

@@ -132,5 +132,4 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
     public ngOnDestroy() {
         this.sub$.unsubscribe();
     }
-
 }

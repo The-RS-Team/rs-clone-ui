@@ -131,6 +131,7 @@
     border-radius: 5px;
     padding: 8px 12px;
     resize: none;
+    line-break: anywhere;
   }
 
   &__aside-buttons {
@@ -186,3 +187,32 @@
   }
 }
 
+@media (max-width: 560px) {
+  .popup {
+
+    &__content {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+    }
+  }
+}
+@media (max-width: 490px) {
+  .popup {
+
+    &__content{
+      max-width: 470px;
+      overflow-x: hidden;
+    }
+  }
+}
+@media (max-width: 440px) {
+  .popup {
+    &__description-input{
+      width: 200px;
+    }
+    &__file-wrapper{
+      display: block;
+      line-break: anywhere;
+    }
+  }
+}

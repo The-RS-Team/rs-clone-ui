@@ -1,4 +1,5 @@
 import {ColumnInterface} from './column.interface';
+import { UsersToBoardsInterface } from './usersToBoards.interface';
 
 export interface BoardInterface {
     id: string;
@@ -6,5 +7,6 @@ export interface BoardInterface {
     description: string;
     isFavorite: boolean;
     background: string;
-    columns?: ColumnInterface[];
+    columns: ColumnInterface[];
+    usersToBoards?: UsersToBoardsInterface[];
 }

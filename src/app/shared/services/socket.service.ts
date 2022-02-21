@@ -54,7 +54,7 @@ export class WebsocketService {
             } else {
                 obj['id'] = eventObject;
             }
-            console.log('socket emit:', eventName, obj)
+            // console.log('socket emit:', eventName, obj)
             this.socket.emit(eventName, obj);
         }
     }
@@ -62,6 +62,12 @@ export class WebsocketService {
     removeAllListeners(): void {
         if (this.socket.connected) {
             this.socket.removeAllListeners();
+        }
+    }
+
+    removeListener(message:string): void {
+        if (this.socket.connected) {
+            this.socket.removeListener(message);
         }
     }
 

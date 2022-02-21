@@ -4,4 +4,7 @@ export interface UserInterface {
     name: string | null;
     picture: string | null;
     nickname: string | null;
+    lang: string | null;
+    isOwner?: boolean;
+    id?: string;
 }

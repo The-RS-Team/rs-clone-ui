@@ -3,18 +3,20 @@ import {Card} from './card';
 import {CardInterface} from '../interfaces/card.interface';
 
 export class Column implements ColumnInterface {
-    id?: string;
+    id: string;
     title: string;
     cards: CardInterface[];
     boardId: string;
     position: number;
+    description: string;
 
-    constructor(id: string, title: string, cards: Card[], boardId: string, position: number) {
+    constructor(id: string, title: string, cards: Card[], boardId: string, position: number, description: string) {
         this.id = id;
         this.title = title;
         this.cards = cards;
         this.boardId = boardId;
         this.position = position;
+        this.description = description;
     }
 }
 

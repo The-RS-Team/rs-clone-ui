@@ -1,7 +1,6 @@
-<!--<mat-card (click)="openDialog($event);$event.stopPropagation()">-->
-<mat-card>
+<mat-card (click)="openDialog($event);$event.stopPropagation()">
     <img *ngIf="card.cover"
-         [src]="card.cover"
+         [src]="card.cover | safe: 'resourceUrl'"
          class="card__cover"
          alt="Card cover">
     <mat-card-content>
@@ -18,9 +17,9 @@
             <mat-icon>comment</mat-icon>
             {{ card.cardItems?.length }}
         </div>
-        <div class="comments" *ngIf="card.filesCount">
+        <div class="comments" *ngIf="card.files.length">
             <mat-icon>attach_file</mat-icon>
-            {{ card.filesCount }}
+            {{card.files.length}}
         </div>
     </div>
 

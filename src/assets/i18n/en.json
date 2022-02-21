@@ -38,6 +38,12 @@
   "log-out": "Log out",
   "menu": "Menu",
   "bg-change": "Change background",
+  "about-board": "About board",
+  "participants": "Participants",
+  "actions": "Actions",
+  "administrator": "Administrator",
+  "description": "Description",
+  "add-description": "Add a description for board...",
   "pictures": "Photos",
   "colors": "Colors",
   "boards": "Boards",
@@ -57,7 +63,16 @@
     "nick-enter": "Enter nickname",
     "save": "Save"
   },
-
+  "history": {
+    "update": "updated",
+    "delete": "Deleted",
+    "insert": "add",
+    "comment": "commented", 
+    "at": "at",
+    "card": "card",
+    "board": "board",
+    "column": "column"
+  },
   "comments": {
     "save": "Save",
     "edit": "Edit",
@@ -79,5 +94,7 @@
     "ckeck-mail": "Check the email address",
     "email-hint": "Enter an Email address for invitation",
     "send": "Send invitation"
-  }
+  },
+
+  "board-delete-alert": "You are not the owner of this board"
 }

@@ -7,6 +7,12 @@ import {BoardInterface} from '../../../../interfaces/board.interface';
 import {Router} from '@angular/router';
 import {UsersService} from '../../users.service';
 import {AuthService} from '../../../../auth/auth.service';
+import {WebsocketService} from '../../../../shared/services/socket.service';
+import {Messages} from '../../../../app.constants';
+import {Invite} from '../../../../models/invite';
+import { TranslateService } from '@ngx-translate/core';
+import { LocalStorageService } from './../../../../shared/services/local-storage.service';
+import { UserInterface } from 'src/app/interfaces/user.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -20,9 +26,9 @@ import {AuthService} from '../../../../auth/auth.service';
 export class BoardsComponent implements OnInit, OnDestroy {
     private sub$ = new Subscription();
 
-    imgBaseUrl = 'http://localhost:4200/assets/images/'
-    boards: BoardInterface[] = [];
-    users: any[] = [];
+    public imgBaseUrl = 'http://localhost:4200/assets/images/'
+    public boards: BoardInterface[] = [];
+    public users: UserInterface[] = [];
     public favorites: BoardInterface[] = [];
 
     constructor(
@@ -31,10 +37,23 @@ export class BoardsComponent implements OnInit, OnDestroy {
         private readonly router: Router,
         private readonly authService: AuthService,
         private readonly dialog: MatDialog,
+        private readonly socketService: WebsocketService,
+        public readonly translate: TranslateService,
+        private storage: LocalStorageService
     ) {
     }
 
     ngOnInit(): void {
+        // this.socketService.on(Messages.checkInvitesByEmail, this.checkInvitesByEmail.bind(this));
+        // this.socketService.on(Messages.connect, () => {
+        //     if (this.authService.currentUser?.email) {
+        //         this.socketService.emit(Messages.checkInvitesByEmail, this.authService.currentUser.email);
+        //     }
+        // });
+
+        let lang = this.storage.getItem('language') ? this.storage.getItem('language') : 'en';
+        this.translate.use(lang);
+
         this.checkInvites();
         this.getBoards();
         this.getFavorites();
@@ -62,7 +81,10 @@ export class BoardsComponent implements OnInit, OnDestroy {
         this.sub$.add(
             this.boardsService
                 .getBoards()
-                .subscribe((boards) => this.boards = boards));
+                .subscribe((boards) => {
+                    this.boards = boards;
+                    console.log(this.boards)
+                }));
     }
 
     getBg(board: BoardInterface) {
@@ -99,13 +121,17 @@ export class BoardsComponent implements OnInit, OnDestroy {
     }
 
     deleteBoard(board: BoardInterface): void {
-        this.boardsService.deleteBoard(board.id!)
-            .subscribe(
-                _ => {
-                    this.boards = this.boards.filter(el => board.id != el.id)
-                    this.favorites = this.favorites.filter(el => board.id != el.id)
-                }
-            )
+        if (board.usersToBoards![0].isOwner) {
+            this.boardsService.deleteBoard(board.id!)
+                .subscribe(
+                    _ => {
+                        this.boards = this.boards.filter(el => board.id != el.id)
+                        this.favorites = this.favorites.filter(el => board.id != el.id)
+                    }
+                )
+        } else {
+            alert(this.translate.instant('board-delete-alert'));
+        }
     }
 
     openDialog() {

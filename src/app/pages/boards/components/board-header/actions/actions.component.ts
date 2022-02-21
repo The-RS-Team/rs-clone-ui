@@ -29,18 +29,22 @@ export class ActionsComponent implements OnInit, OnDestroy {
     }
 
     public getActivityByBoardCallback(activity?: any) {
-        console.log(activity);
         this.boardActivity = activity;
     }
 
     public getActivity() {
-
         if (this.board) {
             this.socketService.emit(Messages.getAtivityByBoard, this.board.id);
         }
     }
 
     public ngOnDestroy() {
-        this.socketService.socket.removeAllListeners();
+        // this.socketService.socket.removeAllListeners();
     }
+
+    htmlToText(val: string) {
+        const tmp = document.createElement('DIV');
+          tmp.innerHTML = val;
+          return tmp.textContent || tmp.innerText || '';
+      }
 }
