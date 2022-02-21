@@ -70,7 +70,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.boardWrapper = this.boardWrap?.nativeElement;
     }
 
@@ -88,7 +88,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    public drop(event: CdkDragDrop<ColumnInterface[]>) {
+    public drop(event: CdkDragDrop<ColumnInterface[]>): void {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
@@ -117,14 +117,14 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
         })
     }
 
-    public deleteColumn(columnId: string) {
+    public deleteColumn(columnId: string): void {
         const listToDelete = this.board.columns.find(column => column.id === columnId);
         if (listToDelete) {
             this.socketService.emit(Messages.deleteColumn, columnId);
         }
     }
 
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.sub$.unsubscribe();
         this.socketService.removeListener(Messages.newColumn);
         this.socketService.removeListener(Messages.updateColumn);

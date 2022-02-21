@@ -17,14 +17,13 @@ export class LangSwitcherComponent implements OnInit {
               public readonly translate: TranslateService,
               private authService: AuthService,
               private boardService: BoardsService) {
-
     this.currentLanguage = storage.getItem('language') ? storage.getItem('language') : '';
   }
 
   ngOnInit(): void {
   }
 
-  changeLanguage(lan: string) {
+  changeLanguage(lan: string): void {
     this.storage.setItem('language', lan)
     this.translate.use(lan)
     if (this.authService.currentUser) {
@@ -38,12 +37,12 @@ export class LangSwitcherComponent implements OnInit {
       }
       this.authService.currentUser.lang = lan;
       this.storage.setItem('user', user);
-      this.boardService.updateUser(user).subscribe(resp => console.log(resp))
+      this.boardService.updateUser(user).subscribe(_ => {})
     }
 
   }
 
-  getLanguageName(lan: string) {
+  getLanguageName(lan: string): string {
     let label = '';
     switch (lan) {
       case 'ua':
