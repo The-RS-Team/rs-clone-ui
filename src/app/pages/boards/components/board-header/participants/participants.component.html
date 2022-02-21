@@ -11,6 +11,7 @@
             <p class="participants__name">{{user.name}}</p>
             <span class="participants__nickname">@{{user.nickname}}</span>
             <p class="participants__email">{{user.email}}</p>
+            <span *ngIf="!user.isOwner" class="participants__delete" (click)="deletePartisipant(user)">{{ 'comments.delete' | translate }}</span>
         </div>
     </div>
 </div>

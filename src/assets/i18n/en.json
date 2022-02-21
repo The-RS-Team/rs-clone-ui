@@ -94,5 +94,7 @@
     "ckeck-mail": "Check the email address",
     "email-hint": "Enter an Email address for invitation",
     "send": "Send invitation"
-  }
+  },
+
+  "board-delete-alert": "You are not the owner of this board"
 }

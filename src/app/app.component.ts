@@ -29,5 +29,9 @@ export class AppComponent implements OnInit {
                 // this.socketService.on(Messages.connect, ( _:any) => console.log('yepee'))
                 this.authService.currentUser = this.storage.getItem('user');
         }
+            if (this.storage.getItem('token')) {
+                // this.socketService.on(Messages.connect, ( _:any) => console.log('yepee'))
+                this.authService.accessToken = this.storage.getItem('token');
+        }
     }
 }

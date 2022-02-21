@@ -26,8 +26,9 @@ export class BoardsComponent implements OnInit, OnDestroy {
     private sub$ = new Subscription();
 
     imgBaseUrl = 'http://localhost:4200/assets/images/'
-    boards: BoardInterface[] = [];
+    public boards: BoardInterface[] = [];
     users: any[] = [];
+
     public favorites: BoardInterface[] = [];
 
     constructor(
@@ -73,7 +74,10 @@ export class BoardsComponent implements OnInit, OnDestroy {
         this.sub$.add(
             this.boardsService
                 .getBoards()
-                .subscribe((boards) => this.boards = boards));
+                .subscribe((boards) => {
+                    this.boards = boards;
+                    console.log(this.boards)
+                }));
     }
 
     getBg(board: BoardInterface) {
@@ -110,13 +114,17 @@ export class BoardsComponent implements OnInit, OnDestroy {
     }
 
     deleteBoard(board: BoardInterface): void {
-        this.boardsService.deleteBoard(board.id!)
-            .subscribe(
-                _ => {
-                    this.boards = this.boards.filter(el => board.id != el.id)
-                    this.favorites = this.favorites.filter(el => board.id != el.id)
-                }
-            )
+        if (board.usersToBoards![0].isOwner) {
+            this.boardsService.deleteBoard(board.id!)
+                .subscribe(
+                    _ => {
+                        this.boards = this.boards.filter(el => board.id != el.id)
+                        this.favorites = this.favorites.filter(el => board.id != el.id)
+                    }
+                )
+        } else {
+            alert(this.translate.instant('board-delete-alert'));
+        }
     }
 
     openDialog() {

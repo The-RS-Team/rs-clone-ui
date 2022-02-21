@@ -33,4 +33,9 @@
     font-size: 12px;
     display: inline;
   }
+
+  &__delete {
+    color: var(--input-color);
+    cursor: pointer;
+  }
 }
