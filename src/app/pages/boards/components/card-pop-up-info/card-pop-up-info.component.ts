@@ -2,7 +2,7 @@ import {
     Component,
     ElementRef,
     Inject,
-    OnInit, Optional, Output,
+    OnInit,
     ViewChild,
 } from "@angular/core";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
@@ -14,7 +14,6 @@ import {DomSanitizer} from "@angular/platform-browser";
 import {OpenFileComponent} from "./open-file/open-file.component";
 import {Subscription} from "rxjs";
 import {FileInterface} from "../../../../interfaces/file.interface";
-import {Card} from "../../../../models/card";
 import {WebsocketService} from "../../../../shared/services/socket.service";
 import {Messages} from "../../../../app.constants";
 import {CardInterface} from "../../../../interfaces/card.interface";
@@ -65,11 +64,11 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
 
-    newFileCallback(file: FileInterface) {
+    newFileCallback(file: FileInterface): void {
         this.getFilesByCardId(this.data.id);
     }
 
-    deleteFileCallback(file: any) {
+    deleteFileCallback(file: any): void {
         console.log(file, 'FILE DELETE')
         console.log(this.files, "DO")
         this.files = this.files.filter(el => el.id !== file.id)
@@ -79,10 +78,10 @@ export class CardPopUpInfoComponent implements OnInit {
 
     }
 
-    updateCardCallback(card: CardInterface) {
+    updateCardCallback(card: CardInterface): void {
     }
 
-    public changeCardParam(title: string, description: string, src?: string | null) {
+    public changeCardParam(title: string, description: string, src?: string | null): void {
         this.data.title = title;
         this.data.description = description;
         this.data.cover = src;
@@ -118,9 +117,7 @@ export class CardPopUpInfoComponent implements OnInit {
         });
     }
 
-    openDialog(file: FileInterface) {
-        console.log(file, 'FILE')
-
+    openDialog(file: FileInterface): void {
         if (!file) return;
         console.log(file.mimetype, 'FILE MIME')
         if (file.mimetype.split("/")[0] !== "image" &&
@@ -157,16 +154,16 @@ export class CardPopUpInfoComponent implements OnInit {
                 }));
     }
 
-    getCardItems() {
+    getCardItems(): void {
         this.socketService.emit(Messages.getCarditems, this.data.id)
     }
 
-    getFile(id: any) {
+    getFile(id: any): void {
         this.filesService.getFileById(id).subscribe((blob) => {
         });
     }
 
-    onFileSelected(event: Event) {
+    onFileSelected(event: Event): void {
 
         // @ts-ignore
         const file: File = event.target?.files[0];
@@ -191,12 +188,18 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     onDeleteFile(fileId: string): void {
+        // this.boardsService.deleteFile(fileId)
+        //     .subscribe(
+        //         (response) => {
+        //             this.getFilesByCardId(this.data.id);
+        //         }
+        //     )
         this.socketService.emit(Messages.deleteFile, fileId);
         this.getFilesByCardId(this.data.id);
 
     }
 
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.dialogRef.close(this.files);
         this.sub$.unsubscribe();
         this.socketService.socket.removeListener(Messages.updateCard);

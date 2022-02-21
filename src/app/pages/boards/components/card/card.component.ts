@@ -15,9 +15,7 @@ import {Column} from '../../../../models/column';
 import {MatDialog} from '@angular/material/dialog';
 import {CardPopUpInfoComponent} from '../card-pop-up-info/card-pop-up-info.component';
 import {BoardsService} from "../../boards.service";
-import {Subscription} from "rxjs";
 import {FileInterface} from "../../../../interfaces/file.interface";
-import {Card} from "../../../../models/card";
 
 @Component({
     selector: 'app-card',
@@ -39,12 +37,12 @@ export class CardComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    editButtonClick() {
+    editButtonClick(): void {
         this.cardTitleInput?.nativeElement.focus();
         this.cardTitleInput?.nativeElement.select();
     }
 
-    openDialog(event: Event) {
+    openDialog(event: Event): void {
         // @ts-ignore
         const classList = event.target?.classList;
         if (classList.contains('card__edit-icon') || classList.contains('card__edit-icon')) return;

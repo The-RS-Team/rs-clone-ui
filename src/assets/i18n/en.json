@@ -93,8 +93,25 @@
     "invite-to-board": "Invite to board",
     "ckeck-mail": "Check the email address",
     "email-hint": "Enter an Email address for invitation",
-    "send": "Send invitation"
+    "send": "Send invitation",
+    "sent": "Invitation has been sent"
   },
 
-  "board-delete-alert": "You are not the owner of this board"
+  "board-delete-alert": "You are not the owner of this board",
+
+  "card": {
+    "delete-cover": "Delete cover",
+    "title": "Title",
+    "title-enter": "Enter a title for this card",
+    "description": "Description",
+    "detailes": "Add a more detailed description...",
+    "attachments": "Attachments",
+    "no-files": "No files.",
+    "delete-file": "Delete file",
+    "make-cover": "Make a card cover",
+    "actions": "Actions",
+    "add": "Add to card",
+    "partisipants": "Participants",
+    "from-comp": "From a computer"
+  }
 }

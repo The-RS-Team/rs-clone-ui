@@ -7,8 +7,6 @@ import {BoardInterface} from '../../../../interfaces/board.interface';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../../auth/auth.service';
 import {WebsocketService} from '../../../../shared/services/socket.service';
-import {Messages} from '../../../../app.constants';
-import {Invite} from '../../../../models/invite';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from './../../../../shared/services/local-storage.service';
 import { UserInterface } from 'src/app/interfaces/user.interface';
@@ -33,22 +31,13 @@ export class BoardsComponent implements OnInit, OnDestroy {
     constructor(
         private readonly boardsService: BoardsService,
         private readonly router: Router,
-        private readonly authService: AuthService,
         private readonly dialog: MatDialog,
-        private readonly socketService: WebsocketService,
         public readonly translate: TranslateService,
         private storage: LocalStorageService
     ) {
     }
 
     ngOnInit(): void {
-        // this.socketService.on(Messages.checkInvitesByEmail, this.checkInvitesByEmail.bind(this));
-        // this.socketService.on(Messages.connect, () => {
-        //     if (this.authService.currentUser?.email) {
-        //         this.socketService.emit(Messages.checkInvitesByEmail, this.authService.currentUser.email);
-        //     }
-        // });
-
         let lang = this.storage.getItem('language') ? this.storage.getItem('language') : 'en';
         this.translate.use(lang);
 
@@ -69,7 +58,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
         this.boardsService
             .checkInvites()
             .subscribe((invites) => {
-                console.log('BoardsComponent checkInvites - ', invites)
                 if (invites.length > 0)
                     setTimeout(this.getBoards.bind(this), 1000);
             });
@@ -81,7 +69,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
                 .getBoards()
                 .subscribe((boards) => {
                     this.boards = boards;
-                    console.log(this.boards)
                 }));
     }
 
@@ -96,7 +83,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
         }
     }
 
-    getFavorites() {
+    getFavorites(): void {
         this.sub$.add(
             this.boardsService
                 .getFavorites()
@@ -132,7 +119,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
         }
     }
 
-    openDialog() {
+    openDialog(): void {
         const dialogConfig = new MatDialogConfig();
 
         dialogConfig.autoFocus = true;
@@ -149,11 +136,11 @@ export class BoardsComponent implements OnInit, OnDestroy {
         )
     }
 
-    public openBoard(id: string) {
+    public openBoard(id: string): void {
         this.router.navigate(['board'], {queryParams: {id: id}})
     }
 
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.sub$.unsubscribe();
     }
 }

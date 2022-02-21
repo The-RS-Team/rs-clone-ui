@@ -1,16 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialogRef} from '@angular/material/dialog';
 import {BoardsService} from "../../boards.service";
 import {BoardInterface} from "../../../../interfaces/board.interface";
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-new-board',
     templateUrl: './new-board.component.html',
     styleUrls: ['./new-board.component.scss']
 })
-export class NewBoardComponent implements OnInit {
+export class NewBoardComponent implements OnInit, OnDestroy {
     public formGroup: FormGroup | any;
+    private $sub = new Subscription();
 
     constructor(private fb: FormBuilder,
                 public dialogRef: MatDialogRef<NewBoardComponent>,
@@ -25,7 +27,7 @@ export class NewBoardComponent implements OnInit {
         });
     }
 
-    create() {
+    create(): void {
         if (this.formGroup.invalid) return;
 
         const board = {
@@ -38,11 +40,16 @@ export class NewBoardComponent implements OnInit {
                 backgroundSize: 'cover'
             })
         }
-        this.boardsService.addBoard(board as BoardInterface)
+        this.$sub.add(this.boardsService.addBoard(board as BoardInterface)
             .subscribe(
                 board => {
                     this.dialogRef.close(board)
                 }
-            );
+            )
+        )
+    }
+
+    ngOnDestroy() {
+        this.$sub.unsubscribe();
     }
 }

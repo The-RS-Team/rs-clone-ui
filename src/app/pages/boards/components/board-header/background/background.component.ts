@@ -3,7 +3,6 @@ import {BoardsService} from "../../../boards.service";
 import {ActivatedRoute} from "@angular/router";
 import {BoardInterface} from "../../../../../interfaces/board.interface";
 import {UnsplashImg} from "../../../../../interfaces/unsplash-img.interface";
-import {HttpClient} from "@angular/common/http";
 import {BoardComponent} from "../../board/board.component";
 
 @Component({
@@ -18,25 +17,23 @@ export class BackgroundComponent implements OnInit {
   public unsplashImages: UnsplashImg[] = [];
 
   constructor(private boardService: BoardsService,
-              private activatedRoute: ActivatedRoute,
-              private http: HttpClient
-              ) {
-
+              private activatedRoute: ActivatedRoute) {
   }
 
   @ViewChild(BoardComponent) boardComp: BoardComponent | undefined;
 
   @Input() boardWrapper: HTMLElement | undefined;
-
+  @Input() board: BoardInterface | undefined;
+  
   ngOnInit(): void {
     this.getUnsplashImage();
   }
 
-  choseType(key: string) {
+  choseType(key: string): void {
     this.bgType = key;
   }
 
-  setBg(item: string, key: string) {
+  setBg(item: string, key: string): void {
     let bg = {};
 
     if (key == 'color') {
@@ -54,20 +51,14 @@ export class BackgroundComponent implements OnInit {
       background: JSON.stringify(bg)
     }
       this.boardService.updateBoard(board as BoardInterface)
-          .subscribe(board => {
+          .subscribe(_ => {
           })
   }
 
-  getUnsplashImage() {
+  getUnsplashImage(): void {
       this.boardService.getUnsplashImg()
           .subscribe(imgs => {
             this.unsplashImages = imgs["results"]
           })
-  }
-
-  onFileSelected(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const files = target?.files as FileList;
-    const file = files[0];
   }
 }

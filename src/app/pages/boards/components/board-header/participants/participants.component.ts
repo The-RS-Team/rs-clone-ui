@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import {Subscription} from "rxjs";
 import {UserInterface} from "../../../../../interfaces/user.interface";
 import { WebsocketService } from 'src/app/shared/services/socket.service';
@@ -10,15 +10,14 @@ import { BoardInterface } from './../../../../../interfaces/board.interface';
     templateUrl: './participants.component.html',
     styleUrls: ['./participants.component.scss']
 })
-export class ParticipantsComponent implements OnInit {
+export class ParticipantsComponent implements OnInit, OnDestroy {
     @Input() board: BoardInterface | undefined;
     public sub$ = new Subscription();
     public users: UserInterface[] = [];
 
     constructor(private socketService: WebsocketService
                 ) {
-                    this.socketService.on(Messages.getUsersToBoards, (users: UserInterface[]) => {this.users = users;
-                    console.log(this.users)});
+                    this.socketService.on(Messages.getUsersToBoards, (users: UserInterface[]) => this.users = users);
                     this.socketService.on(Messages.deleteUsersToBoards, (_: any) => {})
     }
 
@@ -26,18 +25,18 @@ export class ParticipantsComponent implements OnInit {
         this.getTeam()
     }
 
-    private getTeam() {
+    private getTeam(): void {
         this.socketService.emit(Messages.getUsersToBoards, this.board!.id);
     }
 
-    public deletePartisipant(user: UserInterface) {
+    public deletePartisipant(user: UserInterface): void {
         this.users = this.users.filter(el => el.user_id != user.user_id);
         if (user.id) {
             this.socketService.emit(Messages.deleteUsersToBoards, user.id)
         }
     }
 
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.sub$.unsubscribe();
     }
 }

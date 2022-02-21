@@ -83,7 +83,7 @@ export class ColumnComponent implements OnInit {
         }
     }
 
-    updateColumnCallback(column: any) {
+    updateColumnCallback(column: any): void {
         if (!column) return;
          if (this.column.id === column.id) {
             this.column = column;
@@ -91,9 +91,8 @@ export class ColumnComponent implements OnInit {
         }
     }
 
-    drop(event: CdkDragDrop<CardInterface[]>) {
+    drop(event: CdkDragDrop<CardInterface[]>): void {
         if (!this.column) return;
-        console.log(event)
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 
@@ -159,18 +158,18 @@ export class ColumnComponent implements OnInit {
         this.socketService.emit(Messages.updateColumn, columnPrevious);
     }
 
-    public columnsId() {
+    public columnsId(): string[] {
         return this.board.columns.map(column => column.id);
     }
 
-    public deleteCard(cardId: string) {
+    public deleteCard(cardId: string): void {
         const cardToDelete = this.column.cards.find(card => card.id === cardId)
         if (cardToDelete) {
             this.socketService.emit(Messages.deleteCard, cardId);
         }
     }
 
-    public openAddNewCardForm() {
+    public openAddNewCardForm(): void {
         this.isNewCard = true;
     }
 
@@ -190,7 +189,7 @@ export class ColumnComponent implements OnInit {
         this.formGroup.reset({'title': ''});
     }
 
-    public changeColumnTitle(value: string) {
+    public changeColumnTitle(value: string): void {
         const item = {
             id: this.column.id,
             title: value,
@@ -205,7 +204,7 @@ export class ColumnComponent implements OnInit {
         this.OnDeleteList.emit(columnId);
     }
 
-    public cancelNewCard() {
+    public cancelNewCard(): void {
         this.isNewCard = false;
     }
 

@@ -7,11 +7,11 @@
     </div>
     <p class="popup__button"
        *ngIf="data.cover"
-       (click)="changeCardParam(cardTitleInput.value, descriptionTextarea.value, null)">Delete cover</p>
+       (click)="changeCardParam(cardTitleInput.value, descriptionTextarea.value, null)">{{'card.delete-cover' | translate}}</p>
     <div>
         <h3 class="popup__section-title">
             <mat-icon>view_headline</mat-icon>
-            Title
+            {{'card.title' | translate}}
         </h3>
         <textarea autosize
                   #cardTitleInput
@@ -20,7 +20,7 @@
                   class="popup__input-title"
                   matInput
                   type="text"
-                  placeholder="Enter a title for this card"
+                  placeholder="{{'card.title-enter' | translate}}"
                   autocomplete="off"
                   required></textarea>
     </div>
@@ -29,23 +29,23 @@
             <div class="popup__description">
                 <h3 class="popup__section-title">
                     <mat-icon>view_headline</mat-icon>
-                    Description
+                    {{'card.description' | translate}}
                 </h3>
                 <textarea #descriptionTextarea
                           autosize
                           [value]="data?.description"
                           (change)="changeCardParam(cardTitleInput.value, descriptionTextarea.value)"
                           class="popup__description-input"
-                          placeholder="Add a more detailed description..."
+                          placeholder="{{'card.detailes' | translate}}"
                           autocomplete="off"
                           autofocus="off"></textarea>
             </div>
             <div class="popup__file-upload">
                 <h3 class="popup__section-title">
                     <mat-icon>view_headline</mat-icon>
-                    Attachments
+                    {{'card.attachments' | translate}}
                 </h3>
-                <p *ngIf="!files.length">No files.</p>
+                <p *ngIf="!files.length">{{'card.no-files' | translate}}</p>
                 <div class="popup__files-container">
                     <div class="popup__file-wrapper"
                          #test
@@ -66,12 +66,12 @@
                             <p class="popup__button"
                                (click)="onDeleteFile(file.id);
                                         changeCardParam(cardTitleInput.value, descriptionTextarea.value, null)">
-                                Delete file
+                                {{'card.delete-file' | translate}}
                             </p>
                             <p class="popup__button"
                                *ngIf="file?.mimetype.split('/')[0] === 'image'"
                                (click)="changeCardParam(cardTitleInput.value, descriptionTextarea.value, file.src)">
-                                Make a card cover
+                                {{'card.make-cover' | translate}}
                             </p>
                         </div>
                     </div>
@@ -82,22 +82,18 @@
             <div class="popup__actions">
                 <h3 class="popup__section-title">
                     <mat-icon>view_headline</mat-icon>
-                    Actions
+                    {{'card.actions' | translate}}
                 </h3>
                 <app-add-comment [currentCard]="this.data"></app-add-comment>
             </div>
         </div>
 
         <div class="popup__aside-content">
-            <b>Add to card</b>
+            <b>{{'card.add' | translate}}</b>
             <div class="popup__aside-buttons">
-<!--                <button mat-button>-->
-<!--                    <mat-icon>person</mat-icon>-->
-<!--                    Participants-->
-<!--                </button>-->
                 <button mat-button [matMenuTriggerFor]="attachmentMenu">
                     <mat-icon>attach_file</mat-icon>
-                    Attachments
+                    {{'card.attachments' | translate}}
                 </button>
             </div>
         </div>
@@ -108,8 +104,8 @@
                 <input class="popup__file-input"
                        type="file"
                        name="file"
-                       placeholder="From a computer"
-                       (change)="onFileSelected($event)" #fileUpload>From a computer...
+                       placeholder="{{'card.from-comp' | translate}}"
+                       (change)="onFileSelected($event)" #fileUpload>{{'card.from-comp' | translate}}...
             </button>
         </mat-menu>
     </div>
