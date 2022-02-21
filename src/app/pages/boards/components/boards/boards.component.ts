@@ -12,6 +12,7 @@ import {Messages} from '../../../../app.constants';
 import {Invite} from '../../../../models/invite';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from './../../../../shared/services/local-storage.service';
+import { UserInterface } from 'src/app/interfaces/user.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -25,10 +26,9 @@ import { LocalStorageService } from './../../../../shared/services/local-storage
 export class BoardsComponent implements OnInit, OnDestroy {
     private sub$ = new Subscription();
 
-    imgBaseUrl = 'http://localhost:4200/assets/images/'
+    public imgBaseUrl = 'http://localhost:4200/assets/images/'
     public boards: BoardInterface[] = [];
-    users: any[] = [];
-
+    public users: UserInterface[] = [];
     public favorites: BoardInterface[] = [];
 
     constructor(
@@ -52,6 +52,8 @@ export class BoardsComponent implements OnInit, OnDestroy {
         });
         let lang = this.storage.getItem('language') ? this.storage.getItem('language') : 'en';
         this.translate.use(lang);
+
+        this.checkInvites();
         this.getBoards();
         this.getFavorites();
         this.getUsers();
@@ -64,10 +66,14 @@ export class BoardsComponent implements OnInit, OnDestroy {
                 .subscribe((users) => this.users = users));
     }
 
-    checkInvitesByEmail(invites: Invite[]): void {
-        console.log('checkInvitesByEmail', invites);
-        if (invites.length > 0)
-            this.getBoards();
+    checkInvites(): void {
+        this.boardsService
+            .checkInvites()
+            .subscribe((invites) => {
+                console.log('BoardsComponent checkInvites - ', invites)
+                if (invites.length > 0)
+                    setTimeout(this.getBoards.bind(this), 1000);
+            });
     }
 
     getBoards(): void {

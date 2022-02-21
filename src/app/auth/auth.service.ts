@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 import {MessageService} from '../shared/message.service';
 import {AppRoutes} from '../app.constants';
 import {User} from '../models/user';
-import { LocalStorageService } from './../shared/services/local-storage.service';
+import {LocalStorageService} from './../shared/services/local-storage.service';
 
 @Injectable({
     providedIn: 'root'
@@ -51,7 +51,7 @@ export class AuthService {
                         if (this.currentUser && window.location.pathname == '/') {
                             this.router.navigate(this.successRoute)
                         }
-                        
+
                     });
                 }
             }
@@ -69,8 +69,7 @@ export class AuthService {
 
     googleAuth() {
         this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-            .then(
-                value => {
+            .then(value => {
                     this.router.navigate([AppRoutes.boards]);
                 }
             );
@@ -79,8 +78,7 @@ export class AuthService {
     gitHubAuth(): void {
         this.firebaseAuth
             .signInWithPopup(new firebase.auth.GithubAuthProvider())
-            .then(
-                value => {
+            .then(value => {
                     this.router.navigate(this.successRoute);
                 }
             ).catch(
@@ -121,6 +119,7 @@ export class AuthService {
         this.firebaseAuth.signOut();
         this.router.navigate(this.logoutRoute);
     }
+
 
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
