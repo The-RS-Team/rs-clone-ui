@@ -6,4 +6,5 @@ export interface UserInterface {
     nickname: string | null;
     lang: string | null;
     isOwner?: boolean;
+    id?: string;
 }

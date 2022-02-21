@@ -19,18 +19,16 @@ export class ParticipantsComponent implements OnInit {
     public users: UserInterface[] = [];
 
     constructor(private usersService: UsersService,
-                private socketService: WebsocketService,
-                private boardsComp: BoardsComponent
+                private socketService: WebsocketService
                 ) {
                     this.socketService.on(Messages.getUsersToBoards, (users: UserInterface[]) => {this.users = users;
                     console.log(this.users)});
+                    this.socketService.on(Messages.deleteUsersToBoards, (resp: any) => console.log(resp))
     }
 
     ngOnInit(): void {
         // this.getUsers();
         this.getTeam()
-        this.boardsComp.getBoards();
-        console.log(this.boardsComp.boards)
     }
 
     public getUsers() {
@@ -49,7 +47,10 @@ export class ParticipantsComponent implements OnInit {
 
     public deletePartisipant(user: UserInterface) {
         console.log(user)
-        this.socketService.emit(Messages.deleteUsersToBoards, user.user_id)
+        this.users = this.users.filter(el => el.user_id != user.user_id);
+        if (user.id) {
+            this.socketService.emit(Messages.deleteUsersToBoards, user.id)
+        }
     }
 
     public ngOnDestroy() {
