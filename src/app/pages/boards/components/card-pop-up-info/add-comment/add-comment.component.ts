@@ -51,6 +51,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
         'customClasses',
         'unlink',
         'insertVideo',
+        'insertImage',
         'insertHorizontalRule',
         'toggleEditorMode'
       ]
@@ -86,6 +87,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
         'customClasses',
         'unlink',
         'insertVideo',
+        'insertImage',
         'insertHorizontalRule',
         'toggleEditorMode'
       ]
@@ -102,7 +104,6 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     this.socketService.on(Messages.newCarditem, this.newCommentCallback.bind(this));
     this.socketService.on(Messages.deleteCarditem, this.deleteCommentCallback.bind(this));
     this.socketService.on(Messages.updateCarditem, this.updateCommentCallback.bind(this));
-    // this.socketService.on(Messages.getCarditems, (msg: any) => console.log(msg));
 
     this.formGroup = this.fb.group({
       comment: ['', []]
@@ -112,35 +113,34 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    // this.socketService.removeAllListeners();
+  ngOnDestroy(): void {
     this.socketService.removeListener(Messages.newCarditem);
     this.socketService.removeListener(Messages.deleteCarditem);
     this.socketService.removeListener(Messages.updateCarditem);
   }
 
-  newCommentCallback(msg: CardItemInterface) {
+  newCommentCallback(msg: CardItemInterface): void {
       if (msg) {
         this.currentCard.cardItems.push(msg);
     }
   }
-  deleteCommentCallback(msg: any) {
+  deleteCommentCallback(msg: any): void {
       if (msg) {
         this.currentCard.cardItems = this.currentCard.cardItems.filter( el => el.id != msg.raw[0]);;
     }
   }
-  updateCommentCallback(msg: CardItemInterface) {
+  updateCommentCallback(msg: CardItemInterface): void {
       if (msg) {
         let index = this.currentCard.cardItems.findIndex( (el: CardItemInterface) => el.id === msg.id);
           this.currentCard.cardItems[index].info = msg.info;
        }
   }
 
-  showEditor() {
+  showEditor(): void {
     this.editorConfig.showToolbar = true;
   }
 
-  saveComment() {
+  saveComment(): void {
     if (this.formGroup.value.comment === '') return;
     this.editorConfig.showToolbar = false;
 
@@ -154,14 +154,14 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     this.formGroup.reset({'comment': ''});
   }
 
-  deleteComment(comment: CardItemInterface) {
+  deleteComment(comment: CardItemInterface): void {
     this.socketService.emit(Messages.deleteCarditem, comment.id);
     this.comments = this.comments?.filter( el => {
       return el.id != comment.id;
     })
   }
 
-  editComment(comment: CardItemInterface) {
+  editComment(comment: CardItemInterface): void {
     this.formGroupEdit.patchValue({
       commentEdit: comment.info
     })
@@ -172,7 +172,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     }
   }
 
-  saveEditedComment() {
+  saveEditedComment(): void {
     this.isEdit = false;
     this.socketService.emit(Messages.updateCarditem, {
       info: this.formGroupEdit.value.commentEdit,

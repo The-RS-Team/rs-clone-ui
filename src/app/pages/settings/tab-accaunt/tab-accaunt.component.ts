@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/models/user';
 import { BoardsService } from '../../boards/boards.service';
 import { WebsocketService } from './../../../shared/services/socket.service';
-import { UserInterface } from './../../../interfaces/user.interface';
 import { LocalStorageService } from './../../../shared/services/local-storage.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -15,12 +15,12 @@ import { LocalStorageService } from './../../../shared/services/local-storage.se
 })
 
 
-export class TabAccauntComponent implements OnInit {
+export class TabAccauntComponent implements OnInit, OnDestroy {
   public formGroup: FormGroup | any;
   @Input() user!: User | undefined;
+  private $sub = new Subscription();
   
   constructor(private fb: FormBuilder,
-              private socketService: WebsocketService,
               private boardService: BoardsService,
               private authService: AuthService,
               private storage: LocalStorageService) {
@@ -31,11 +31,10 @@ export class TabAccauntComponent implements OnInit {
     this.formGroup = this.fb.group({
       nickname: ['', []],
     });
-    // this.user = this.authService.currentUser;
   }
   
 
-  setNick() {
+  setNick(): void {
     if (this.authService.currentUser) {
       const user: User = {
         user_id: this.authService.currentUser?.user_id,
@@ -45,11 +44,14 @@ export class TabAccauntComponent implements OnInit {
         picture: this.authService.currentUser.picture,
         lang: this.authService.currentUser.lang
       }
-      this.boardService.updateUser(user).subscribe(
-        // res => console.log(res)
-        )
+      this.$sub.add(this.boardService.updateUser(user).subscribe(
+        ))
         this.user!.nickname = this.formGroup.value.nickname;
         this.storage.setItem('user', user);
     }
+  }
+
+  ngOnDestroy(): void {
+      this.$sub.unsubscribe();
   }
 }

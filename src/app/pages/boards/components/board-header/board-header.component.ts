@@ -6,6 +6,7 @@ import {Subscription} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Invite} from '../../../../models/invite';
 import {WebsocketService} from '../../../../shared/services/socket.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-board-header',
@@ -28,9 +29,9 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
 
     constructor(private readonly boardsService: BoardsService,
                 private readonly socketService: WebsocketService,
-                private readonly fb: FormBuilder,) {
+                private readonly fb: FormBuilder,
+                private translate: TranslateService) {
     }
-
 
     ngOnInit(): void {
         this.sub$.add(
@@ -44,7 +45,7 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
         this.socketService.on(Messages.newInvite, this.newInviteCallback.bind(this));
     }
 
-    addToFavorites() {
+    addToFavorites(): void {
         if (!this.board) return;
         this.board.isFavorite = !this.board?.isFavorite;
 
@@ -54,7 +55,7 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
 
         } as BoardInterface)
             .subscribe(
-                resp => {
+                _ => {
                 }
             )
     }
@@ -63,17 +64,17 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
         this.menu = this.menuWrapper?.nativeElement;
     }
 
-    public openMenu() {
+    public openMenu(): void {
         this.menu!.className = 'menu opened';
         this.isMenuOpen = true;
     }
 
-    public closeMenu() {
+    public closeMenu(): void {
         this.menu!.className = 'menu';
         this.isMenuOpen = false;
     }
 
-    public openSettings(key: string) {
+    public openSettings(key: string): void {
         this.isSubMenu = true;
         switch (key) {
             case 'bg':
@@ -91,11 +92,11 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
         }
     }
 
-    public openInvite() {
+    public openInvite(): void {
         this.isInvite = true;
     }
 
-    public closeInvite() {
+    public closeInvite(): void {
         this.isInvite = false;
     }
 
@@ -104,19 +105,21 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
 
     }
 
-    public sendInvite(email: string) {
+    public sendInvite(email: string): void {
         if (this.formGroup.invalid) return;
         if (this.board) {
             const invite = new Invite(email, this.board.id, document.location.origin);
             this.socketService.emit(Messages.newInvite, invite);
         }
+        this.isInvite = false;
+        alert(this.translate.instant('invite.sent'));
     }
 
-    public goBack(path: string) {
+    public goBack(path: string): void {
         this.settings = path;
     }
 
-    public changeBoardTitle(value: string) {
+    public changeBoardTitle(value: string): void {
         if (this.board) {
             const item = {
                 id: this.board.id,
@@ -125,11 +128,10 @@ export class BoardHeaderComponent implements OnInit, OnDestroy {
 
             this.boardsService.updateBoard(item as BoardInterface).subscribe(item => {
             })
-            console.log(this.boardTitleInput);
         }
     }
 
-    public ngOnDestroy() {
+    public ngOnDestroy(): void {
         this.sub$.unsubscribe();
     }
 }

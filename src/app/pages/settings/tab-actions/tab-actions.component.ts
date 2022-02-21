@@ -1,10 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Messages } from 'src/app/app.constants';
 import { WebsocketService } from './../../../shared/services/socket.service';
-import { UsersService } from './../../boards/users.service';
 import { AuthService } from './../../../auth/auth.service';
-import { LocalStorageService } from './../../../shared/services/local-storage.service';
-import { UserInterface } from './../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-tab-actions',
@@ -19,24 +16,23 @@ export class TabActionsComponent implements OnInit, OnDestroy {
                 this.socketService.on(Messages.getAtivityByUser, this.getActivityByUserCallback.bind(this));
                }
 
-  ngOnInit() {
-    console.log(this.authService.currentUser)
+  ngOnInit(): void {
     this.getActivity(this.authService.currentUser!.user_id);
   }
 
-  public getActivityByUserCallback(activity?: any) {
+  public getActivityByUserCallback(activity?: any): void {
     this.userActivity = activity;
   }
 
-public getActivity(id: string) {
+public getActivity(id: string): void {
     this.socketService.emit(Messages.getAtivityByUser, id);
 }
 
 ngOnDestroy(): void {
-    // this.socketService.removeAllListeners()
+    this.socketService.removeAllListeners()
 }
 
-htmlToText(val: string) {
+htmlToText(val: string): string {
   const tmp = document.createElement('DIV');
     tmp.innerHTML = val;
     return tmp.textContent || tmp.innerText || '';
