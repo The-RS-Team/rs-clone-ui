@@ -164,7 +164,6 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     onFileSelected(event: Event): void {
-
         // @ts-ignore
         const file: File = event.target?.files[0];
         if (!file) return;
@@ -188,12 +187,6 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     onDeleteFile(fileId: string): void {
-        // this.boardsService.deleteFile(fileId)
-        //     .subscribe(
-        //         (response) => {
-        //             this.getFilesByCardId(this.data.id);
-        //         }
-        //     )
         this.socketService.emit(Messages.deleteFile, fileId);
         this.getFilesByCardId(this.data.id);
 
