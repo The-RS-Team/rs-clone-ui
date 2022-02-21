@@ -69,11 +69,5 @@ export class BackgroundComponent implements OnInit {
     const target = event.target as HTMLInputElement;
     const files = target?.files as FileList;
     const file = files[0];
-
-    // if (file) {
-    //   this.boardService.uploadFile(file)
-    //       .subscribe( file =>
-    //   console.log(file))
-    // }
   }
 }

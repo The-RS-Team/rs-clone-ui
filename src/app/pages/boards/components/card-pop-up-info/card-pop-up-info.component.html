@@ -40,8 +40,6 @@
                           autocomplete="off"
                           autofocus="off"></textarea>
             </div>
-
-            <!--                        <button (click)="getFile(file.id)">Get file</button>-->
             <div class="popup__file-upload">
                 <h3 class="popup__section-title">
                     <mat-icon>view_headline</mat-icon>
@@ -49,7 +47,6 @@
                 </h3>
                 <p *ngIf="!files.length">No files.</p>
                 <div class="popup__files-container">
-                    <!--                    <mat-spinner *ngIf="files"></mat-spinner>-->
                     <div class="popup__file-wrapper"
                          #test
                          *ngFor="let file of files">

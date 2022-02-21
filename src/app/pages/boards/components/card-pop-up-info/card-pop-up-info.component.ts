@@ -71,7 +71,6 @@ export class CardPopUpInfoComponent implements OnInit {
     deleteFileCallback(file: any) {
         console.log(file, 'FILE DELETE')
         console.log(this.files, "DO")
-        // const fileToDelete = this.files.find(el => el.id === file.id);
         this.files = this.files.filter(el => el.id !== file.id)
         console.log(this.files, "Aftre")
         this.getFilesByCardId(this.data.id);

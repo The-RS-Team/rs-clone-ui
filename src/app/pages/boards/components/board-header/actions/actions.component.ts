@@ -33,7 +33,6 @@ export class ActionsComponent implements OnInit, OnDestroy {
     }
 
     public getActivity() {
-
         if (this.board) {
             this.socketService.emit(Messages.getAtivityByBoard, this.board.id);
         }

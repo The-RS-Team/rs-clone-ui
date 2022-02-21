@@ -210,6 +210,5 @@ export class ColumnComponent implements OnInit {
     }
 
     public ngOnDestroy() {
-        // this.socketService.socket.removeAllListeners();
     }
 }
