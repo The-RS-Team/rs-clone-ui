@@ -54,7 +54,7 @@ export class WebsocketService {
             } else {
                 obj['id'] = eventObject;
             }
-            console.log('socket emit:', eventName, obj)
+            // console.log('socket emit:', eventName, obj)
             this.socket.emit(eventName, obj);
         }
     }

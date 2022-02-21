@@ -10,7 +10,7 @@
             <h4 class="boards__item__title">{{board.title}}</h4>
             <div class="boards__item__settings">
                 <div class="boards__item__star" (click)="addToFavorites(board);$event.stopPropagation()" [ngStyle]=getStar(board.isFavorite)></div>
-                <div class="boards__item__delete" (click)="deleteBoard(board);$event.stopPropagation()"></div>
+                <div class="boards__item__delete" *ngIf="board.usersToBoards![0].isOwner" (click)="deleteBoard(board);$event.stopPropagation()"></div>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
             <h4 class="boards__item__title">{{board.title}}</h4>
             <div class="boards__item__settings">
                 <div class="boards__item__star" (click)="addToFavorites(board);$event.stopPropagation()" [ngStyle]=getStar(board.isFavorite)></div>
-                <div class="boards__item__delete" (click)="deleteBoard(board);$event.stopPropagation()"></div>
+                <div class="boards__item__delete"  (click)="deleteBoard(board);$event.stopPropagation()"></div>
             </div>
         </div>
     </div>

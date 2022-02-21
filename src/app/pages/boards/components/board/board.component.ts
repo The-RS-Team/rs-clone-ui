@@ -8,6 +8,7 @@ import {Messages} from '../../../../app.constants';
 import {Column, ColumnDeleteResult} from '../../../../models/column';
 import {ColumnInterface} from '../../../../interfaces/column.interface';
 import {BoardInterface} from "../../../../interfaces/board.interface";
+import { AuthService } from 'src/app/auth/auth.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CardInterface} from "../../../../interfaces/card.interface";
 
@@ -18,8 +19,7 @@ import {CardInterface} from "../../../../interfaces/card.interface";
 })
 
 export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('boardWrapper')
-    public boardWrap: ElementRef | undefined;
+    @ViewChild('boardWrapper') boardWrap: ElementRef | undefined;
     private sub$ = new Subscription();
     public bg = {};
     public boardWrapper: HTMLElement | undefined;
@@ -28,6 +28,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(private boardsService: BoardsService,
                 private socketService: WebsocketService,
                 private activatedRoute: ActivatedRoute,
+                private authService: AuthService
     ) {
     }
 

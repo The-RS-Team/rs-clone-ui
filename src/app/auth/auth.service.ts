@@ -33,6 +33,18 @@ export class AuthService {
                         this.currentUserSubject.next(this.currentUser)
                         console.log('onAuthStateChanged: sendToken');
                         this.accessToken = idToken;
+                        if (!this.currentUser.picture) {
+                            this.currentUser.picture = '../../../../assets/images/avatar.jpg';
+                        }
+                        if (!this.currentUser.name && this.currentUser.email) {
+                            this.currentUser.name = this.sliceEmail(this.currentUser.email);
+                        }
+                        if (!this.currentUser.nickname && this.currentUser.email) {
+                            this.currentUser.nickname = this.sliceEmail(this.currentUser.email);
+                        }
+                        if (!this.storage.getItem('token')) {
+                            this.storage.setItem('token', this.accessToken);
+                        }
                         if (!this.storage.getItem('user')) {
                             this.storage.setItem('user', this.currentUser);
                         }
@@ -44,6 +56,11 @@ export class AuthService {
                 }
             }
         )
+    }
+
+    sliceEmail(str: string) {
+        const indx = str.indexOf('@');
+        return str.slice(0, indx);
     }
 
     isLoggedIn() {
