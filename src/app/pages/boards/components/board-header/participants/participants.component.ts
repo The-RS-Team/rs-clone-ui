@@ -1,12 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {BoardsService} from "../../../boards.service";
-import {UsersService} from "../../../users.service";
 import {Subscription} from "rxjs";
 import {UserInterface} from "../../../../../interfaces/user.interface";
 import { WebsocketService } from 'src/app/shared/services/socket.service';
 import { Messages } from 'src/app/app.constants';
 import { BoardInterface } from './../../../../../interfaces/board.interface';
-import { BoardsComponent } from '../../boards/boards.component';
 
 @Component({
     selector: 'app-participants',
@@ -18,8 +15,7 @@ export class ParticipantsComponent implements OnInit {
     public sub$ = new Subscription();
     public users: UserInterface[] = [];
 
-    constructor(private usersService: UsersService,
-                private socketService: WebsocketService
+    constructor(private socketService: WebsocketService
                 ) {
                     this.socketService.on(Messages.getUsersToBoards, (users: UserInterface[]) => {this.users = users;
                     console.log(this.users)});

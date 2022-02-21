@@ -41,10 +41,10 @@ export class BackgroundComponent implements OnInit {
 
     if (key == 'color') {
       bg = {background: item}
-      this.boardWrapper!.style.background = item;
+      this.boardWrapper!.style!.background = item;
     }
     if (key === 'unsplash') {
-      this.boardWrapper!.style.background = `url(${item})`;
+      this.boardWrapper!.style!.background = `url(${item})`;
       bg = {background: `url(${item})`,
       'background-size': 'cover' }
     }

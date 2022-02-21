@@ -5,7 +5,6 @@ import {BoardsService} from '../../boards.service';
 import {NewBoardComponent} from '../new-board/new-board.component';
 import {BoardInterface} from '../../../../interfaces/board.interface';
 import {Router} from '@angular/router';
-import {UsersService} from '../../users.service';
 import {AuthService} from '../../../../auth/auth.service';
 import {WebsocketService} from '../../../../shared/services/socket.service';
 import {Messages} from '../../../../app.constants';
@@ -33,7 +32,6 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
     constructor(
         private readonly boardsService: BoardsService,
-        private readonly usersService: UsersService,
         private readonly router: Router,
         private readonly authService: AuthService,
         private readonly dialog: MatDialog,
@@ -62,7 +60,7 @@ export class BoardsComponent implements OnInit, OnDestroy {
 
     getUsers(): void {
         this.sub$.add(
-            this.usersService
+            this.boardsService
                 .getUsers()
                 .subscribe((users) => this.users = users));
     }

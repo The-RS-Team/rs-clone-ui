@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Messages } from 'src/app/app.constants';
 import { WebsocketService } from './../../../shared/services/socket.service';
-import { UsersService } from './../../boards/users.service';
 import { AuthService } from './../../../auth/auth.service';
-import { LocalStorageService } from './../../../shared/services/local-storage.service';
-import { UserInterface } from './../../../interfaces/user.interface';
+
 
 @Component({
   selector: 'app-tab-actions',

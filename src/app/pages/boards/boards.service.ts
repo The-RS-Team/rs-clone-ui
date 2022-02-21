@@ -29,7 +29,7 @@ export class BoardsService {
     constructor(private readonly http: HttpClient,
                 private readonly messageService: MessageService,
                 private readonly socketService: WebsocketService
-                ) {
+    ) {
     }
 
     getBoards(): Observable<BoardInterface[]> {
@@ -121,46 +121,14 @@ export class BoardsService {
         this.messageService.add(`BoardService: ${message}`);
     }
 
-    getAllFiles(cardId: string): Observable<File[]> {
-        return this.http
-            .get<File[]>(this.filesUrl + '/all/' + cardId, this.httpOptions)
-            .pipe(
-                tap(_ => this.messageService.add('fetched Boards')),
-                catchError(this.handleError<File[]>('getBoards', []))
-            );
-    }
-
-    deleteFile(id: string): Observable<any> {
-        const url = `${this.filesUrl}/${id}`;
-
-        return this.http
-            .delete<any>(url, this.httpOptions)
-            .pipe(
-                tap(_ => this.log(`deleted file id=${id}`)),
-                catchError(this.handleError<any>('deleteFile'))
-            );
-    }
-
-    getFileById(id: string): Observable<any> {
-        const url = `${this.filesUrl}/id/${id}`;
-        const httpHeaders = new HttpHeaders();
-
-        return this.http
-            //@ts-ignore
-            .get<any>(url, {headers: httpHeaders, responseType: 'blob'})
-            .pipe(
-                tap(_ => this.log(`get file id=${id}`)),
-                catchError(this.handleError<any>('getFileById'))
-            );
-    }
 
     updateUser(user: User): Observable<any> {
         return this.http
-        .put(this.userUrl, user, this.httpOptions)
-        .pipe(
-            tap(_ => this.log(`updated user id=${user.user_id}`)),
-            catchError(this.handleError<any>('updateUser'))
-        );
+            .put(this.userUrl, user, this.httpOptions)
+            .pipe(
+                tap(_ => this.log(`updated user id=${user.user_id}`)),
+                catchError(this.handleError<any>('updateUser'))
+            );
     }
 
     getUserById(id: string): Observable<UserInterface> {
@@ -174,18 +142,13 @@ export class BoardsService {
             );
     }
 
-
-    postFile(fileToUpload: File, cardId: string):void {
-        // console.log(fileToUpload, 'fileToUpload')
-        // this.socketService.emit(Messages.newFile, fileToUpload);
-        // const formData: FormData = new FormData();
-        // formData.append('file', fileToUpload);
-        // const httpHeaders = new HttpHeaders();
-        // return this.http
-        //     .post<any>(`${this.filesUrl}/upload/${cardId}`, formData, {headers: httpHeaders})
-        //     .pipe(
-        //         tap((newFile: any) => this.log(`added file w/ id=${newFile}`)),
-        //         catchError(this.handleError<File>('addFile'))
-        //     );
+    getUsers(): Observable<any> {
+        const url = `${this.userUrl}/all`;
+        return this.http
+            .get<UserInterface>(url, this.httpOptions)
+            .pipe(
+                tap(_ => this.log(`get user`)),
+                catchError(this.handleError<UserInterface>('getUsers'))
+            );
     }
 }

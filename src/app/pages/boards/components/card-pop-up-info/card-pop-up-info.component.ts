@@ -17,8 +17,8 @@ import {FileInterface} from "../../../../interfaces/file.interface";
 import {Card} from "../../../../models/card";
 import {WebsocketService} from "../../../../shared/services/socket.service";
 import {Messages} from "../../../../app.constants";
-import {EventEmitter} from "@angular/core";
 import {CardInterface} from "../../../../interfaces/card.interface";
+import {FilesService} from "../../files.servise";
 
 @Component({
     selector: "app-card-pop-up-info",
@@ -47,6 +47,7 @@ export class CardPopUpInfoComponent implements OnInit {
                 private sanitization: DomSanitizer,
                 private http: HttpClient,
                 private boardsService: BoardsService,
+                private filesService: FilesService,
                 private socketService: WebsocketService,) {
     }
 
@@ -109,29 +110,31 @@ export class CardPopUpInfoComponent implements OnInit {
             for (let i = 0; i < len; i++) {
                 binary += String.fromCharCode(bytes[i]);
             }
-            let src = window.btoa(binary);
+            let base64 = window.btoa(binary);
 
-            file.src = "data:" + file.mimetype + ";base64," + src;
+            file.src = "data:" + file.mimetype + ";base64," + base64;
 
             return file;
         });
     }
 
     openDialog(file: FileInterface) {
+        console.log(file, 'FILE')
+
         if (!file) return;
         console.log(file.mimetype, 'FILE MIME')
         if (file.mimetype.split("/")[0] !== "image" &&
             file.mimetype.split("/")[0] !== "gif") {
-            let downloadLink = document.createElement("a");
+            // let downloadLink = document.createElement("a");
             let binary = "";
             let bytes = new Uint8Array(file.buffer.data);
             let len = bytes.byteLength;
             for (let i = 0; i < len; i++) {
                 binary += String.fromCharCode(bytes[i]);
             }
-            let src = window.btoa(binary);
-            file.src = "data:" + file.mimetype + ";base64," + src;
-            downloadLink.href = file.src;
+            let base64 = window.btoa(binary);
+            const downloadLink = document.createElement("a");
+            downloadLink.href = "data:" + file.mimetype + ";base64," + base64;
             downloadLink.setAttribute("download", file.originalname);
             downloadLink.click();
             return;
@@ -146,7 +149,7 @@ export class CardPopUpInfoComponent implements OnInit {
 
     getFilesByCardId(id: string): void {
         this.sub$.add(
-            this.boardsService
+            this.filesService
                 .getAllFiles(id)
                 .subscribe((files) => {
                     this.files = files;
@@ -159,7 +162,7 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     getFile(id: any) {
-        this.boardsService.getFileById(id).subscribe((blob) => {
+        this.filesService.getFileById(id).subscribe((blob) => {
         });
     }
 
@@ -188,12 +191,6 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     onDeleteFile(fileId: string): void {
-        // this.boardsService.deleteFile(fileId)
-        //     .subscribe(
-        //         (response) => {
-        //             this.getFilesByCardId(this.data.id);
-        //         }
-        //     )
         this.socketService.emit(Messages.deleteFile, fileId);
         this.getFilesByCardId(this.data.id);
 
