@@ -44,12 +44,13 @@ export class BoardsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.socketService.on(Messages.checkInvitesByEmail, this.checkInvitesByEmail.bind(this));
-        this.socketService.on(Messages.connect, () => {
-            if (this.authService.currentUser?.email) {
-                this.socketService.emit(Messages.checkInvitesByEmail, this.authService.currentUser.email);
-            }
-        });
+        // this.socketService.on(Messages.checkInvitesByEmail, this.checkInvitesByEmail.bind(this));
+        // this.socketService.on(Messages.connect, () => {
+        //     if (this.authService.currentUser?.email) {
+        //         this.socketService.emit(Messages.checkInvitesByEmail, this.authService.currentUser.email);
+        //     }
+        // });
+
         let lang = this.storage.getItem('language') ? this.storage.getItem('language') : 'en';
         this.translate.use(lang);
 
