@@ -18,7 +18,6 @@ export class TabActionsComponent implements OnInit, OnDestroy {
                }
 
   ngOnInit() {
-    console.log(this.authService.currentUser)
     this.getActivity(this.authService.currentUser!.user_id);
   }
 

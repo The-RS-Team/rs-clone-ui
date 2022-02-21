@@ -4,8 +4,6 @@ import {BoardsService} from "../../../boards.service";
 import {UserInterface} from "../../../../../interfaces/user.interface";
 import {FormControl} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {AuthService} from "../../../../../auth/auth.service";
-import {User} from "../../../../../models/user";
 
 @Component({
     selector: 'app-about',
@@ -18,12 +16,10 @@ export class AboutComponent implements OnInit {
     private sub$ = new Subscription();
     public user: UserInterface | undefined;
     public boardDescriptionInput = new FormControl();
-    public currentUser = new User('', null, null, null);
 
 
-    constructor(private boardService: BoardsService,
-                public authService: AuthService) {
-        this.authService.currentUserSubject.subscribe(user => this.currentUser = user)
+    constructor(private boardService: BoardsService) {
+
     }
 
     ngOnInit(): void {
