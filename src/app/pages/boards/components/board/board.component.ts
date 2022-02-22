@@ -8,7 +8,7 @@ import {Messages} from '../../../../app.constants';
 import {Column, ColumnDeleteResult} from '../../../../models/column';
 import {ColumnInterface} from '../../../../interfaces/column.interface';
 import {BoardInterface} from "../../../../interfaces/board.interface";
-import { AuthService } from 'src/app/auth/auth.service';
+import {AuthService} from 'src/app/auth/auth.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {CardInterface} from "../../../../interfaces/card.interface";
 
@@ -46,24 +46,36 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public newColumnCallback(column: ColumnInterface): void {
-        if (column) {
-            this.board?.columns.push(column);
+        if (column.boardId === this.board.id) {
+            if (column) {
+                this.board?.columns.push(column);
+            }
         }
     }
 
     public updateColumnCallback(column: ColumnInterface): void {
+        if (column) {
+            if (column.boardId === this.board.id) {
+                this.board.columns = this.board.columns.map(el => {
+                    if (el.id === column.id) return column;
+                    else return el;
+                })
+            }
+        }
     }
 
     deleteColumnCallback(deleteResult: ColumnDeleteResult): void {
         if (this.board) {
-            const columnToDelete = this.board.columns.find(column => column.id === deleteResult.raw[0])
-            if (deleteResult.affected > 0) {
-                if (this.board.id === columnToDelete?.boardId) {
-                    if (deleteResult.affected > 0) {
-                        this.board.columns.splice(
-                            this.board.columns.indexOf(
-                                <ColumnInterface>this.board.columns.find(column => column.id === deleteResult.raw[0])
-                            ), 1)
+            const columnToDelete = this.board.columns.find(column => column.id === deleteResult.raw[0]);
+            if (columnToDelete!.boardId === this.board.id) {
+                if (deleteResult.affected > 0) {
+                    if (this.board.id === columnToDelete?.boardId) {
+                        if (deleteResult.affected > 0) {
+                            this.board.columns.splice(
+                                this.board.columns.indexOf(
+                                    <ColumnInterface>this.board.columns.find(column => column.id === deleteResult.raw[0])
+                                ), 1)
+                        }
                     }
                 }
             }
