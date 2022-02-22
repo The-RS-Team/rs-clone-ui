@@ -21,6 +21,7 @@ import {FormBuilder} from '@angular/forms';
 import {Validators} from '@angular/forms';
 import {BoardInterface} from "../../../../interfaces/board.interface";
 import {Board} from 'src/app/models/board';
+import {CardItemInterface} from "../../../../interfaces/card-item.interface";
 
 @Component({
     selector: 'app-column',
@@ -73,7 +74,7 @@ export class ColumnComponent implements OnInit {
         }
     }
 
-    updateCardCallback(card: any): void {
+    updateCardCallback(card: CardInterface): void {
         if (card) {
             if (card.columnId === this.column.id)
                 this.column.cards = this.column.cards.map(el => {
@@ -86,10 +87,8 @@ export class ColumnComponent implements OnInit {
     updateColumnCallback(column: any): void {
         if (!column) return;
         if (column.boardId === this.board.id) {
-            if (this.column.id === column.id) {
-                this.column = column;
-                this.column.cards.sort((a, b) => a.position > b.position ? 1 : -1);
-            }
+             let index = this.board.columns.findIndex( (el: ColumnInterface) => el.id === column.id);
+                this.board.columns[index] = column;
         }
     }
 
@@ -192,5 +191,6 @@ export class ColumnComponent implements OnInit {
     }
 
     public ngOnDestroy() {
+        // this.socketService.removeListener(Messages.updateColumn)
     }
 }

@@ -69,10 +69,7 @@ export class CardPopUpInfoComponent implements OnInit {
     }
 
     deleteFileCallback(file: any): void {
-        console.log(file, 'FILE DELETE')
-        console.log(this.files, "DO")
         this.files = this.files.filter(el => el.id !== file.id)
-        console.log(this.files, "Aftre")
         this.getFilesByCardId(this.data.id);
 
 
@@ -119,7 +116,6 @@ export class CardPopUpInfoComponent implements OnInit {
 
     openDialog(file: FileInterface): void {
         if (!file) return;
-        console.log(file.mimetype, 'FILE MIME')
         if (file.mimetype.split("/")[0] !== "image" &&
             file.mimetype.split("/")[0] !== "gif") {
             // let downloadLink = document.createElement("a");

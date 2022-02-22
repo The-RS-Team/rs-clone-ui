@@ -46,8 +46,8 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public newColumnCallback(column: ColumnInterface): void {
-        if (column.boardId === this.board.id) {
-            if (column) {
+        if (column) {
+            if (column.boardId === this.board.id) {
                 this.board?.columns.push(column);
             }
         }
@@ -56,10 +56,8 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     public updateColumnCallback(column: ColumnInterface): void {
         if (column) {
             if (column.boardId === this.board.id) {
-                this.board.columns = this.board.columns.map(el => {
-                    if (el.id === column.id) return column;
-                    else return el;
-                })
+                let index = this.board.columns.findIndex( (el: ColumnInterface) => el.id === column.id);
+                this.board.columns[index] = column;
             }
         }
     }
@@ -112,10 +110,13 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
             );
         }
 
-        this.board!.columns = event.container.data.map((el, index) => {
-            el.position = index;
-            return el;
-        });
+
+        if (this.board) {
+            this.board!.columns = event.container.data.map((el, index) => {
+                el.position = index;
+                return el;
+            });
+        }
 
         this.board.columns.forEach(column => {
             const item = {
