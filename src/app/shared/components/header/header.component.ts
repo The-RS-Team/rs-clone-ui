@@ -49,12 +49,7 @@ export class HeaderComponent implements OnInit {
     }
 
     goToWelcome() {
-        window.location.href = '/boards'
-        // if (this.authService.currentUser) {
-        //     this.router.navigate([AppRoutes.boards])
-        // } else {
-            // this.router.navigate([AppRoutes.home]);
-        // }
+        this.router.navigate([AppRoutes.boards]);
     }
 
     goToSettings() {
