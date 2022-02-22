@@ -28,8 +28,8 @@ export class SignUpComponent implements OnInit {
                 private readonly storage: LocalStorageService) {
 
         this.loginForm = this.fb.group({
-            password: ['', [Validators.required, Validators.minLength(6)]],
-            email: ['', [Validators.email, Validators.required]]
+            email: ['', [Validators.email, Validators.required]],
+            password: ['', [Validators.required, Validators.minLength(6)]]
         })
 
         this.currentLanguage = storage.getItem('language') ? storage.getItem('language') : '';
@@ -40,6 +40,10 @@ export class SignUpComponent implements OnInit {
                 this.loginForm.controls['email'].setValue(params['email']);
             }
         )
+    }
+
+    showPassInput(): void {
+        this.signUpVisibility = true;
     }
 
     goToAnotherForm(page: string) {
@@ -60,8 +64,9 @@ export class SignUpComponent implements OnInit {
     }
 
     emailAuth() {
+        if (this.loginForm.invalid) return;
         this.authService.emailAuth(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
-        this.goToRegister();
+        // this.goToRegister();
     }
 
     login() {
