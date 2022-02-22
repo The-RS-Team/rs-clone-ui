@@ -66,7 +66,6 @@ export class SignUpComponent implements OnInit {
     emailAuth() {
         if (this.loginForm.invalid) return;
         this.authService.emailAuth(this.loginForm.controls['email'].value, this.loginForm.controls['password'].value);
-        // this.goToRegister();
     }
 
     login() {
