@@ -16,7 +16,7 @@
                  alt="avatar">
             <div class="item__info">
                 <p class="item__text name"> {{ activity.name
-                    }} <label class="item__text nickname">{{ '@' + activity.nickname}}</label></p><br>
+                    }} <label class="item__text nickname">{{ activity.nickname ? '@' + activity.nickname : '@uknown user'}}</label></p><br>
                 <p class="item__text"> {{ (activity.action == 'insert' && activity.table == 'cardItem' ? ('history.comment' | translate) 
                     : activity.action == 'insert' ? ('history.insert' | translate)
                     : activity.action == 'delete' ? ('history.delete' | translate) 

@@ -36,12 +36,16 @@
             </mat-form-field>
             <mat-form-field *ngIf="signUpVisibility && currentRoute === 'sign-up'" class="example-full-width" appearance="fill">
                 <input type="text" matInput
+                       formControlName="password"
                        placeholder="{{'enter-full-name' | translate}}" autofocus="autofocus">
+                <mat-error *ngIf="loginForm.controls['password'].invalid">
+                    {{'pass-valid' | translate}}
+                </mat-error>       
             </mat-form-field>
             <div class="signup__buttons-wrapper">
                 <button *ngIf="currentRoute === 'sign-up' && !signUpVisibility"
                         mat-raised-button
-                        (click)="emailAuth()">{{'continue' | translate}}
+                        (click)="showPassInput()">{{'continue' | translate}}
                 </button>
                 <button *ngIf="signUpVisibility && currentRoute === 'sign-up'"
                         mat-raised-button
@@ -50,7 +54,7 @@
                 <button *ngIf="currentRoute === 'login'"
                         mat-raised-button
                         type="submit"
-                        (click)="emailAuth()" >{{'log-in' | translate}}
+                        (click)="login()" >{{'log-in' | translate}}
                 </button>
                 <p class="signup__login-method-separator">{{'or' | translate}}</p>
                 <button mat-raised-button class="signup__button"
