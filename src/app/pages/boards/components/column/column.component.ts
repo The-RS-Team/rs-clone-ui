@@ -85,9 +85,11 @@ export class ColumnComponent implements OnInit {
 
     updateColumnCallback(column: any): void {
         if (!column) return;
-         if (this.column.id === column.id) {
-            this.column = column;
-            this.column.cards.sort((a, b) => a.position > b.position ? 1 : -1);
+        if (column.boardId === this.board.id) {
+            if (this.column.id === column.id) {
+                this.column = column;
+                this.column.cards.sort((a, b) => a.position > b.position ? 1 : -1);
+            }
         }
     }
 
@@ -137,25 +139,6 @@ export class ColumnComponent implements OnInit {
             }
             this.socketService.emit(Messages.updateCard, item);
         })
-
-        const column = {
-            id: this.column.id,
-            title: this.column.title,
-            boardId: this.column.boardId,
-            position: this.column.position,
-            description: this.column.description,
-        }
-        this.socketService.emit(Messages.updateColumn, column);
-
-        let columnPrev = this.board.columns.find(el => el.id === event.previousContainer.element.nativeElement.id);
-        const columnPrevious = {
-            id: columnPrev?.id,
-            title: columnPrev?.title,
-            boardId: columnPrev?.boardId,
-            position: columnPrev?.position,
-            description: columnPrev?.description,
-        }
-        this.socketService.emit(Messages.updateColumn, columnPrevious);
     }
 
     public columnsId(): string[] {
