@@ -3,6 +3,10 @@
     <div class="acc-form">
         <mat-dialog-content [formGroup]="formGroup">
             <mat-form-field appearance="outline" class="acc-form__input">
+                <input matInput placeholder="{{'tab-profile.name' | translate}}" formControlName="name">
+                <mat-hint>{{ 'tab-profile.name-enter' | translate}}</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="acc-form__input">
                 <input matInput placeholder="{{'tab-profile.nickname' | translate}}" formControlName="nickname">
                 <mat-hint>{{ 'tab-profile.nick-enter' | translate}}</mat-hint>
             </mat-form-field>

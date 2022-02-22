@@ -29,6 +29,7 @@ export class TabAccauntComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
+      name: ['', []],
       nickname: ['', []],
     });
   }
@@ -39,7 +40,7 @@ export class TabAccauntComponent implements OnInit, OnDestroy {
       const user: User = {
         user_id: this.authService.currentUser?.user_id,
         nickname: this.formGroup.value.nickname,
-        name: this.authService.currentUser.name,
+        name: this.formGroup.value.name,
         email: this.authService.currentUser.email,
         picture: this.authService.currentUser.picture,
         lang: this.authService.currentUser.lang
@@ -47,6 +48,7 @@ export class TabAccauntComponent implements OnInit, OnDestroy {
       this.$sub.add(this.boardService.updateUser(user).subscribe(
         ))
         this.user!.nickname = this.formGroup.value.nickname;
+        this.user!.name = this.formGroup.value.name;
         this.storage.setItem('user', user);
     }
   }

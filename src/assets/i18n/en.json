@@ -61,6 +61,8 @@
     "acc-settings": "Profile settings",
     "nickname": "Nickname",
     "nick-enter": "Enter nickname",
+    "name": "Name",
+    "name-enter": "Enter your name",
     "save": "Save"
   },
   "history": {
