@@ -1,7 +1,7 @@
 import firebase from 'firebase/compat/app';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, first, Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, first, Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {MessageService} from '../shared/message.service';
 import {AppRoutes} from '../app.constants';
@@ -31,7 +31,6 @@ export class AuthService {
                     user.getIdToken().then(idToken => {
                         this.currentUser = new User(user.uid, user.email, user.displayName, user.photoURL);
                         this.currentUserSubject.next(this.currentUser)
-                        console.log('onAuthStateChanged: sendToken');
                         this.accessToken = idToken;
                         if (!this.currentUser.picture) {
                             this.currentUser.picture = '../../../../assets/images/avatar.jpg';
