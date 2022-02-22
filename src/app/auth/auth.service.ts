@@ -7,6 +7,7 @@ import {MessageService} from '../shared/message.service';
 import {AppRoutes} from '../app.constants';
 import {User} from '../models/user';
 import {LocalStorageService} from './../shared/services/local-storage.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +24,8 @@ export class AuthService {
     constructor(private readonly firebaseAuth: AngularFireAuth,
                 private readonly router: Router,
                 private readonly messageService: MessageService,
-                private storage: LocalStorageService) {
+                private storage: LocalStorageService,
+                private translate: TranslateService) {
         this.firebaseUser = this.firebaseAuth.authState;
 
         this.firebaseAuth.onAuthStateChanged(user => {
@@ -99,7 +101,11 @@ export class AuthService {
             )
             .catch(err => {
                 this.handleError('createUserWithEmailAndPassword', err.message);
-                this.router.navigate(this.logoutRoute);
+                if (err.message.indexOf('email-already-in-use')) {
+                    alert(this.translate.instant('email-already-in-use'))
+                }
+                // alert(err.message)
+                // this.router.navigate(this.logoutRoute);
             });
     }
 

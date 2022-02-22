@@ -115,5 +115,6 @@
     "add": "Add to card",
     "partisipants": "Participants",
     "from-comp": "From a computer"
-  }
+  },
+  "email-already-in-use": "Email already in use"
 }
