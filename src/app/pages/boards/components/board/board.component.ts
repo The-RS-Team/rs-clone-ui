@@ -1,16 +1,14 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {BoardsService} from '../../boards.service';
 import {ActivatedRoute} from '@angular/router';
 import {Board} from '../../../../models/board';
 import {WebsocketService} from '../../../../shared/services/socket.service';
 import {Messages} from '../../../../app.constants';
-import {Column, ColumnDeleteResult} from '../../../../models/column';
+import {ColumnDeleteResult} from '../../../../models/column';
 import {ColumnInterface} from '../../../../interfaces/column.interface';
-import {BoardInterface} from "../../../../interfaces/board.interface";
-import {AuthService} from 'src/app/auth/auth.service';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {CardInterface} from "../../../../interfaces/card.interface";
+import {BoardInterface} from '../../../../interfaces/board.interface';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'app-board',
@@ -28,7 +26,6 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(private boardsService: BoardsService,
                 private socketService: WebsocketService,
                 private activatedRoute: ActivatedRoute,
-                private authService: AuthService
     ) {
     }
 
@@ -56,7 +53,7 @@ export class BoardComponent implements OnInit, AfterViewInit, OnDestroy {
     public updateColumnCallback(column: ColumnInterface): void {
         if (column) {
             if (column.boardId === this.board.id) {
-                let index = this.board.columns.findIndex( (el: ColumnInterface) => el.id === column.id);
+                let index = this.board.columns.findIndex((el: ColumnInterface) => el.id === column.id);
                 this.board.columns[index] = column;
             }
         }

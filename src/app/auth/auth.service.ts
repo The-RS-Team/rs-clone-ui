@@ -1,31 +1,34 @@
 import firebase from 'firebase/compat/app';
 import {AngularFireAuth} from '@angular/fire/compat/auth';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, first, Observable, of, Subject} from 'rxjs';
+import {BehaviorSubject, catchError, first, Observable, of, tap} from 'rxjs';
 import {Router} from '@angular/router';
 import {MessageService} from '../shared/message.service';
 import {AppRoutes} from '../app.constants';
 import {User} from '../models/user';
 import {LocalStorageService} from './../shared/services/local-storage.service';
-import { TranslateService } from '@ngx-translate/core';
+import {TranslateService} from '@ngx-translate/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthService {
-    public firebaseUser: Observable<firebase.User | null>;
     public currentUser: User | undefined;
-    public currentUserSubject = new BehaviorSubject(new User('', null, null, null));
     public accessToken: string = '';
-    private successRoute: Array<string> = ['/', AppRoutes.boards];
-    private logoutRoute: Array<string> = ['/'];
+    public readonly firebaseUser: Observable<firebase.User | null>;
+    public readonly currentUserSubject = new BehaviorSubject(new User('', null, null, null));
+    private readonly successRoute: Array<string> = ['/', AppRoutes.boards];
+    private readonly logoutRoute: Array<string> = ['/'];
 
     constructor(private readonly firebaseAuth: AngularFireAuth,
                 private readonly router: Router,
                 private readonly messageService: MessageService,
-                private storage: LocalStorageService,
-                private translate: TranslateService) {
+                private readonly http: HttpClient,
+                private readonly storage: LocalStorageService,
+                private readonly translate: TranslateService) {
         this.firebaseUser = this.firebaseAuth.authState;
 
         this.firebaseAuth.onAuthStateChanged(user => {
@@ -33,8 +36,9 @@ export class AuthService {
                     user.getIdToken().then(idToken => {
                         this.currentUser = new User(user.uid, user.email, user.displayName, user.photoURL);
                         this.currentUserSubject.next(this.currentUser)
-                        console.log('onAuthStateChanged: sendToken');
                         this.accessToken = idToken;
+                        this.login(this.currentUser).subscribe(value => {});
+
                         if (!this.currentUser.picture) {
                             this.currentUser.picture = '../../../../assets/images/avatar.jpg';
                         }
@@ -58,6 +62,23 @@ export class AuthService {
                 }
             }
         )
+    }
+
+    public login(user: User): Observable<any> {
+        console.log('login', user)
+        const loginUrl = environment.serverAPI + '/auth/login';
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        };
+
+        return this.http
+            .post<User>(loginUrl, user, httpOptions)
+            .pipe(
+                tap(_ => this.log(`login`)),
+                catchError(this.handleError<User>('login'))
+            );
     }
 
     sliceEmail(str: string) {
