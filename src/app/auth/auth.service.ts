@@ -37,7 +37,8 @@ export class AuthService {
                         this.currentUser = new User(user.uid, user.email, user.displayName, user.photoURL);
                         this.currentUserSubject.next(this.currentUser)
                         this.accessToken = idToken;
-                        this.login(this.currentUser).subscribe(value => {});
+                        this.login(this.currentUser).subscribe(value => {
+                        });
 
                         if (!this.currentUser.picture) {
                             this.currentUser.picture = '../../../../assets/images/avatar.jpg';
@@ -65,7 +66,6 @@ export class AuthService {
     }
 
     public login(user: User): Observable<any> {
-        console.log('login', user)
         const loginUrl = environment.serverAPI + '/auth/login';
         const httpOptions = {
             headers: new HttpHeaders({

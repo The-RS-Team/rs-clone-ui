@@ -5,11 +5,11 @@
     </h3>
     <div class="participants__item" *ngFor="let user of users">
         <img class="participants__avatar"
-             [src]="user.picture"
+             [src]="user.picture ? user.picture : '../../../../../../assets/images/avatar.jpg'"
              alt="avatar">
         <div class="participants__info">
-            <p class="participants__name">{{user.name}}</p>
-            <span class="participants__nickname">@{{user.nickname}}</span>
+            <p class="participants__name">{{user.name ? user.name : 'User'}}</p>
+            <span class="participants__nickname">{{user.nickname ? '@'+user.nickname : ''}}</span>
             <p class="participants__email">{{user.email}}</p>
             <span *ngIf="!user.isOwner" class="participants__delete" (click)="deletePartisipant(user)">{{ 'comments.delete' | translate }}</span>
         </div>

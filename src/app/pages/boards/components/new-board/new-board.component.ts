@@ -35,7 +35,7 @@ export class NewBoardComponent implements OnInit, OnDestroy {
             "description": this.formGroup.value.description,
             "isFavorite": false,
             "background": JSON.stringify({
-                background: 'url(http://localhost:4200/assets/images/boards/bg-1.jpg) #6d6a6b80',
+                background: 'url(/assets/images/boards/bg-1.jpg) #6d6a6b80',
                 backgroundBlendMode: 'multiply',
                 backgroundSize: 'cover'
             })

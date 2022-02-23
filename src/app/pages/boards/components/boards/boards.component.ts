@@ -5,11 +5,9 @@ import {BoardsService} from '../../boards.service';
 import {NewBoardComponent} from '../new-board/new-board.component';
 import {BoardInterface} from '../../../../interfaces/board.interface';
 import {Router} from '@angular/router';
-import {AuthService} from '../../../../auth/auth.service';
-import {WebsocketService} from '../../../../shared/services/socket.service';
-import { TranslateService } from '@ngx-translate/core';
-import { LocalStorageService } from './../../../../shared/services/local-storage.service';
-import { UserInterface } from 'src/app/interfaces/user.interface';
+import {TranslateService} from '@ngx-translate/core';
+import {LocalStorageService} from './../../../../shared/services/local-storage.service';
+import {UserInterface} from 'src/app/interfaces/user.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +21,7 @@ import { UserInterface } from 'src/app/interfaces/user.interface';
 export class BoardsComponent implements OnInit, OnDestroy {
     private sub$ = new Subscription();
 
-    public imgBaseUrl = 'http://localhost:4200/assets/images/'
+    public imgBaseUrl = '/assets/images/'
     public boards: BoardInterface[] = [];
     public users: UserInterface[] = [];
     public favorites: BoardInterface[] = [];
