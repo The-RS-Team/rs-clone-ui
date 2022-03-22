@@ -1,3 +1,32 @@
+## Технологии
+### Angular2
++
++
++
+- Более высокий порог входа 
+### TypeScript
++
++
++
+-
+### Material UI
+### WebSockets.io
+### ngx-translate
+### RxJS
+### SCSS
+### NestJS
+### PostgreSQL
+### TypeORM
+### Google FireBase
+
+
+
+
+
+
+
+
+
 # TrelloClone
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
