@@ -77,9 +77,11 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - Упрощение написания стилей, дополнительные функции (вложенность, переменные, импорты и т.д.)
 
 ### NestJS
+Преимущества:
+- Функциональность
+
 ### PostgreSQL
-### TypeORM
-### Google FireBase
+
 
 
 
