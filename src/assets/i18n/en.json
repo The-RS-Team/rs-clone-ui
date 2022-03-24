@@ -1,0 +1,117 @@
+{
+  "log-in": "Log in",
+  "sign-up": "Sign up",
+  "welcome": {
+    "header": "TrelloClone helps teams get things done efficiently.",
+    "description": "Work as a team, manage projects and take productivity to the next level in your own unique way with Trello.",
+    "register": "Register - it's free!"
+  },
+  "hello": "Hello",
+  "marked-boards": "Marked boards",
+  "your-workspace": "Your workspace",
+  "no-workspace": "You have not been added any boards yet.",
+  "create-board": "Create a board",
+  "sign-up-acc": "Sign up for your account",
+  "log-in-acc": "Log in for your account",
+  "enter-email": "Enter your email",
+  "email-valid": " Please enter a valid email address ",
+  "enter-pass": "Enter password",
+  "pass-valid": " Please enter a password of at least 6 characters ",
+  "enter-full-name": "Enter your full name",
+  "continue": "Continue ",
+  "or": "OR",
+  "cont-google": "Continue with Google ",
+  "cont-github": "Continue with GitHub ",
+  "have-acc": "Already have an account? Log In",
+  "havent-acc": "Don't have an account? Sign Up",
+  "new-board": {
+    "create-board": "Create a board",
+    "description": "Boost your productivity by giving your team members easy access to the board.",
+    "board-title": "Board title",
+    "enter-title" : "Please enter a title",
+    "enter-board-name": "Enter the name of your team, company or organization.",
+    "board-description": "Board description",
+    "description-plch" : "Here our team stores all the necessary information.",
+    "enter-board-desc": "Tell the participants a little about the board.",
+    "create": "Create"
+  },
+  "log-out": "Log out",
+  "menu": "Menu",
+  "bg-change": "Change background",
+  "about-board": "About board",
+  "participants": "Participants",
+  "actions": "Actions",
+  "administrator": "Administrator",
+  "description": "Description",
+  "add-description": "Add a description for board...",
+  "pictures": "Photos",
+  "colors": "Colors",
+  "boards": "Boards",
+  "settings": {
+    "settings": "Settings",
+    "tab-profile": "Profile and access",
+    "tab-actions": "Actions",
+    "tab-cards": "Cards",
+    "tab-settings": "Settings"
+  },
+  "tab-settings": {
+    "lang-change": "Select language"
+  },
+  "tab-profile": {
+    "acc-settings": "Profile settings",
+    "nickname": "Nickname",
+    "nick-enter": "Enter nickname",
+    "save": "Save"
+  },
+  "history": {
+    "update": "updated",
+    "delete": "Deleted",
+    "insert": "add",
+    "comment": "commented", 
+    "at": "at",
+    "card": "card",
+    "board": "board",
+    "column": "column"
+  },
+  "comments": {
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "add-comment": "Add a comment..."
+  },
+
+  "column": {
+    "add-new-column": "Add a new column",
+    "delete-list": "Delete list",
+    "enter-list-title": "Enter a title for this list",
+    "eneter-card-title": "Enter card title",
+    "add-new-card": "Add a new card"
+  },
+
+  "invite": {
+    "invite": "Invite",
+    "invite-to-board": "Invite to board",
+    "ckeck-mail": "Check the email address",
+    "email-hint": "Enter an Email address for invitation",
+    "send": "Send invitation",
+    "sent": "Invitation has been sent"
+  },
+
+  "board-delete-alert": "You are not the owner of this board",
+
+  "card": {
+    "delete-cover": "Delete cover",
+    "title": "Title",
+    "title-enter": "Enter a title for this card",
+    "description": "Description",
+    "detailes": "Add a more detailed description...",
+    "attachments": "Attachments",
+    "no-files": "No files.",
+    "delete-file": "Delete file",
+    "make-cover": "Make a card cover",
+    "actions": "Actions",
+    "add": "Add to card",
+    "partisipants": "Participants",
+    "from-comp": "From a computer"
+  }
+}

@@ -1,0 +1,58 @@
+<div class="list__title-container" >
+    <input #columnTitleInput
+           [value]="column.title"
+           (change)="changeColumnTitle(columnTitleInput.value)"
+           class="list__title"
+           matInput type="text"
+           placeholder="{{ 'column.enter-list-title' | translate}}"
+           autocomplete="off"
+           required>
+    <button mat-icon-button
+            [matMenuTriggerFor]="menu">
+        <img class="list__menu-icon"
+             src="../../../../../assets/images/svg/three_dots_icon.svg"
+             alt="Tree dots icon">
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item
+                (click)="deleteColumn(column?.id);$event.stopPropagation()">
+            <mat-icon>delete</mat-icon>
+            <span>{{"column.delete-list" | translate}}</span>
+        </button>
+    </mat-menu>
+</div>
+<div class="list__cards-container"
+     cdkDropList
+     [id] = "column.id"
+     [cdkDropListConnectedTo]="columnsId()"
+     [cdkDropListData]="column.cards"
+     (cdkDropListDropped)="drop($event)">
+    <app-card class="list__card"
+              *ngFor="let card of this.column?.cards"
+              [card]="card"
+              (OnDeleteCard)="deleteCard($event)"
+              cdkDrag></app-card>
+</div>
+<div *ngIf="isNewCard" class="new-form">
+    <mat-dialog-content [formGroup]="formGroup">
+        <mat-form-field class="new__card" appearance="outline">
+            <input matInput placeholder="{{'column.eneter-card-title' | translate}}" formControlName="title"
+                   class="list__card__input" (keydown.enter)="addNewCard()">
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions class="actions">
+        <button type="button" mat-stroked-button (click)="addNewCard()"
+                class="new-button">{{ 'column.add-new-card' | translate }}</button>
+        <div (click)="cancelNewCard()">
+            <mat-icon>close</mat-icon>
+        </div>
+    </mat-dialog-actions>
+</div>
+<button class="list__new-card-btn"
+        mat-stroked-button
+        (click)="openAddNewCardForm()"
+        *ngIf="!isNewCard">
+    <mat-icon>add</mat-icon>
+    {{ 'column.add-new-card' | translate }}
+</button>
+

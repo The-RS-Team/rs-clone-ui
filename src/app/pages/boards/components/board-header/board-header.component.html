@@ -1,0 +1,82 @@
+<div class="header">
+    <div class="header__menu">
+        <div class="header__menu__title">TrelloClone</div>
+        <div [ngClass]="{'header__menu__star': true, 'header__menu__star_active': this.board?.isFavorite}" (click)="addToFavorites()">
+            <div class="icon"></div>
+        </div>
+        <input [formControl]="boardTitleInput"
+               [value] = "board?.title"
+               class="header__board-name"
+               matInput
+               type="text"
+               autocomplete="off">
+    </div>
+    <div class="header__settings">
+        <button type="button" class="header__settings__btn btn-light" (click)="openInvite()">
+            <mat-icon>person_add</mat-icon>
+           {{ 'invite.invite' | translate }}
+        </button>
+        <div class="invitation" *ngIf="isInvite">
+            <div class="invitation__header">
+                <div class="invitation__title" >{{ 'invite.invite-to-board' | translate }}</div>
+                <mat-icon (click)="closeInvite()">close</mat-icon>
+            </div>
+            <mat-dialog-content [formGroup]="formGroup" >
+                <mat-form-field appearance="outline" class="invitation__input">
+                    <input #inviteEmail matInput placeholder="E-mail" formControlName="email" type="email">
+                    <mat-error *ngIf="formGroup.controls['email'].invalid" >
+                        {{ 'invite.ckeck-mail' | translate }}
+                    </mat-error>
+                    <mat-hint>{{ 'invite.email-hint' | translate }}</mat-hint>
+                </mat-form-field>
+            </mat-dialog-content>
+            <mat-dialog-actions>
+                <button type="button" mat-stroked-button (click)="sendInvite(inviteEmail.value)" class="btn">{{ 'invite.send' | translate }}</button>
+            </mat-dialog-actions>
+        </div>
+        <button type="button" class="header__settings__btn"
+        (click)="openMenu()"
+        *ngIf = "!isMenuOpen">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-dots" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#172b4d" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="5" cy="12" r="1" />
+                <circle cx="12" cy="12" r="1" />
+                <circle cx="19" cy="12" r="1" />
+            </svg>
+            {{ 'menu' | translate }}</button>
+    </div>
+
+</div>
+<div class="menu" #menuWrapper>
+    <div class="menu__header">
+        <div class="menu__back-arrow" (click)="goBack('')">
+            <div class="menu__back-arrow__icon" *ngIf="isSubMenu"></div>
+        </div>
+        <div class="menu__title">{{ 'menu' | translate }}</div>
+        <div class="menu__close" (click)="closeMenu()">
+            <div class="menu__close__icon"></div>
+        </div>
+    </div>
+    <mat-nav-list *ngIf="settings == ''">
+        <a mat-list-item (click)="openSettings('bg')">
+            <mat-icon matListIcon>image</mat-icon>
+            {{'bg-change' | translate}}</a>
+        <a mat-list-item (click)="openSettings('about')">
+            <mat-icon matListIcon>list</mat-icon>
+            {{"about-board" | translate}}
+        </a>
+        <a mat-list-item (click)="openSettings('participants')">
+            <mat-icon matListIcon>people</mat-icon>
+            {{"participants" | translate}}
+        </a>
+        <a mat-list-item (click)="openSettings('actions')">
+            <mat-icon matListIcon>edit</mat-icon>
+            {{"actions" | translate}}
+        </a>
+    </mat-nav-list>
+    <app-background *ngIf="settings === 'bg'" [boardWrapper]="boardWrapper" [board]="board"></app-background>
+    <app-about *ngIf="settings === 'about'" [board]="board"></app-about>
+    <app-participants *ngIf="settings === 'participants'" [board]="board"></app-participants>
+    <app-actions *ngIf="settings === 'actions'" [board]="board"></app-actions>
+</div>
+

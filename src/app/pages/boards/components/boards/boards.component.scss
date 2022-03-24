@@ -1,0 +1,71 @@
+@import "../../../../../assets/mixin";
+
+.space-title {
+  @include font(16px, 700, 24px);
+  text-transform: uppercase;
+  margin: 20px 0;
+}
+.boards {
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0 50px;
+
+  &__block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  &__item {
+    width: 200px;
+    height: 100px;
+    border-radius: 6px;
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+
+    &__settings {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      color: #fff;
+    }
+
+    &__title {
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__star {
+      width: 18px;
+      height: 16px;
+      align-self: flex-end;
+      cursor: pointer;
+    }
+
+    &__delete {
+      width: 17px;
+      height: 17px;
+      background: url("../../../../../assets/images/svg/trash.svg") no-repeat;
+      background-size: contain;
+      cursor: pointer;
+      opacity: 0;
+      transition: 0.5s;
+    }
+
+    &:hover &__delete {
+      opacity: 1;
+    }
+  }
+}
+
+.new-board-link {
+  cursor: pointer;
+}

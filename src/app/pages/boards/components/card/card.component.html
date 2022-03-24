@@ -1,0 +1,38 @@
+<mat-card (click)="openDialog($event);$event.stopPropagation()">
+    <img *ngIf="card.cover"
+         [src]="card.cover | safe: 'resourceUrl'"
+         class="card__cover"
+         alt="Card cover">
+    <mat-card-content>
+        <p class="card__title">{{card?.title}}</p>
+        <button mat-icon-button
+                (click)="editButtonClick();$event.stopPropagation()"
+                class="card__edit-btn"
+                [matMenuTriggerFor]="cardMenu">
+            <mat-icon class="card__edit-icon">edit</mat-icon>
+        </button>
+    </mat-card-content>
+    <div class="card__icons-panel">
+        <div class="comments" *ngIf="card.cardItems.length">
+            <mat-icon>comment</mat-icon>
+            {{ card.cardItems?.length }}
+        </div>
+        <div class="comments" *ngIf="card.files.length">
+            <mat-icon>attach_file</mat-icon>
+            {{card.files.length}}
+        </div>
+    </div>
+
+    <mat-menu #cardMenu="matMenu">
+        <button mat-menu-item
+                (click)="openDialog($event);$event.stopPropagation()">
+            <mat-icon>picture_in_picture</mat-icon>
+            <span>Open card</span>
+        </button>
+        <button mat-menu-item
+                (click)="deleteCard(card?.id);$event.stopPropagation()">
+            <mat-icon>delete</mat-icon>
+            <span>Delete card</span>
+        </button>
+    </mat-menu>
+</mat-card>

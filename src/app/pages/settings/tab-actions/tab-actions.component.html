@@ -1,0 +1,19 @@
+<div class="activities">
+  <div class="activities__item" *ngFor="let action of userActivity">
+    <img src={{action.picture}} alt="">
+    <span><b>{{ action.name  }}</b>
+      {{ (action.action == 'insert' && action.table == 'cardItem' ? ('history.comment' | translate) 
+      : action.action == 'insert' ? ('history.insert' | translate)
+      : action.action == 'delete' ? ('history.delete' | translate) 
+      : action.action == 'update' ? ('history.update' | translate) 
+      : action.action
+      ) | uppercase }} 
+      {{ action.table == 'cardItem' || action.table == 'card' ? ('history.card' | translate) 
+      : action.table == 'column' ? ('history.column' | translate)
+      : action.table == 'board' ? ('history.board' | translate)
+      : action.table }} 
+      {{ htmlToText(action.info) }} 
+      {{ 'history.at' | translate }}
+      {{action.created | date:'dd.MM.y, H:mm:ss'}}</span>
+  </div>
+</div>

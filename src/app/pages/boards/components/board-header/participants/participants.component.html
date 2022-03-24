@@ -1,0 +1,17 @@
+<div class="participants">
+    <h3 class="participants__section-title">
+        <mat-icon>people</mat-icon>
+        {{'participants' | translate}}
+    </h3>
+    <div class="participants__item" *ngFor="let user of users">
+        <img class="participants__avatar"
+             [src]="user.picture"
+             alt="avatar">
+        <div class="participants__info">
+            <p class="participants__name">{{user.name}}</p>
+            <span class="participants__nickname">@{{user.nickname}}</span>
+            <p class="participants__email">{{user.email}}</p>
+            <span *ngIf="!user.isOwner" class="participants__delete" (click)="deletePartisipant(user)">{{ 'comments.delete' | translate }}</span>
+        </div>
+    </div>
+</div>

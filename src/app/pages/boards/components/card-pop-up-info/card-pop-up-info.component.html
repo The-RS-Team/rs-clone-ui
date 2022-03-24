@@ -1,0 +1,112 @@
+<mat-dialog-content class="popup">
+    <div class="popup__cover-img-wrapper">
+        <img *ngIf="data.cover"
+             [src]="data.cover | safe: 'resourceUrl'"
+             class="popup__cover"
+             alt="Card cover">
+    </div>
+    <p class="popup__button"
+       *ngIf="data.cover"
+       (click)="changeCardParam(cardTitleInput.value, descriptionTextarea.value, null)">{{'card.delete-cover' | translate}}</p>
+    <div>
+        <h3 class="popup__section-title">
+            <mat-icon>view_headline</mat-icon>
+            {{'card.title' | translate}}
+        </h3>
+        <textarea autosize
+                  #cardTitleInput
+                  [value]="data?.title"
+                  (change)="changeCardParam(cardTitleInput.value, descriptionTextarea.value)"
+                  class="popup__input-title"
+                  matInput
+                  type="text"
+                  placeholder="{{'card.title-enter' | translate}}"
+                  autocomplete="off"
+                  required></textarea>
+    </div>
+    <div class="popup__content">
+        <div class="popup__main-content">
+            <div class="popup__description">
+                <h3 class="popup__section-title">
+                    <mat-icon>view_headline</mat-icon>
+                    {{'card.description' | translate}}
+                </h3>
+                <textarea #descriptionTextarea
+                          autosize
+                          [value]="data?.description"
+                          (change)="changeCardParam(cardTitleInput.value, descriptionTextarea.value)"
+                          class="popup__description-input"
+                          placeholder="{{'card.detailes' | translate}}"
+                          autocomplete="off"
+                          autofocus="off"></textarea>
+            </div>
+            <div class="popup__file-upload">
+                <h3 class="popup__section-title">
+                    <mat-icon>view_headline</mat-icon>
+                    {{'card.attachments' | translate}}
+                </h3>
+                <p *ngIf="!files.length">{{'card.no-files' | translate}}</p>
+                <div class="popup__files-container">
+                    <div class="popup__file-wrapper"
+                         #test
+                         *ngFor="let file of files">
+                        <img class="image"
+                             *ngIf="file?.mimetype.split('/')[0] === 'image'"
+                             (click)="openDialog(file)"
+                             [src]="file?.src| safe: 'resourceUrl'"
+                             alt="image"/>
+                        <img class="image"
+                             *ngIf="file?.mimetype.split('/')[0] !== 'image'"
+                             (click)="openDialog(file)"
+                             src="../../../../../assets/images/jpg/file-image.jpg"
+                             alt="image"/>
+
+                        <div class="popup__file-info">
+                            <p><b>{{file?.originalname}}</b></p>
+                            <p class="popup__button"
+                               (click)="onDeleteFile(file.id);
+                                        changeCardParam(cardTitleInput.value, descriptionTextarea.value, null)">
+                                {{'card.delete-file' | translate}}
+                            </p>
+                            <p class="popup__button"
+                               *ngIf="file?.mimetype.split('/')[0] === 'image'"
+                               (click)="changeCardParam(cardTitleInput.value, descriptionTextarea.value, file.src)">
+                                {{'card.make-cover' | translate}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="popup__actions">
+                <h3 class="popup__section-title">
+                    <mat-icon>view_headline</mat-icon>
+                    {{'card.actions' | translate}}
+                </h3>
+                <app-add-comment [currentCard]="this.data"></app-add-comment>
+            </div>
+        </div>
+
+        <div class="popup__aside-content">
+            <b>{{'card.add' | translate}}</b>
+            <div class="popup__aside-buttons">
+                <button mat-button [matMenuTriggerFor]="attachmentMenu">
+                    <mat-icon>attach_file</mat-icon>
+                    {{'card.attachments' | translate}}
+                </button>
+            </div>
+        </div>
+        <mat-menu #attachmentMenu="matMenu">
+            <button class="mat-menu-item"
+                    mat-menu-item
+                    (click)="fileUpload.click()">
+                <input class="popup__file-input"
+                       type="file"
+                       name="file"
+                       placeholder="{{'card.from-comp' | translate}}"
+                       (change)="onFileSelected($event)" #fileUpload>{{'card.from-comp' | translate}}...
+            </button>
+        </mat-menu>
+    </div>
+</mat-dialog-content>

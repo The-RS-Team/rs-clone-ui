@@ -1,18 +1,22 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SignupComponent} from './components/signup/signup.component';
-import {WelcomeComponent} from './components/welcome/welcome.component';
+import {AuthGuard} from './auth/auth.guard';
+import {AppRoutes} from './app.constants';
 
 const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
-    {path: 'signup', component: SignupComponent},
-    {path: 'home', component: WelcomeComponent},
+    {path: AppRoutes.login, loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)},
+    {path: AppRoutes.home, loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule)},
+    {path: AppRoutes.board, loadChildren: () => import('./pages/boards/boards.module').then(m => m.BoardsModule), canActivate: [AuthGuard]},
+    {path: AppRoutes.boards, loadChildren: () => import('./pages/boards/boards.module').then(m => m.BoardsModule), canActivate: [AuthGuard]},
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [AuthGuard],
 })
 
 export class AppRoutingModule {
+
 }

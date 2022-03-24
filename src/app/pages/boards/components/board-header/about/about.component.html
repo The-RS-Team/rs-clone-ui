@@ -1,0 +1,25 @@
+<div class="about">
+    <h3 class="about__section-title">
+        <mat-icon>person</mat-icon>
+        {{'administrator' | translate}}
+    </h3>
+    <div class="participants" >
+        <img class="participants__avatar"
+             [src]="boardOwner?.picture"
+             alt="avatar">
+        <div class="participants__info">
+            <p class="participants__name">{{boardOwner?.name}}</p>
+            <span class="participants__nickname">@{{boardOwner?.nickname}}</span>
+            <p class="participants__email">{{boardOwner?.email}}</p>
+        </div>
+    </div>
+    <h3 class="about__section-title">
+        <mat-icon>view_headline</mat-icon>
+        {{ 'description' | translate}}
+    </h3>
+    <textarea autosize
+              [formControl]="boardDescriptionInput"
+              class="about__description-input"
+              rows="4"
+              placeholder="{{'add-description' | translate }}">{{board?.description}}</textarea>
+</div>

@@ -1,0 +1,53 @@
+.popup {
+  height: 100%;
+
+  &__wrapper {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+
+  &__form {
+    width: 50%;
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  &__pic {
+    background: url('../../../../../assets/images/svg/wave.svg') center no-repeat;
+    background-size: cover;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40px;
+  }
+
+  &__textarea {
+    width: 100%;
+
+    textarea {
+      height: 90px;
+    }
+  }
+}
+
+.btn-full-width {
+  width: 100%;
+}
+
+@media (max-width: 860px) {
+  .popup{
+    &__pic{
+      display: none;
+    }
+    &__wrapper {
+      display: block;
+    }
+    &__form {
+      width: 100%;
+    }
+  }
+}

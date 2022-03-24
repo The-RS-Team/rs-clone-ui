@@ -1,0 +1,46 @@
+<div class="wrapper">
+    <div class="avatar">
+        <img src="{{ this.authService.currentUser?.picture}}" alt="">
+    </div>
+    <div class="comment-editor">
+        <mat-dialog-content [formGroup]="formGroup">
+            <angular-editor formControlName="comment" placeholder="{{ 'comments.add-comment' | translate}}" [config]="editorConfig" (click)="showEditor()"></angular-editor>
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <button type="button" mat-stroked-button (click)="saveComment()" class="btn-full-width">{{ 'comments.save' | translate}}</button>
+        </mat-dialog-actions>
+    </div>
+</div>
+
+
+<div *ngIf="comments">
+<div class="comments">
+    <div class="comment"  *ngFor="let comment of currentCard.cardItems">
+        <div class="comment__item" >
+            <div class="comment__item__avatar">
+                <img src="{{ comment.picture }}" alt="">
+            </div>
+            <div class="comment__item__content">
+                <div class="comment__item__header">
+                    <div class="comment__item__author"><b>{{ comment.name}}</b></div>
+                    <div class="comment__item__updated" *ngIf="isUpdated">updated {{ comment.updated | date:'dd.MM.y, H:mm:ss'}}</div>
+                </div>
+                <div class="comment__item__text" *ngIf="editedComment != comment.id" [innerHTML]="comment.info"></div>
+                <div class="comment__item__date" *ngIf="editedComment != comment.id">{{ comment.created | date:'dd.MM.y, H:mm:ss' }}</div>
+                <div class="edit-comment" *ngIf="editedComment == comment.id">
+                    <mat-dialog-content  [formGroup]="formGroupEdit">
+                        <angular-editor  formControlName="commentEdit" [config]="editorConfigEdit"></angular-editor>
+                    </mat-dialog-content >
+                    <mat-dialog-actions >
+                        <button type="button" mat-stroked-button (click)="saveEditedComment()" class="btn-full-width">{{ 'comments.save' | translate}}</button>
+                    </mat-dialog-actions>
+                </div>
+            </div>
+        </div>
+        <div class="editing" *ngIf="!isEdit">
+            <button mat-button class="editing__btn" (click)="editComment(comment)">{{ 'comments.edit' | translate}}</button>
+            <button mat-button class="editing__btn" (click)="deleteComment(comment)">{{ 'comments.delete' | translate}}</button>
+        </div>
+    </div>
+</div>
+</div>

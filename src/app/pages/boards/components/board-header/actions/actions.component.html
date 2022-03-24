@@ -1,0 +1,35 @@
+<div class="actions">
+    <h3 class="actions__section-title">
+        <mat-icon>edit</mat-icon>
+        {{'actions' | translate}}
+    </h3>
+    <mat-spinner *ngIf="!boardActivity" [diameter]="30"></mat-spinner>
+
+    <mat-list *ngIf="boardActivity" class="actions__list-of-actions">
+
+        <mat-list-item class="actions__list-item"
+                       *ngFor="let activity of boardActivity">
+
+
+            <img class="item__avatar"
+                 [src]="activity.picture"
+                 alt="avatar">
+            <div class="item__info">
+                <p class="item__text name"> {{ activity.name
+                    }} <label class="item__text nickname">{{ activity.nickname ? '@' + activity.nickname : '@uknown user'}}</label></p><br>
+                <p class="item__text"> {{ (activity.action == 'insert' && activity.table == 'cardItem' ? ('history.comment' | translate) 
+                    : activity.action == 'insert' ? ('history.insert' | translate)
+                    : activity.action == 'delete' ? ('history.delete' | translate) 
+                    : activity.action == 'update' ? ('history.update' | translate) 
+                    : activity.action
+                    ) }} {{ activity.table == 'cardItem' || activity.table == 'card' ? ('history.card' | translate) 
+                    : activity.table == 'column' ? ('history.column' | translate)
+                    : activity.table == 'board' ? ('history.board' | translate)
+                    : activity.table }} <label
+                        class="item__text info"> {{ htmlToText(activity.info) }}</label></p>
+                <p class="item__text"> {{ activity.created | date:'dd.MM.y, H:mm:ss' }}</p>
+            </div>
+
+        </mat-list-item>
+    </mat-list>
+</div>

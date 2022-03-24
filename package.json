@@ -15,12 +15,24 @@
     "@angular/common": "~13.1.0",
     "@angular/compiler": "~13.1.0",
     "@angular/core": "~13.1.0",
+    "@angular/fire": "^7.2.0",
     "@angular/forms": "~13.1.0",
     "@angular/material": "^13.1.1",
     "@angular/platform-browser": "~13.1.0",
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "@kolkov/angular-editor": "^2.0.0",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
+    "@types/socket.io-client": "^3.0.0",
+    "angular-base64-upload": "^0.1.23",
+    "cors": "^2.8.5",
+    "firebase": "^9.6.2",
+    "html-to-image": "^1.9.0",
+    "ngx-autosize": "^1.8.7",
     "rxjs": "~7.4.0",
+    "socket.io": "^4.4.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
@@ -37,6 +49,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "prettier": "2.5.1",
     "typescript": "~4.5.2"
   }
 }

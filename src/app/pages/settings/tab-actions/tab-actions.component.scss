@@ -1,0 +1,17 @@
+.activities {
+  padding: 10px 40px;
+
+  &__item {
+    border-bottom: 1px solid var(--light-button-hover);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+}

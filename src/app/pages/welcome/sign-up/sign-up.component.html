@@ -1,0 +1,105 @@
+<section class="signup__section">
+    <img class="bg-image-right" src="../../../../assets/images/svg/signup-bg-picture2.svg" alt="Background image">
+    <img class="bg-image-left" src="../../../../assets/images/svg/signup-bg-picture1.svg" alt="Background image">
+    <div class="signup__wrapper">
+        <p class="signup__title">
+            <img src="../../../../assets/images/svg/trello_icon.svg" alt="trello">
+            TrelloClone
+        </p>
+        <form class="signup__form" [formGroup]="loginForm">
+
+            <ng-container *ngIf="authService.firebaseUser | async as user; else noAuth">
+                <h1>{{'hello' | translate}} {{user.displayName}}!</h1>
+            </ng-container>
+            <ng-template #noAuth>
+                <h1 *ngIf="this.currentRoute === 'sign-up'" >{{'sign-up-acc' | translate}}</h1>
+                <h1 *ngIf="this.currentRoute === 'login'">{{'log-in-acc' | translate}}</h1>
+            </ng-template>
+
+            <mat-form-field class="example-full-width" appearance="fill">
+                <input type="email"
+                       matInput
+                       formControlName="email"
+                       placeholder="{{'enter-email' | translate}}"
+                       autocomplete="email">
+                <mat-error *ngIf="loginForm.controls['email'].invalid">
+                    {{'email-valid' | translate}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="this.currentRoute === 'login'" class="example-full-width" appearance="fill">
+                <input type="password" matInput
+                       formControlName="password"
+                       placeholder="{{'enter-pass' | translate}}">
+                <mat-error *ngIf="loginForm.controls['password'].invalid">
+                    {{'pass-valid' | translate}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="signUpVisibility && currentRoute === 'sign-up'" class="example-full-width" appearance="fill">
+                <input type="text" matInput
+                       formControlName="password"
+                       placeholder="{{'enter-full-name' | translate}}" autofocus="autofocus">
+                <mat-error *ngIf="loginForm.controls['password'].invalid">
+                    {{'pass-valid' | translate}}
+                </mat-error>       
+            </mat-form-field>
+            <div class="signup__buttons-wrapper">
+                <button *ngIf="currentRoute === 'sign-up' && !signUpVisibility"
+                        mat-raised-button
+                        (click)="showPassInput()">{{'continue' | translate}}
+                </button>
+                <button *ngIf="signUpVisibility && currentRoute === 'sign-up'"
+                        mat-raised-button
+                        (click)="emailAuth()">{{'sign-up' | translate}}
+                </button>
+                <button *ngIf="currentRoute === 'login'"
+                        mat-raised-button
+                        type="submit"
+                        (click)="login()" >{{'log-in' | translate}}
+                </button>
+                <p class="signup__login-method-separator">{{'or' | translate}}</p>
+                <button mat-raised-button class="signup__button"
+                        type="button"
+                        (click)="googleAuth()" i18n>
+                    <img class="signup__button-icon"
+                         src="../../../../assets/images/svg/google_icon.svg"
+                         alt="google icon">{{'cont-google' | translate}}
+                </button>
+                <button mat-raised-button
+                        type="button"
+                        (click)="gitHubAuth()" >
+                    <img class="signup__button-icon"
+                         src="../../../../assets/images/svg/git_icon.svg"
+                         alt="github icon">{{'cont-github' | translate}}
+                </button>
+            </div>
+            <div class="signup__login-link">
+                <a *ngIf="this.currentRoute === 'sign-up'" class="signup__login-link_text" (click)="goToAnotherForm('login')" >{{'have-acc' | translate}}</a>
+                <a *ngIf="this.currentRoute === 'login'" class="signup__login-link_text" (click)="goToAnotherForm('sign-up')">{{'havent-acc' | translate }}</a>
+            </div>
+        </form>
+
+        <select #langSelect (change)="changeLanguage(langSelect.value)" class="language-switcher">
+            <option
+                    *ngFor="let lang of translate.getLangs()"
+                    [value]="lang"
+                    [selected]="lang === currentLanguage"
+            >{{getLanguageName(lang)}}</option>
+        </select>
+    </div>
+    <footer>
+        <p class="footer__element">
+            <a class="github-link" href="https://github.com/Iryna-Ivanitska"
+               target="_blank"> Iryna Ivanytska </a>
+            |
+            <a class="github-link" href="https://github.com/KozerenkoRoman"
+               target="_blank"> Roman Kozerenko </a>
+            |
+            <a class="github-link" href="https://github.com/VictoriaIL"
+               target="_blank"> VictoriaIl </a>
+        </p>
+        <p class="footer__element">© 2022</p>
+        <p class="footer__element"><a href="https://rs.school/js/" target="_blank"><img class="rs-logo-img"
+                                                                                        src="https://rs.school/images/rs_school_js.svg"
+                                                                                        alt="RS School Logo"></a></p>
+    </footer>
+</section>

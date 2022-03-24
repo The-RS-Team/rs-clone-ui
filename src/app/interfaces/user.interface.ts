@@ -1,10 +1,10 @@
-export interface User {
-    id: string;
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    city: string;
+export interface UserInterface {
+    user_id: string;
+    email: string | null;
+    name: string | null;
+    picture: string | null;
+    nickname: string | null;
+    lang: string | null;
+    isOwner?: boolean;
+    id?: string;
 }

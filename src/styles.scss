@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'assets/mixin';
+
 @font-face {
   font-family: "BeVietnam";
   src: url(assets/fonts/BeVietnam.ttf) format("opentype");
@@ -6,13 +8,86 @@
 
 :root {
   --col-title: #243757;
+  --bg-top: #eae6ff;
+  --btn-main: #0065ff;
+  --btn-hover: #0056d9;
+  --input-color: #495057;
+  --header-color: #026aa7;
+  --header-hover-color: #4e97c2;
+  --header-active-color: #02517f;
+  --light-button: #00000014;
+  --light-button-hover: #838891a6;
+  --light-button-text: #172b4d;
+
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 12px;
+  background-color: hsla(210, 5%, 8%, 0.16);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsla(240, 7%, 3%, 0.16);
+  border-radius: 5px;
+}
+
+*{
+  box-sizing:border-box;
 }
 
 html, body {
   height: 100%;
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+.my-class .mat-dialog-container{
+  max-width: 1000px;
+}
+
+footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 20px;
+  background-color: transparent;
+  height: 50px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rs-logo-img {
+  width: 60px;
+}
+
+.footer__element, .github-link {
+  font-size: 12px;
+  text-decoration: none;
+  color: #0056d9;
+  font-family: "BeVietnam", "arial", sans-serif;
+  font-weight: 900;
+}
+
+@media (max-width: 490px) {
+  footer{
+    margin-top: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+}
+@media (max-width: 440px) {
+  div .angular-editor-toolbar,
+  .angular-editor-textarea {
+    width: 200px!important;
+  }
 }
